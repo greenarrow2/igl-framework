@@ -97,7 +97,7 @@ public class DruidConfiguration {
             datasource.setUsername(username);
             datasource.setPassword(password);
             datasource.setDriverClassName(driverClassName);
-//configuration
+            //configuration
             datasource.setInitialSize(initialSize);
             datasource.setMinIdle(minIdle);
             datasource.setMaxActive(maxActive);
