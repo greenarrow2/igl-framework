@@ -1,4 +1,4 @@
-package com.igl.gov.com.igl.gov.common.config;
+package com.igl.gov.common.config;
 
 
 import com.alibaba.druid.pool.DruidDataSource;
@@ -11,7 +11,6 @@ import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
-import org.springframework.context.annotation.PropertySource;
 
 import javax.sql.DataSource;
 import java.sql.SQLException;
