@@ -13,8 +13,7 @@ public class SysUserController {
     @Autowired
     private SysUserService sysUserService;
 
-    @RequestMapping("/index")
-    @ResponseBody
+    @RequestMapping("/")
     public String index(){
         sysUserService.add(new SysUser());
         return "index";
