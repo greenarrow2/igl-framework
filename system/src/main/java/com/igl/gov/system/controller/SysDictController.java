@@ -6,8 +6,5 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class SysDictController {
-    @RequestMapping(value = "/home")
-    public String home(){
-       return "home";
-    }
+
 }
