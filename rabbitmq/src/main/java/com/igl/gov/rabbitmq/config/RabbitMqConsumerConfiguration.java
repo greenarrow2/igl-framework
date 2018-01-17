@@ -10,12 +10,13 @@ import org.springframework.messaging.handler.annotation.support.DefaultMessageHa
 
 /**
  * RabbitMq 消费者配置
+ *
  * @author fancr
  * @date 2018-01-17
  */
 @Configuration
 @EnableRabbit
-public class RabbitMqConsumerConfiguration implements RabbitListenerConfigurer{
+public class RabbitMqConsumerConfiguration implements RabbitListenerConfigurer {
 
     @Bean
     public DefaultMessageHandlerMethodFactory defaultMessageHandlerMethodFactory() {
@@ -26,6 +27,6 @@ public class RabbitMqConsumerConfiguration implements RabbitListenerConfigurer{
 
     @Override
     public void configureRabbitListeners(RabbitListenerEndpointRegistrar rabbitListenerEndpointRegistrar) {
-         rabbitListenerEndpointRegistrar.setMessageHandlerMethodFactory(defaultMessageHandlerMethodFactory());
+        rabbitListenerEndpointRegistrar.setMessageHandlerMethodFactory(defaultMessageHandlerMethodFactory());
     }
 }
