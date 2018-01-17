@@ -12,6 +12,7 @@
     <module>common</module>
     <module>system</module>
     <module>redis</module>
+    <module>rabbitmq</module>
   </modules>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -31,6 +32,11 @@
       <dependency>
         <groupId>com.igl.gov.system</groupId>
         <artifactId>igl-framework-system</artifactId>
+        <version>1.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>com.igl.gov.rabbitmq</groupId>
+        <artifactId>igl-framework-rabbitmq</artifactId>
         <version>1.0-SNAPSHOT</version>
       </dependency>
     </dependencies>

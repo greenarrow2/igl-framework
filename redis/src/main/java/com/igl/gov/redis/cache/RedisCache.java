@@ -1,4 +1,4 @@
-package com.igl.gov.redis.dao;
+package com.igl.gov.redis.cache;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 import java.io.UnsupportedEncodingException;
 
 @Component
-public class RedisDao {
+public class RedisCache {
 
      @Autowired
      private RedisTemplate redisTemplate;
