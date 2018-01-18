@@ -1,4 +1,3 @@
-项目地址： http://git.souche.com/wanglei/AntFluxStarter 。
 
     1. 首页组件是ant-design的常规用法。
     2. 计数示例是alt.js经典应用场景。
