@@ -7,15 +7,17 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="common" />
+        <module name="rabbitmq" />
         <module name="redis" />
         <module name="system" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="common" target="1.5" />
-      <module name="igl-framework" target="1.5" />
-      <module name="redis" target="1.5" />
-      <module name="system" target="1.5" />
+    <bytecodeTargetLevel target="1.8">
+      <module name="common" target="1.8" />
+      <module name="igl-framework" target="1.8" />
+      <module name="rabbitmq" target="1.8" />
+      <module name="redis" target="1.8" />
+      <module name="system" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

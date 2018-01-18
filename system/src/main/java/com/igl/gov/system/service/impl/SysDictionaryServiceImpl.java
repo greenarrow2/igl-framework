@@ -24,13 +24,13 @@ public class SysDictionaryServiceImpl  implements SysDictionaryService{
 
 
     @Override
-    public List<SysDictionaryDto> querySysDictionaryByDictNo(Integer dictNo) throws UnsupportedEncodingException {
-       List<SysDictionaryDto> dictionaryDtos = redisCache.getListCache(RedisConst.DICT_SPACE + dictNo,SysDictionaryDto.class );
+    public List<SysDictionaryDto> querySysDictionaryByDictNo(Integer dictNo) {
+       List<SysDictionaryDto> dictionaryDtos = redisCache.getListCache(RedisConst.SYS_DICT + dictNo,SysDictionaryDto.class );
        if(dictionaryDtos == null || dictionaryDtos.size() == 0){
            Map<String,Object> param = new HashMap<>(1);
            param.put("dictNo",dictNo);
            dictionaryDtos =  sysDictionaryDao.querySysDictionaryByDictNo(param);
-           redisCache.putListCache(RedisConst.DICT_SPACE + dictNo,dictionaryDtos);
+           redisCache.putListCache(RedisConst.SYS_DICT + dictNo,dictionaryDtos);
        }
         return  dictionaryDtos;
     }

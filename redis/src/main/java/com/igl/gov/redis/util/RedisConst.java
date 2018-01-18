@@ -4,7 +4,7 @@ public interface RedisConst {
     /**
      * 数据字典存储前缀
      */
-   final static String DICT_SPACE = "sys-dict:";
+   final static String SYS_DICT = "sys-dict:";
 
 
 }

@@ -33,8 +33,7 @@ public class RedisCache {
     public <T> Boolean putCache(String key, T obj) {
         try {
             final byte[] keys = key.getBytes("UTF-8");
-            Jackson2JsonRedisSerializer jackson2JsonRedisSerializer = new Jackson2JsonRedisSerializer(Object.class);
-            final byte[] objs = jackson2JsonRedisSerializer.serialize(obj);
+            final byte[] objs = ProtoStuffSerializerUtil.serialize(obj);
             Object result = redisTemplate.execute(new RedisCallback<Object>() {
                 @Override
                 public Object doInRedis(RedisConnection connection) throws DataAccessException {
@@ -51,8 +50,7 @@ public class RedisCache {
     public <T> void putCacheWithExpireTime(String key, T obj, final long expireTime) {
         try {
             final byte[] bkey = key.getBytes("UTF8");
-            Jackson2JsonRedisSerializer jackson2JsonRedisSerializer = new Jackson2JsonRedisSerializer(Object.class);
-            final byte[] bvalue = jackson2JsonRedisSerializer.serialize(obj);
+            final byte[] bvalue = ProtoStuffSerializerUtil.serialize(obj);
             redisTemplate.execute(new RedisCallback<Boolean>() {
                 @Override
                 public Boolean doInRedis(RedisConnection connection) throws DataAccessException {
@@ -65,11 +63,10 @@ public class RedisCache {
         }
     }
 
-    public <T> boolean putListCache(String key, List<T> objList) throws UnsupportedEncodingException {
+    public <T> boolean putListCache(String key, List<T> objList){
         try {
             final byte[] bkey = key.getBytes("UTF8");
-            Jackson2JsonRedisSerializer jackson2JsonRedisSerializer = new Jackson2JsonRedisSerializer(Object.class);
-            final byte[] bvalue = jackson2JsonRedisSerializer.serialize(objList);
+            final byte[] bvalue = ProtoStuffSerializerUtil.serializeList(objList);
             Object result = redisTemplate.execute(new RedisCallback<Object>() {
                 @Override
                 public Object doInRedis(RedisConnection connection) throws DataAccessException {
@@ -86,8 +83,7 @@ public class RedisCache {
     public <T> boolean putListCacheWithExpireTime(String key, List<T> objList, final long expireTime) {
         try {
             final byte[] bkey = key.getBytes("UTF8");
-            Jackson2JsonRedisSerializer jackson2JsonRedisSerializer = new Jackson2JsonRedisSerializer(Object.class);
-            final byte[] bvalue = jackson2JsonRedisSerializer.serialize(objList);
+            final byte[] bvalue = ProtoStuffSerializerUtil.serializeList(objList);
             Object result = redisTemplate.execute(new RedisCallback<Object>() {
                 @Override
                 public Object doInRedis(RedisConnection connection) throws DataAccessException {
