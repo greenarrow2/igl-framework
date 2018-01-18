@@ -35,7 +35,7 @@
     "lint"
   ],
   "scripts": {
-    "build": "atool-build -o ./system/src/main/resources/templates/${npm_package_family}/${npm_package_version}",
+    "build": "atool-build -o ../system/src/main/resources/templates/${npm_package_family}/${npm_package_version}",
     "lint": "eslint --ext .js,.jsx src/",
     "start": "dora --plugins webpack",
     "test": "atool-test-mocha ./**/__tests__/*-test.js"
