@@ -1,11 +1,30 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.igl.gov.system.dao.SysDictionaryDao">
-	<!-- <insert id="insert" parameterType="SysUser">
-		INSERT INTO sys_user(user_name,name,mobile) VALUES (#{userName},#{name},#{mobile})
-	 </insert>-->
 
-	 <select id="querySysDictionaryByDictNo" parameterType="java.util.Map" resultType="SysDictionaryDto" >
+    <insert id="insert" parameterType="SysUser" useGeneratedKeys="true" >
+		INSERT INTO sys_dictionary(dict_code,dict_name,dict_no,dict_desc,remarks,create_time,create_by,version)
+		VALUES (#{dictCode},#{dictName},#{dictNo},#{dictDesc},#{remarks},now(),#{createBy},0)
+	 </insert>
+
+    <update id="update" parameterType="SysUser">
+        UPDATE sys_dictionary
+        <set>
+            dict_code = #{dictCode},
+            dict_name = #{dictName},
+            dict_no = #{dictNo},
+            dict_desc = #{dictDesc},
+            remarks = #{remarks},
+            update_time = now(),
+            update_by = #{updateBy},
+            version = version + 1
+        </set>
+        <where>
+            id = #{id}
+        </where>
+    </update>
+
+    <select id="querySysDictionaryByDictNo" parameterType="java.util.Map" resultType="SysDictSimpleDto">
              SELECT dict_code as dictCode,dict_name as dictName FROM sys_dictionary
              WHERE
              dict_no = #{dictNo}

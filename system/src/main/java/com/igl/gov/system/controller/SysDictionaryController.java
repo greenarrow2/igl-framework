@@ -1,6 +1,8 @@
 package com.igl.gov.system.controller;
 
+import com.igl.gov.system.dto.SysDictSimpleDto;
 import com.igl.gov.system.dto.SysDictionaryDto;
+import com.igl.gov.system.entity.SysDictionary;
 import com.igl.gov.system.service.SysDictionaryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,7 +21,12 @@ public class SysDictionaryController {
     private SysDictionaryService sysDictionaryService;
 
     @RequestMapping(value = "dictlistbydictno")
-    public List<SysDictionaryDto> dictListByDictNo(Integer dictNo) throws UnsupportedEncodingException {
+    public List<SysDictSimpleDto> dictListByDictNo(Integer dictNo) throws UnsupportedEncodingException {
         return sysDictionaryService.querySysDictionaryByDictNo(dictNo);
+    }
+
+    @RequestMapping(value = "save")
+    public Integer save(SysDictionary dictionary) throws UnsupportedEncodingException {
+        return sysDictionaryService.save(dictionary);
     }
 }
