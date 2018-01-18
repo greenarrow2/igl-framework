@@ -1,5 +1,5 @@
-import alt from './alt.js';
-import TodoAction from './TodoAction.js';
+import alt from '../alt.js';
+import TodoAction from '../action/TodoAction.js';
 
 class TodoStore {
     constructor(){

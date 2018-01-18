@@ -1,4 +1,4 @@
-import alt from './alt.js';
+import alt from '../alt.js';
 
 class TodoAction {
     doAction(flag){
