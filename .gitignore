@@ -6,3 +6,7 @@
 .idea
 target
 /admin/node_modules
+admin/package-lock.json
+common/igl-framework-common.iml
+redis/igl-framework-redis.iml
+system/igl-framework-system.iml
