@@ -1,4 +1,4 @@
-package com.igl.gov.common.util;
+package com.igl.gov.common.utils;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,15 +10,15 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public abstract class StringUtil {
-    private static final Logger logger = LoggerFactory.getLogger(StringUtil.class);
+public abstract class StringUtils {
+    private static final Logger logger = LoggerFactory.getLogger(StringUtils.class);
     private static final String FOLDER_SEPARATOR = "/";
     private static final String WINDOWS_FOLDER_SEPARATOR = "\\";
     private static final String TOP_PATH = "..";
     private static final String CURRENT_PATH = ".";
     private static final char EXTENSION_SEPARATOR = '.';
 
-    public StringUtil() {
+    public StringUtils() {
     }
 
     public static String underlineToCamelhump(String str) {

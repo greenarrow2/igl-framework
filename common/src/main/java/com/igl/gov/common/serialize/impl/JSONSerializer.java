@@ -9,7 +9,7 @@ import com.fasterxml.jackson.databind.type.TypeFactory;
 import com.igl.gov.common.exception.SerializeException;
 import com.igl.gov.common.serialize.ISerializer;
 import com.igl.gov.common.serialize.support.TypeReferenceWrapper;
-import com.igl.gov.common.util.StringUtil;
+import com.igl.gov.common.utils.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -84,7 +84,7 @@ public class JSONSerializer implements ISerializer {
     }
 
     public <T> T deserialize(String json, Class<T> tpl) throws SerializeException {
-        if (!StringUtil.hasText(json)) {
+        if (!StringUtils.hasText(json)) {
             return null;
         } else {
             try {
@@ -96,7 +96,7 @@ public class JSONSerializer implements ISerializer {
     }
 
     public <T> T deserialize(String json, TypeReferenceWrapper<T> tpr) throws SerializeException {
-        if (!StringUtil.hasText(json)) {
+        if (!StringUtils.hasText(json)) {
             return null;
         } else {
             try {

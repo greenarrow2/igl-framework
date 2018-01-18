@@ -26,7 +26,8 @@ public class SysDictionaryController {
     }
 
     @RequestMapping(value = "save")
-    public Integer save(SysDictionary dictionary) throws UnsupportedEncodingException {
-        return sysDictionaryService.save(dictionary);
+    public SysDictionary save(SysDictionary dictionary) throws UnsupportedEncodingException {
+        sysDictionaryService.save(dictionary);
+        return dictionary;
     }
 }

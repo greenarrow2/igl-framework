@@ -1,6 +1,6 @@
 package com.igl.gov.system.controller;
 
-import com.igl.gov.common.util.JacksonUtil;
+import com.igl.gov.common.utils.JacksonUtils;
 import com.igl.gov.redis.cache.RedisCache;
 import com.igl.gov.system.entity.SysUser;
 import com.igl.gov.system.service.SysUserService;
@@ -31,7 +31,7 @@ public class SysUserController {
            user.setId(1);
            user.setName("你是谁");
         redisCache.putCache("user-" + user.getId(),user);
-        String message = JacksonUtil.serializeObjectToJson(user);
+        String message = JacksonUtils.serializeObjectToJson(user);
         rabbitTemplate.convertAndSend("hello",message);
         return "index";
     }

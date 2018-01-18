@@ -1,4 +1,4 @@
-package com.igl.gov.common.util;
+package com.igl.gov.common.utils;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JavaType;
@@ -12,9 +12,9 @@ import java.nio.charset.Charset;
 import java.util.*;
 import java.util.Map.Entry;
 
-public class JacksonUtil {
+public class JacksonUtils {
 
-	private static final Logger log = LoggerFactory.getLogger(JacksonUtil.class);
+	private static final Logger log = LoggerFactory.getLogger(JacksonUtils.class);
 
 	public static final ObjectMapper mapper = new ObjectMapper();
 	

@@ -1,6 +1,6 @@
 package com.igl.gov.redis.cache;
 
-import com.igl.gov.common.util.ProtoStuffSerializerUtil;
+import com.igl.gov.common.utils.ProtoStuffSerializerUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +8,6 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.data.redis.connection.RedisConnection;
 import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.stereotype.Component;
 import java.io.UnsupportedEncodingException;
 import java.util.Collections;
@@ -33,7 +32,7 @@ public class RedisCache {
     public <T> Boolean putCache(String key, T obj) {
         try {
             final byte[] keys = key.getBytes("UTF-8");
-            final byte[] objs = ProtoStuffSerializerUtil.serialize(obj);
+            final byte[] objs = ProtoStuffSerializerUtils.serialize(obj);
             Object result = redisTemplate.execute(new RedisCallback<Object>() {
                 @Override
                 public Object doInRedis(RedisConnection connection) throws DataAccessException {
@@ -50,7 +49,7 @@ public class RedisCache {
     public <T> void putCacheWithExpireTime(String key, T obj, final long expireTime) {
         try {
             final byte[] bkey = key.getBytes("UTF8");
-            final byte[] bvalue = ProtoStuffSerializerUtil.serialize(obj);
+            final byte[] bvalue = ProtoStuffSerializerUtils.serialize(obj);
             redisTemplate.execute(new RedisCallback<Boolean>() {
                 @Override
                 public Boolean doInRedis(RedisConnection connection) throws DataAccessException {
@@ -66,7 +65,7 @@ public class RedisCache {
     public <T> boolean putListCache(String key, List<T> objList){
         try {
             final byte[] bkey = key.getBytes("UTF8");
-            final byte[] bvalue = ProtoStuffSerializerUtil.serializeList(objList);
+            final byte[] bvalue = ProtoStuffSerializerUtils.serializeList(objList);
             Object result = redisTemplate.execute(new RedisCallback<Object>() {
                 @Override
                 public Object doInRedis(RedisConnection connection) throws DataAccessException {
@@ -83,7 +82,7 @@ public class RedisCache {
     public <T> boolean putListCacheWithExpireTime(String key, List<T> objList, final long expireTime) {
         try {
             final byte[] bkey = key.getBytes("UTF8");
-            final byte[] bvalue = ProtoStuffSerializerUtil.serializeList(objList);
+            final byte[] bvalue = ProtoStuffSerializerUtils.serializeList(objList);
             Object result = redisTemplate.execute(new RedisCallback<Object>() {
                 @Override
                 public Object doInRedis(RedisConnection connection) throws DataAccessException {
@@ -111,7 +110,7 @@ public class RedisCache {
                 return k;
             }
         });
-        return ProtoStuffSerializerUtil.deserialize(result, targetClass);
+        return ProtoStuffSerializerUtils.deserialize(result, targetClass);
     }
 
     public <T> List<T> getListCache(final String key, Class<T> targetClass) {
@@ -131,7 +130,7 @@ public class RedisCache {
             return Collections.emptyList();
         }
 
-        return ProtoStuffSerializerUtil.deserializeList(result, targetClass);
+        return ProtoStuffSerializerUtils.deserializeList(result, targetClass);
     }
 
     /**
