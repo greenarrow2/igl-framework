@@ -3,3 +3,5 @@
 /redis/target
 /rabbitmq/target
 /common/target
+.idea
+target
