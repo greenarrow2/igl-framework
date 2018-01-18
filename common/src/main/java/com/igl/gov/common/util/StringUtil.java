@@ -1,4 +1,4 @@
-package com.igl.gov.common.utils;
+package com.igl.gov.common.util;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

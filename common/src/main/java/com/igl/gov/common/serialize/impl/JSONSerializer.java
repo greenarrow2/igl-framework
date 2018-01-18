@@ -9,7 +9,7 @@ import com.fasterxml.jackson.databind.type.TypeFactory;
 import com.igl.gov.common.exception.SerializeException;
 import com.igl.gov.common.serialize.ISerializer;
 import com.igl.gov.common.serialize.support.TypeReferenceWrapper;
-import com.igl.gov.common.utils.StringUtil;
+import com.igl.gov.common.util.StringUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

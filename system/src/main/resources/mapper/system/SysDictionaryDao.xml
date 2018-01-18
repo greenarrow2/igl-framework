@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.igl.gov.system.dao.SysDictionaryDao">
+	<!-- <insert id="insert" parameterType="SysUser">
+		INSERT INTO sys_user(user_name,name,mobile) VALUES (#{userName},#{name},#{mobile})
+	 </insert>-->
+
+	 <select id="querySysDictionaryByDictNo" parameterType="java.util.Map" resultType="SysDictionaryDto" >
+             SELECT dict_code as dictCode,dict_name as dictName FROM sys_dictionary
+             WHERE
+             dict_no = #{dictNo}
+	 </select>
+</mapper>

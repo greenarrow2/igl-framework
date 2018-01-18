@@ -1,4 +1,4 @@
-package com.igl.gov.common.utils;
+package com.igl.gov.common.util;
 
 import com.igl.gov.common.exception.SerializeException;
 import com.igl.gov.common.serialize.ISerializer;

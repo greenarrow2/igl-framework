@@ -6,6 +6,7 @@ import static org.springframework.boot.SpringApplication.run;
 
 /**
  * 项目启动主方法类
+ * @author fancr
  */
 @SpringBootApplication
 @Controller

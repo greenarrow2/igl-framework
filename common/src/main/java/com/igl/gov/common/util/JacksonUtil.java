@@ -1,4 +1,4 @@
-package com.igl.gov.common.utils;
+package com.igl.gov.common.util;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JavaType;
