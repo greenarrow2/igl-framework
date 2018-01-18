@@ -1,0 +1,5 @@
+/.idea
+/system/target
+/redis/target
+/rabbitmq/target
+/common/target
