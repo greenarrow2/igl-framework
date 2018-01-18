@@ -1,7 +1,7 @@
 import React,{ Component } from 'react';
 import { Button, Table} from 'antd';
-import UserAction from '../flux/UserAction';
-import UserStore from '../flux/UserStore.js';
+import UserAction from '../flux/action/UserAction';
+import UserStore from '../flux/store/UserStore.js';
 import connectToStores from 'alt-utils/lib/connectToStores';
 import Layout from './layout/Layout';
 

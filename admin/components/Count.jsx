@@ -1,7 +1,7 @@
 import React,{ Component } from 'react';
 import { Button, Modal } from 'antd';
-import TodoAction from '../flux/TodoAction.js';
-import TodoStore from '../flux/TodoStore.js';
+import TodoAction from '../flux/action/TodoAction.js';
+import TodoStore from '../flux/store/TodoStore.js';
 import connectToStores from 'alt-utils/lib/connectToStores';
 import Layout from './layout/Layout';
 
