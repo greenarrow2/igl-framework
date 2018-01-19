@@ -1,5 +1,6 @@
 package com.igl.gov.system.controller;
 
+import com.igl.gov.common.api.DataResult;
 import com.igl.gov.system.dto.SysDictSimpleDto;
 import com.igl.gov.system.dto.SysDictionaryDto;
 import com.igl.gov.system.entity.SysDictionary;
@@ -26,8 +27,7 @@ public class SysDictionaryController {
     }
 
     @RequestMapping(value = "save")
-    public SysDictionary save(SysDictionary dictionary) throws UnsupportedEncodingException {
-        sysDictionaryService.save(dictionary);
-        return dictionary;
+    public DataResult save(SysDictionary dictionary) throws UnsupportedEncodingException {
+        return new DataResult(true,sysDictionaryService.save(dictionary));
     }
 }

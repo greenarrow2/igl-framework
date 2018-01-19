@@ -1,5 +1,7 @@
 package com.igl.gov.common.api;
 
+import com.igl.gov.common.utils.CommonMsgUtils;
+
 import java.util.List;
 
 /**
@@ -12,17 +14,31 @@ public class DataListResult<T> {
 
     private List<T> list;
 
+    private String message;
+
     public DataListResult(){
 
     }
 
     public DataListResult(List<T> list){
         this.list = list;
+        this.message = CommonMsgUtils.COMMON_SAVE_SUCCESS.getMsg();
     }
 
     public DataListResult(Boolean success,List<T> list){
           this.success = success;
           this.list = list;
+        if(success){
+            this.message = CommonMsgUtils.COMMON_SAVE_SUCCESS.getMsg();
+        }else{
+            this.message = CommonMsgUtils.COMMON_SAVE_ERROR.getMsg();
+        }
+    }
+
+    public DataListResult(Boolean success,List<T> list,String message){
+        this.success = success;
+        this.list = list;
+        this.message = message;
     }
 
     public Boolean getSuccess() {
@@ -40,4 +56,13 @@ public class DataListResult<T> {
     public void setList(List<T> list) {
         this.list = list;
     }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
 }
