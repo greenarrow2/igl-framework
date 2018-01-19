@@ -28,11 +28,11 @@ public class SysUserController {
     public String index(){
         sysUserService.add(new SysUser());
         SysUser user =  new SysUser();
-           user.setId(1);
+         /* user.setId(1);
            user.setName("你是谁");
         redisCache.putCache("user-" + user.getId(),user);
         String message = JacksonUtils.serializeObjectToJson(user);
-        rabbitTemplate.convertAndSend("hello",message);
+        rabbitTemplate.convertAndSend("hello",message);*/
         return "index";
     }
 
