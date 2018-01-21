@@ -20,13 +20,17 @@
             <groupId>com.igl.gov.common</groupId>
             <artifactId>igl-framework-common</artifactId>
         </dependency>
-        <dependency>
+       <!-- <dependency>
             <groupId>com.igl.gov.redis</groupId>
             <artifactId>igl-framework-redis</artifactId>
         </dependency>
         <dependency>
             <groupId>com.igl.gov.rabbitmq</groupId>
             <artifactId>igl-framework-rabbitmq</artifactId>
+        </dependency>-->
+        <dependency>
+            <groupId>com.igl.gov.shiro</groupId>
+            <artifactId>igl-framework-shiro</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>

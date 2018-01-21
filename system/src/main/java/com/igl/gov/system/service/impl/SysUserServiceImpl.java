@@ -1,6 +1,6 @@
 package com.igl.gov.system.service.impl;
 
-import com.igl.gov.redis.cache.RedisCache;
+//import com.igl.gov.redis.cache.RedisCache;
 import com.igl.gov.system.dao.SysUserDao;
 import com.igl.gov.system.entity.SysUser;
 import com.igl.gov.system.service.SysUserService;
@@ -14,9 +14,9 @@ public class SysUserServiceImpl implements SysUserService{
     @Autowired
     private SysUserDao sysUserDao;
 
-    @Autowired
+  /*  @Autowired
     private RedisCache redisCache;
-
+*/
     @Transactional
     public SysUser add(SysUser user) {
         sysUserDao.insert(user);
