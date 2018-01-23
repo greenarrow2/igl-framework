@@ -23,7 +23,7 @@ public class StatelessAuthorizingRealm extends AuthorizingRealm {
         System.out.println("StatelessRealm.doGetAuthenticationInfo()");
 
         StatelessAuthenticationToken statelessToken =(StatelessAuthenticationToken)token;
-        String username = (String)statelessToken.getPrincipal();//不能为null,否则会报错的.
+        String username = statelessToken.getUsername();//不能为null,否则会报错的.
 
         //根据用户名获取密钥（和客户端的一样）
         String key = getKey(username);

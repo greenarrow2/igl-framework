@@ -17,7 +17,8 @@ import org.springframework.context.annotation.Configuration;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
-
+//https://github.com/rhettpang/Springboot-Shiro
+//http://blog.csdn.net/v2sking/article/details/71941530
 @Configuration
 public class ShiroConfiguration {
 
@@ -35,7 +36,22 @@ public class ShiroConfiguration {
         filterFactoryBean.getFilters().put("statelessAuthc",statelessAuthcFilter());
         //拦截器
         Map<String,String> filterChainDefinitionMap = new LinkedHashMap<>();
-        filterChainDefinitionMap.put("/**", "statelessAuthc");
+        /*/static/common/images/favicon.ico = anon
+                /resources/**=anon
+         /systemManage/resources/**=anon
+         /unauthorized = authc
+         /login = authc
+         /logout = logout
+R( /favicon.ico)
+         /** = user,sysUser */
+        filterChainDefinitionMap.put("/**/favicon.ico","anon");
+        filterChainDefinitionMap.put("/resources/static/favicon.ico","anon");
+        filterChainDefinitionMap.put("/static/**","anon");
+        filterChainDefinitionMap.put("/static/common/images/favicon.ico","anon");
+        filterChainDefinitionMap.put("/resources/**","anon");
+        filterChainDefinitionMap.put("/systemManage/resources/**","anon");
+        filterChainDefinitionMap.put("/hello", "statelessAuthc");
+        filterChainDefinitionMap.put("/favicon.ico","anon");
         filterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
         return filterFactoryBean;
     }
@@ -92,23 +108,25 @@ public class ShiroConfiguration {
      * @param securityManager
      * @return
      */
-    @Bean
+  /*  @Bean
     public AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor(SecurityManager securityManager){
         AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor = new AuthorizationAttributeSourceAdvisor();
         authorizationAttributeSourceAdvisor.setSecurityManager(securityManager);
         return authorizationAttributeSourceAdvisor;
-    }
+    }*/
 
     /**
      * Add.5.2
      *   自动代理所有的advisor:
      *   由Advisor决定对哪些类的方法进行AOP代理。
      */
-    @Bean
+   /* @Bean
     public DefaultAdvisorAutoProxyCreator getDefaultAdvisorAutoProxyCreator() {
         DefaultAdvisorAutoProxyCreator daap = new DefaultAdvisorAutoProxyCreator();
         daap.setProxyTargetClass(true);
         return daap;
-    }
+    }*/
+
+
 
 }

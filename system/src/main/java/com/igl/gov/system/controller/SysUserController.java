@@ -1,14 +1,11 @@
 package com.igl.gov.system.controller;
 
 import com.igl.gov.system.service.SysUserService;
-import org.apache.shiro.SecurityUtils;
+import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.apache.shiro.authz.annotation.RequiresRoles;
-import org.apache.shiro.session.Session;
-import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 //import com.igl.gov.redis.cache.RedisCache;
 //import org.springframework.amqp.core.AmqpTemplate;
@@ -16,7 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 
 
-@Controller
+@RestController
 public class SysUserController {
 
     @Autowired
@@ -30,10 +27,9 @@ public class SysUserController {
 //
 //    RabbitMessagingTemplate rabbitManagementTemplate;
 
-    @RequestMapping("/")
-    @ResponseBody
+    @RequestMapping("/hello")
     @RequiresRoles("admin")
-    public String index(){
+    public String index(HttpServletRequest request){
       /*  sysUserService.add(new SysUser());
         SysUser user =  new SysUser();*/
          /* user.setId(1);
@@ -41,9 +37,9 @@ public class SysUserController {
         redisCache.putCache("user-" + user.getId(),user);
         String message = JacksonUtils.serializeObjectToJson(user);
         rabbitTemplate.convertAndSend("hello",message);*/
-        Subject currentUser = SecurityUtils.getSubject();
+      /*  Subject currentUser = SecurityUtils.getSubject();
         Session session = currentUser.getSession();
-        System.out.println(session);
+        System.out.println(session);*/
         return "hello3,Andy";
         //return "index";
     }
