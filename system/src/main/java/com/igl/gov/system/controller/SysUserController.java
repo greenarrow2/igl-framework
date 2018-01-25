@@ -29,9 +29,6 @@ import java.util.Map;
 @RestController
 public class SysUserController {
 
-    @Value("${spring.shiro.key}")
-    private  String key;
-
     @Autowired
     private SysUserService sysUserService;
 
@@ -49,7 +46,7 @@ public class SysUserController {
         SysUserDto loginUser = sysUserService.findUserByUserNamePassword(userName,password);
 
         if(loginUser != null){
-            redisCache.putCache("user-name:"+userName,key);
+            redisCache.putCache("user-name:"+userName,"11111111111111111111111111111111111aaas");
           /*  Map<String,String> map = new HashMap<>();
                map.put("userName",userName);
                map.put("password",userName);
@@ -57,7 +54,7 @@ public class SysUserController {
             SecurityUtils.getSubject().login(token);*/
         }
 
-        return key;
+        return "11111111111111111111111111111111111aaas";
     }
 
 }
