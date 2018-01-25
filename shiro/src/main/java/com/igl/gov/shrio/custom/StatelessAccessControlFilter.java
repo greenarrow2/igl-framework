@@ -1,11 +1,9 @@
 package com.igl.gov.shrio.custom;
 
-import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.web.filter.AccessControlFilter;
 
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.HashMap;
@@ -36,7 +34,6 @@ public class StatelessAccessControlFilter extends AccessControlFilter{
     @Override
     protected boolean onAccessDenied(ServletRequest request, ServletResponse response) throws Exception {
         System.out.println("StatelessAuthcFilter.onAccessDenied()");
-        System.out.println(request.getRemoteAddr());
 
 
         //1、客户端生成的消息摘要
@@ -55,7 +52,7 @@ public class StatelessAccessControlFilter extends AccessControlFilter{
         try {
             //5、委托给Realm进行登录
             getSubject(request, response).login(token);
-        } catch (AuthenticationException e) {
+        } catch (Exception e) {
             e.printStackTrace();
             //6、登录失败
             onLoginFail(response);
