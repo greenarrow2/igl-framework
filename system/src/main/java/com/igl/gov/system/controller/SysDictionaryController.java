@@ -5,6 +5,7 @@ import com.igl.gov.system.dto.SysDictSimpleDto;
 import com.igl.gov.system.dto.SysDictionaryDto;
 import com.igl.gov.system.entity.SysDictionary;
 import com.igl.gov.system.service.SysDictionaryService;
+import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,7 +16,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 @RestController
-@RequestMapping("/sysdict/")
+@RequestMapping("/api/sysdict/")
 public class SysDictionaryController {
 
     @Autowired
@@ -30,4 +31,12 @@ public class SysDictionaryController {
     public DataResult save(SysDictionary dictionary) throws UnsupportedEncodingException {
         return new DataResult(true,sysDictionaryService.save(dictionary));
     }
+
+    @RequestMapping(value = "query")
+    public DataResult query(String id) throws UnsupportedEncodingException {
+        System.out.println("---------" + SecurityUtils.getSubject().getPrincipal());
+        System.out.println(SecurityUtils.getSubject().hasRole("admin"));
+        return new DataResult(true,"你好" + id);
+    }
+
 }

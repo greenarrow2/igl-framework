@@ -1,5 +1,6 @@
 package com.igl.gov.shrio.custom;
 
+import com.igl.gov.redis.cache.RedisCache;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -8,8 +9,14 @@ import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 
 public class StatelessAuthorizingRealm extends AuthorizingRealm {
+
+    @Autowired
+    private RedisCache redisCache;
+
     @Override
     public boolean supports(AuthenticationToken token) {
         return token instanceof StatelessAuthenticationToken;
@@ -26,7 +33,8 @@ public class StatelessAuthorizingRealm extends AuthorizingRealm {
         String username = statelessToken.getUsername();//不能为null,否则会报错的.
 
         //根据用户名获取密钥（和客户端的一样）
-        String key = getKey(username);
+        //String key = getKey(username);
+        String key = redisCache.getCache("user-name:"+username,String.class);
 
         //在服务器端生成客户端参数消息摘要
         String serverDigest = HmacSHA256Utils.digest(key, statelessToken.getParams());
@@ -53,16 +61,16 @@ public class StatelessAuthorizingRealm extends AuthorizingRealm {
 
         //这里模拟admin账号才有role的权限.
         if("admin".equals(username)){
-            authorizationInfo.addRole("admin");
+            authorizationInfo.addRole("admin111111111111111");
         }
         return authorizationInfo;
     }
 
     //得到密钥，此处硬编码一个.
-    private String getKey(String username) {
+  /*  private String getKey(String username) {
         if("admin".equals(username)) {
-            return "dadadswdewq2ewdwqdwadsadasd";
+            return shiroKey;
         }
         return null;
-    }
+    }*/
 }

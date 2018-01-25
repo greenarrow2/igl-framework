@@ -50,7 +50,8 @@ R( /favicon.ico)
         filterChainDefinitionMap.put("/static/common/images/favicon.ico","anon");
         filterChainDefinitionMap.put("/resources/**","anon");
         filterChainDefinitionMap.put("/systemManage/resources/**","anon");
-        filterChainDefinitionMap.put("/hello", "statelessAuthc");
+        filterChainDefinitionMap.put("/api/**", "statelessAuthc");
+        filterChainDefinitionMap.put("/api/login", "anon");
         filterChainDefinitionMap.put("/favicon.ico","anon");
         filterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
         return filterFactoryBean;
@@ -108,24 +109,24 @@ R( /favicon.ico)
      * @param securityManager
      * @return
      */
-  /*  @Bean
+    @Bean
     public AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor(SecurityManager securityManager){
         AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor = new AuthorizationAttributeSourceAdvisor();
         authorizationAttributeSourceAdvisor.setSecurityManager(securityManager);
         return authorizationAttributeSourceAdvisor;
-    }*/
+    }
 
     /**
      * Add.5.2
      *   自动代理所有的advisor:
      *   由Advisor决定对哪些类的方法进行AOP代理。
      */
-   /* @Bean
+    @Bean
     public DefaultAdvisorAutoProxyCreator getDefaultAdvisorAutoProxyCreator() {
         DefaultAdvisorAutoProxyCreator daap = new DefaultAdvisorAutoProxyCreator();
         daap.setProxyTargetClass(true);
         return daap;
-    }*/
+    }
 
 
 

@@ -4,4 +4,8 @@
 	 <insert id="insert" parameterType="SysUser">
 		INSERT INTO sys_user(user_name,name,mobile) VALUES (#{userName},#{name},#{mobile})
 	 </insert>
+
+	<select id="queryLoginUser" parameterType="java.util.Map" resultType="SysUserDto">
+		SELECT id,user_name as userName FROM sys_user where user_name = #{userName} and password = #{password}
+	</select>
 </mapper>
