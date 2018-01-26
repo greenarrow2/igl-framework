@@ -724,4 +724,29 @@ public abstract class StringUtils {
     private static byte charToByte(char c) {
         return (byte)"0123456789ABCDEF".indexOf(c);
     }
+
+    public static String getRandomString(){
+           Long currentTime = System.currentTimeMillis();
+           return getRandomCode() + currentTime + getRandomCode();
+    }
+
+    public static String getRandomCode(){
+        char[] container = {'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z','1','3','5','7','9','4','8','0'};
+        Random random = new Random();
+        StringBuilder result = new StringBuilder();
+        for(int i = 0;i < 8;i++){
+            result.append(container[random.nextInt(container.length)]);
+        }
+        return result.toString();
+    }
+
+    public static String getRandomIntCode(){
+        char[] container = {'0','1','2','3','4','5','6','7','9','8'};
+        Random random = new Random();
+        StringBuilder result = new StringBuilder();
+        for(int i = 0;i < 6;i++){
+            result.append(container[random.nextInt(container.length)]);
+        }
+        return result.toString();
+    }
 }

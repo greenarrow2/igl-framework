@@ -1,5 +1,7 @@
 package com.igl.gov.system.controller;
 
+import com.igl.gov.common.api.DataResult;
+import com.igl.gov.common.utils.EncryptUtils;
 import com.igl.gov.redis.cache.RedisCache;
 import com.igl.gov.shrio.custom.HmacSHA256Utils;
 import com.igl.gov.shrio.custom.StatelessAuthenticationToken;
@@ -32,29 +34,20 @@ public class SysUserController {
     @Autowired
     private SysUserService sysUserService;
 
-//    @Autowired
-//    private AmqpTemplate rabbitTemplate;
-
     @Autowired
     private RedisCache redisCache;
-//
-//    RabbitMessagingTemplate rabbitManagementTemplate;
 
     @RequestMapping("/login")
-    public String login(String userName,String password){
-
-        SysUserDto loginUser = sysUserService.findUserByUserNamePassword(userName,password);
-
-        if(loginUser != null){
-            redisCache.putCache("user-name:"+userName,"11111111111111111111111111111111111aaas");
-          /*  Map<String,String> map = new HashMap<>();
-               map.put("userName",userName);
-               map.put("password",userName);
-            StatelessAuthenticationToken token = new StatelessAuthenticationToken(userName,map,HmacSHA256Utils.digest(key,map));
-            SecurityUtils.getSubject().login(token);*/
-        }
-
-        return "11111111111111111111111111111111111aaas";
+    public DataResult login(String userName, String password){
+        DataResult result = new DataResult();
+        Map<String,Object> map = sysUserService.findUserByUserNamePassword(userName, password);
+           if(map.size() == 2){
+               result.setSuccess(true);
+               result.setObj(map);
+               return result;
+           }
+           result = new DataResult(false,null);
+           return result;
     }
 
 }

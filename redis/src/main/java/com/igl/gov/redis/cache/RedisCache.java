@@ -149,7 +149,18 @@ public class RedisCache {
      * @param key
      */
     public void deleteCache(String key) {
-        redisTemplate.delete(key);
+        try {
+            final byte[] bkey = key.getBytes("UTF8");
+            Object result = redisTemplate.execute(new RedisCallback<Object>() {
+                @Override
+                public Object doInRedis(RedisConnection connection) throws DataAccessException {
+                    connection.del(bkey);
+                    return true;
+                }
+            });
+        } catch (UnsupportedEncodingException e) {
+            logger.error(e.getLocalizedMessage(), e);
+        }
     }
 
     /**
