@@ -1,5 +1,6 @@
 package com.igl.gov.shrio.custom;
 
+import com.igl.gov.common.utils.EncryptUtils;
 import org.apache.commons.codec.binary.Hex;
 import javax.crypto.Mac;
 import javax.crypto.SecretKey;
@@ -10,7 +11,7 @@ import java.util.Map;
 public class HmacSHA256Utils {
 
     public static String digest(String key, String content) {
-        try {
+       /* try {
             Mac mac = Mac.getInstance("HmacSHA256");
             byte[] secretByte = key.getBytes("utf-8");
             byte[] dataBytes = content.getBytes("utf-8");
@@ -23,7 +24,8 @@ public class HmacSHA256Utils {
             return new String(hexB, "utf-8");
         } catch (Exception e) {
             throw new RuntimeException(e);
-        }
+        }*/
+        return   EncryptUtils.getMD5(key + content);
     }
 
     @SuppressWarnings("unchecked")
