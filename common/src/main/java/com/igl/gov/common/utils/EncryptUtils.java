@@ -2,7 +2,7 @@ package com.igl.gov.common.utils;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-
+//http://tool.oschina.net/encrypt?type=2
 public class EncryptUtils {
 
     public static String Encrypt(String strSrc,String encName) {
