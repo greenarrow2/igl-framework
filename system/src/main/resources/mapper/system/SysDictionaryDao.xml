@@ -2,12 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.igl.gov.system.dao.SysDictionaryDao">
 
-    <insert id="insert" parameterType="SysUser" useGeneratedKeys="true" keyProperty="id">
+    <insert id="insert" parameterType="SysDictionary" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO sys_dictionary(dict_code,dict_name,dict_no,dict_desc,remarks,create_time,create_by,version)
 		VALUES (#{dictCode},#{dictName},#{dictNo},#{dictDesc},#{remarks},now(),#{createBy},0)
 	 </insert>
 
-    <update id="update" parameterType="SysUser">
+    <update id="update" parameterType="SysDictionary">
         UPDATE sys_dictionary
         <set>
             dict_code = #{dictCode},
@@ -29,4 +29,5 @@
              WHERE
              dict_no = #{dictNo}
 	 </select>
+
 </mapper>

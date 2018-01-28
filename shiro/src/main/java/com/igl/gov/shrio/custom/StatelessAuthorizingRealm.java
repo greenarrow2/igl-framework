@@ -10,7 +10,6 @@ import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 
 public class StatelessAuthorizingRealm extends AuthorizingRealm {
 
@@ -35,6 +34,9 @@ public class StatelessAuthorizingRealm extends AuthorizingRealm {
         //根据用户名获取密钥（和客户端的一样）
         //String key = getKey(username);
         String key = redisCache.getCache("user-name:"+username,String.class);
+        if (null == key || "".equals(key)){
+            throw new AuthenticationException("密钥已过期，请重新登录");
+        }
 
         //在服务器端生成客户端参数消息摘要
         String serverDigest = HmacSHA256Utils.digest(key, statelessToken.getParams());
@@ -61,7 +63,7 @@ public class StatelessAuthorizingRealm extends AuthorizingRealm {
 
         //这里模拟admin账号才有role的权限.
         if("admin".equals(username)){
-            authorizationInfo.addRole("admin111111111111111");
+            authorizationInfo.addRole("admin");
         }
         return authorizationInfo;
     }

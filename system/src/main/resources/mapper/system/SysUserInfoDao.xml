@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.igl.gov.system.dao.SysUserInfoDao">
+    <insert id="insert" parameterType="SysUserInfo" keyProperty="id" useGeneratedKeys="true">
+		INSERT INTO sys_user_info(user_id,gender,role_id,create_time,create_by,version) VALUES (#{userId},#{gender},#{roleId},now(),<choose>
+        <when test="createBy != null">
+            #{createBy}
+        </when>
+        <otherwise>
+            0
+        </otherwise>
+    </choose>,0)
+	 </insert>
+
+
+    <!--更新用户-->
+    <update id="update" parameterType="SysUserInfo">
+        UPDATE sys_user_info
+        <set>
+            <if test="username != null and username != ''">
+                user_name = #{username},
+            </if>
+            <if test="name != null and name !=''">
+                name = #{name},
+            </if>
+            <if test="mobile != null and mobile != ''">
+                mobile = #{mobile},
+            </if>
+            <if test="password!= null and password != ''">
+                password = #{password},
+            </if>
+            <if test="email != null and email != ''">
+                email = #{email},
+            </if>
+            version = version + 1
+        </set>
+        <where>
+            user_id = #{userId}
+        </where>
+    </update>
+
+</mapper>

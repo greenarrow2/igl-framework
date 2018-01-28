@@ -23,12 +23,12 @@ public class SysDictionaryController {
     private SysDictionaryService sysDictionaryService;
 
     @RequestMapping(value = "dictlistbydictno")
-    public List<SysDictSimpleDto> dictListByDictNo(Integer dictNo) throws UnsupportedEncodingException {
+    public List<SysDictSimpleDto> dictListByDictNo(Integer dictNo)   {
         return sysDictionaryService.querySysDictionaryByDictNo(dictNo);
     }
 
     @RequestMapping(value = "save")
-    public DataResult save(SysDictionary dictionary) throws UnsupportedEncodingException {
+    public DataResult save(SysDictionary dictionary)   {
         return new DataResult(true,sysDictionaryService.save(dictionary));
     }
 

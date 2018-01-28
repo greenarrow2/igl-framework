@@ -1,9 +1,12 @@
 package com.igl.gov.common.config;
 
 
+import com.alibaba.druid.filter.Filter;
 import com.alibaba.druid.pool.DruidDataSource;
 import com.alibaba.druid.support.http.StatViewServlet;
 import com.alibaba.druid.support.http.WebStatFilter;
+import com.alibaba.druid.wall.WallConfig;
+import com.alibaba.druid.wall.WallFilter;
 import org.apache.log4j.Logger;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
@@ -14,6 +17,8 @@ import org.springframework.context.annotation.Primary;
 
 import javax.sql.DataSource;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 @Configuration
 public class DruidConfiguration {
@@ -45,6 +50,20 @@ public class DruidConfiguration {
         filterRegistrationBean.addUrlPatterns("/*");
         filterRegistrationBean.addInitParameter("exclusions", "*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*");
         return filterRegistrationBean;
+    }
+
+
+    @Bean
+    public WallConfig wallConfig(){
+        WallConfig wallConfig= new WallConfig();
+        wallConfig.setMultiStatementAllow(true);
+        return wallConfig;
+    }
+
+    public WallFilter wallFilter(){
+        WallFilter wallFilter = new WallFilter();
+        wallFilter.setConfig(wallConfig());
+        return  wallFilter;
     }
 
     //解决 spring.datasource.filters=stat,wall,log4j 无法正常注册进去
@@ -109,6 +128,9 @@ public class DruidConfiguration {
             datasource.setTestOnReturn(testOnReturn);
             datasource.setPoolPreparedStatements(poolPreparedStatements);
             datasource.setMaxPoolPreparedStatementPerConnectionSize(maxPoolPreparedStatementPerConnectionSize);
+            List<Filter> filterList = new ArrayList<>();
+            filterList.add(wallFilter());
+            datasource.setProxyFilters(filterList);
             try {
                 datasource.setFilters(filters);
             } catch (SQLException e) {

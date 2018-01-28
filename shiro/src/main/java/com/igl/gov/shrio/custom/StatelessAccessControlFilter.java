@@ -1,5 +1,7 @@
 package com.igl.gov.shrio.custom;
 
+import com.igl.gov.common.api.DataResult;
+import com.igl.gov.common.utils.JacksonUtils;
 import org.apache.shiro.web.filter.AccessControlFilter;
 
 import javax.servlet.ServletRequest;
@@ -65,7 +67,8 @@ public class StatelessAccessControlFilter extends AccessControlFilter{
     private void onLoginFail(ServletResponse response) throws IOException {
         HttpServletResponse httpResponse =(HttpServletResponse) response;
         httpResponse.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-        httpResponse.getWriter().write("login error");
+        DataResult result = new DataResult(false,null,"用户已过期，请重新登录");
+        httpResponse.getWriter().write(JacksonUtils.serializeObjectToJson(result));
     }
 
 }

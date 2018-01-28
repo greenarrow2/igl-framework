@@ -1,15 +1,22 @@
 package com.igl.gov.system.service;
 
 
+import com.igl.gov.common.api.DataGridResult;
 import com.igl.gov.system.dto.SysUserDto;
 import com.igl.gov.system.entity.SysUser;
+import com.igl.gov.system.entity.SysUserInfo;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
 public interface SysUserService{
 
-    public SysUser add(SysUser user);
+    public SysUser save(SysUser user, SysUserInfo userInfo);
 
-    public Map<String,Object> findUserByUserNamePassword(String userName, String password);
+    public Integer delete(String ids);
+
+    public Map<String,Object> findUserByUsernamePassword(String username, String password);
+
+    public DataGridResult<SysUserDto> queryPageList(HttpServletRequest request,SysUserDto userDto);
 
 }
