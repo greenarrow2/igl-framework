@@ -42,4 +42,11 @@ public class SysDictionaryServiceImpl  implements SysDictionaryService{
         }
         return sysDictionaryDao.insert(dictionary);
     }
+
+    @Override
+    public int delete(String[] ids) {
+        Map<String,Object> param = new HashMap<>(1);
+         param.put("ids",ids);
+        return sysDictionaryDao.delete(param);
+    }
 }

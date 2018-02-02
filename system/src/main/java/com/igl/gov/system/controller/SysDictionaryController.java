@@ -32,11 +32,10 @@ public class SysDictionaryController {
         return new DataResult(true,sysDictionaryService.save(dictionary));
     }
 
-    @RequestMapping(value = "query")
-    public DataResult query(String id) throws UnsupportedEncodingException {
-        System.out.println("---------" + SecurityUtils.getSubject().getPrincipal());
-        System.out.println(SecurityUtils.getSubject().hasRole("admin"));
-        return new DataResult(true,"你好" + id);
+    @RequestMapping(value = "delete")
+    public DataResult delete(String ids) throws UnsupportedEncodingException {
+        String [] idarr = ids.split(",");
+        return new DataResult(true,sysDictionaryService.delete(idarr));
     }
 
 }

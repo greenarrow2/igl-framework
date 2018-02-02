@@ -21,4 +21,6 @@ public interface SysUserDao {
     Integer count(Map<String,Object> param);
 
     int delete(Map<String,Object> param);
+
+    SysUserDto find(Integer id);
 }

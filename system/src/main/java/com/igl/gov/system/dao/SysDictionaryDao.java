@@ -17,4 +17,6 @@ public interface SysDictionaryDao {
 
     int update(SysDictionary entity);
 
+    int delete(Map<String,Object> param);
+
 }

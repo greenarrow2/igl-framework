@@ -92,4 +92,9 @@ public class SysUserServiceImpl implements SysUserService{
         pageData.setItems(allItems);
         return pageData;
     }
+
+    @Override
+    public SysUserDto find(Integer id) {
+        return sysUserDao.find(id);
+    }
 }

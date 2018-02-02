@@ -23,4 +23,6 @@ public interface SysDictionaryService {
      */
     public int save(SysDictionary dictionary);
 
+    public int delete(String [] ids);
+
 }
