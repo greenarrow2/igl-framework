@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.igl.gov.system.dao.SysRoleDao">
+    <resultMap id="sysRoleDto" type="com.igl.gov.system.dto.SysRoleDto">
+        <id column="id" property="id"/>
+        <id property="roleName" column="role_name"/>
+        <id property="roleType" column="role_type"/>
+        <id property="pid" column="pid" />
+        <id property="state" column="state" />
+    </resultMap>
+    <sql id="sysRoleBase">
+            id,
+            pid,
+            role_name,
+            role_type,
+            state
+    </sql>
+    <insert id="insert" parameterType="SysRole" keyProperty="id" useGeneratedKeys="true">
+		INSERT INTO sys_user(user_name,name,mobile,email,password,create_time,create_by,version) VALUES (#{username},#{name},#{mobile},#{email},#{password},now(),
+		<choose>
+            <when test="createBy != null">
+                #{createBy}
+            </when>
+            <otherwise>
+                0
+            </otherwise>
+        </choose> ,0)
+	 </insert>
+
+    <select id="query" parameterType="map" resultMap="sysRoleDto">
+            SELECT
+            <include refid="sysRoleBase"/>
+            FROM
+            sys_role
+            <where>
+                <if test="roleName != null and roleName != ''">
+                    role_name LIKE CONCAT('%',TRIM(#{roleName}),'%')
+                </if>
+                <if test="state != null">
+                    AND state = #{name}
+                </if>
+                <if test="roleType != null">
+                    AND  role_type = #{roleType}
+                </if>
+            </where>
+            Limit #{start} , #{offset}
+    </select>
+
+    <select id="count" parameterType="map" resultType="int">
+        SELECT
+        count(id)
+        FROM
+        sys_role
+        <where>
+            <if test="roleName != null and roleName != ''">
+                role_name LIKE CONCAT('%',TRIM(#{roleName}),'%')
+            </if>
+            <if test="state != null">
+                AND state = #{state}
+            </if>
+            <if test="roleType != null">
+                AND  role_type = #{roleType}
+            </if>
+        </where>
+    </select>
+
+    <select id="find" parameterType="integer" resultMap="sysRoleDto">
+		SELECT
+            <include refid="sysRoleBase"/>
+            FROM
+            sys_role
+            where
+            id = #{id}
+	</select>
+
+    <!--更新用户-->
+    <update id="update" parameterType="SysRole">
+        UPDATE sys_role
+        <set>
+            <if test="roleName != null and roleName != ''">
+                role_name = #{roleName},
+            </if>
+            <if test="role_type != null">
+                name = #{roleType},
+            </if>
+            <if test="state != null">
+                state = #{state},
+            </if>
+            version = version + 1
+        </set>
+        <where>
+            id = #{id}
+        </where>
+    </update>
+
+    <delete id="delete" parameterType="map">
+        DELETE  from sys_role where id in
+        <foreach collection="ids" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

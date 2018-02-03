@@ -21,7 +21,7 @@ public class DtoToMapUtils<T> {
      * @param dto 传入对象
      * @return
      */
-    public static Map<String,Object> toMap(Object dto){
+    public static Map<String,Object> dtoToMap(Object dto){
         Field [] fields = dto.getClass().getDeclaredFields();
         Map<String,Object>  map = new HashMap<>(fields.length);
         try {
@@ -35,6 +35,35 @@ public class DtoToMapUtils<T> {
             logger.error(e.getMessage(),e);
         }
         return map;
+    }
+
+
+    public static Map<String,Object> requestToMapPage(HttpServletRequest request){
+        Map<String,Object>  map = requestToMap(request);
+        if(map.get("page") != null && map.get("size") != null){
+            Integer page =Integer.parseInt(map.get("page").toString());
+            Integer size = Integer.parseInt(map.get("size").toString());
+            Integer start;
+            if(page <= 1){
+                start = 0;
+            }else {
+                start = (page - 1) * size;
+            }
+            Integer offset = size;
+            if (offset <= 0){
+                offset = 20;
+            }
+            map.remove("page");
+            map.remove("size");
+            map.put("start",start);
+            map.put("offset",offset);
+        }
+
+        return map;
+    }
+
+    public static Map<String,Object> requestToMap(HttpServletRequest request){
+        return requestToMap(request,null);
     }
 
     public static Map<String,Object> requestToMap(HttpServletRequest request,Map<String,Object> map){
