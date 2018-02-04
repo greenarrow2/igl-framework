@@ -4,14 +4,21 @@ import com.igl.gov.common.utils.JacksonUtils;
 import com.igl.gov.system.entity.SysUser;
 //import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-@Component
+@Controller
 public class HelloReceiver {
 
-//    @RabbitListener(queues = "hello")
+  /* @RabbitListener(queues = "hello")
     public void process(String hello) {
 
         System.out.println("Receiver  : " + ((SysUser) JacksonUtils.deserializeJsonToObject(hello,SysUser.class)).getName());
-    }
+    }*/
+
+     @RequestMapping("/main")
+     public String main(){
+         return "index";
+     }
 
 }

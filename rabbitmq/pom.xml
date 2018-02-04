@@ -22,7 +22,7 @@
              <version>1.5.9.RELEASE</version>
          </dependency>
      </dependencies>
-    <build>
+   <!-- <build>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -34,5 +34,5 @@
                 </configuration>
             </plugin>
         </plugins>
-    </build>
+    </build>-->
 </project>

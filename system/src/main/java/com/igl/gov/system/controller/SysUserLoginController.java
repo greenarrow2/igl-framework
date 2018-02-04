@@ -49,7 +49,7 @@ public class SysUserLoginController {
                result.setObj(map);
                return result;
            }
-           result = new DataResult(false,null);
+           result = new DataResult(false,map);
            return result;
     }
 
@@ -63,7 +63,7 @@ public class SysUserLoginController {
     public DataResult logout(String username){
         DataResult result = new DataResult();
         redisCache.deleteCache("user-name:" + username);
-        result = new DataResult(false,null);
+        result = new DataResult(false,result);
         return result;
     }
 
