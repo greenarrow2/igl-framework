@@ -1,5 +1,7 @@
 package com.igl.gov.common.api;
 
+import com.igl.gov.common.param.PageParam;
+
 import java.util.List;
 
 
@@ -13,10 +15,10 @@ public class DataGridResult<T> {
     private Integer pageSize = 10;
     // 总条数
     private Integer totalNum;
-    // 是否有下一页
-    private Integer isMore;
     // 总页数
     private Integer totalPage;
+    // 是否有下一页
+    private Integer isMore;
     // 开始索引
     private Integer startIndex;
     // 分页结果
@@ -31,6 +33,18 @@ public class DataGridResult<T> {
         this.currentPage = currentPage;
         this.pageSize = pageSize;
         this.totalNum = totalNum;
+        this.totalPage = (this.totalNum + this.pageSize - 1) / this.pageSize;
+        this.startIndex = (this.currentPage - 1) * this.pageSize;
+        this.isMore = this.currentPage >= this.totalPage ? 0 : 1;
+    }
+
+    public DataGridResult(Object object, Integer totalNum,List<T> items) {
+        super();
+        PageParam param = (PageParam)object;
+        this.currentPage = param.getPage();
+        this.pageSize = param.getRows();
+        this.totalNum = totalNum;
+        this.items = items;
         this.totalPage = (this.totalNum + this.pageSize - 1) / this.pageSize;
         this.startIndex = (this.currentPage - 1) * this.pageSize;
         this.isMore = this.currentPage >= this.totalPage ? 0 : 1;
@@ -60,15 +74,8 @@ public class DataGridResult<T> {
         this.totalNum = totalNum;
     }
 
-    public Integer getIsMore() {
-        return isMore;
-    }
-
-    public void setIsMore(Integer isMore) {
-        this.isMore = isMore;
-    }
-
     public Integer getTotalPage() {
+        totalPage = (this.totalNum + this.pageSize - 1) / this.pageSize;
         return totalPage;
     }
 
@@ -76,7 +83,17 @@ public class DataGridResult<T> {
         this.totalPage = totalPage;
     }
 
+    public Integer getIsMore() {
+        isMore = this.currentPage >= totalPage ? 0 : 1;
+        return isMore;
+    }
+
+    public void setIsMore(Integer isMore) {
+        this.isMore = isMore;
+    }
+
     public Integer getStartIndex() {
+        startIndex = (this.currentPage - 1) * this.pageSize;
         return startIndex;
     }
 

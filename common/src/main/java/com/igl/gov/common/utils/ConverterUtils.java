@@ -53,6 +53,24 @@ public class ConverterUtils {
 
 	/**
 	 * 拷贝一个对象
+	 *
+	 * @param sourceObj
+	 * @param targetClass
+	 * @return
+	 */
+	public static <S, T> T convertOne(S sourceObj, Class<T> targetClass) {
+		T targetObj = null;
+		try {
+			targetObj = targetClass.newInstance();
+		} catch (InstantiationException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		}
+		return convertOne(sourceObj, targetObj, null, null);
+	}
+	/**
+	 * 拷贝一个对象
 	 * 
 	 * @param sourceObj
 	 * @param targetObj

@@ -20,6 +20,15 @@ public class DataListResult<T> {
 
     }
 
+    public DataListResult(Boolean success){
+           this.success = success;
+        if(success){
+            this.message = CommonMsgUtils.COMMON_SAVE_SUCCESS.getMsg();
+        }else{
+            this.message = CommonMsgUtils.COMMON_SAVE_ERROR.getMsg();
+        }
+    }
+
     public DataListResult(List<T> list){
         this.list = list;
         this.message = CommonMsgUtils.COMMON_SAVE_SUCCESS.getMsg();
