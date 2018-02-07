@@ -1,6 +1,7 @@
 package com.igl.gov.common.api;
 
 import com.igl.gov.common.utils.CommonMsgUtils;
+import com.igl.gov.common.utils.StringUtils;
 
 import java.util.List;
 
@@ -32,6 +33,20 @@ public class DataResult {
         }else{
             this.message = CommonMsgUtils.COMMON_SAVE_ERROR.getMsg();
         }
+    }
+
+    public DataResult(Boolean success){
+        this.success = success;
+        if(success){
+            this.message = CommonMsgUtils.COMMON_SAVE_SUCCESS.getMsg();
+        }else{
+            this.message = CommonMsgUtils.COMMON_SAVE_ERROR.getMsg();
+        }
+    }
+
+    public DataResult(Boolean success,String message){
+        this.success = success;
+        this.message = message;
     }
 
     public  DataResult(Object obj,String message){

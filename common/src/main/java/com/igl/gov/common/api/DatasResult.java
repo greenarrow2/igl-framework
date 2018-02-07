@@ -16,6 +16,15 @@ public class DatasResult {
 
     }
 
+    public  DatasResult(Boolean success){
+         success = this.success;
+        if(success){
+            this.message = CommonMsgUtils.COMMON_SAVE_SUCCESS.getMsg();
+        }else{
+            this.message = CommonMsgUtils.COMMON_SAVE_ERROR.getMsg();
+        }
+    }
+
     public  DatasResult(Object obj){
         this.obj = obj;
         this.message = CommonMsgUtils.COMMON_SAVE_SUCCESS.getMsg();
