@@ -81,15 +81,13 @@ public class SysUserServiceImpl implements SysUserService{
     }
 
     @Override
-    public DataGridResult<SysUserDto> queryPageList(HttpServletRequest request, SysUserDto userDto){
-        Map<String,Object> param = DtoToMapUtils.dtoToMap(userDto);
-        Integer page = Integer.valueOf(request.getParameter("page"));
-        Integer rows = Integer.valueOf(request.getParameter("rows"));
-        PageHelper.startPage(page,rows);
+    public DataGridResult<SysUserDto> queryPageList(HttpServletRequest request){
+        Map<String,Object> param = DtoToMapUtils.requestToMapPage(request);
         List<SysUserDto> allItems = sysUserDao.query(param);        //全部商品
         int countNums = sysUserDao.count(param);            //总记录数
-        DataGridResult<SysUserDto> pageData = new DataGridResult<>(page, rows, countNums);
+        DataGridResult<SysUserDto> pageData = new DataGridResult<>();
         pageData.setItems(allItems);
+        pageData.setTotalNum(countNums);
         return pageData;
     }
 

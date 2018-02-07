@@ -4,6 +4,7 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.igl.gov.common.api.DataGridResult;
 import com.igl.gov.common.utils.DtoToMapUtils;
+import com.igl.gov.common.utils.ResultUtils;
 import com.igl.gov.system.dao.SysRoleDao;
 import com.igl.gov.system.dto.SysRoleDto;
 import com.igl.gov.system.entity.SysRole;
@@ -51,11 +52,20 @@ public class SysRoleServiceImpl implements SysRoleService {
     }
 
     @Override
-    public Integer delete(String ids) {
+    public ResultUtils delete(String ids) {
         String [] idarr = ids.split(",");
+        ResultUtils result = new ResultUtils();
         Map<String,Object> param = new HashMap<>();
            param.put("ids",idarr);
-        return sysRoleDao.delete(param);
+        if(sysRoleDao.countChildren(param) > 0){
+            result.setSuccess(false);
+            result.setMessage("你选择删除的角色目录存在子角色，请删除子角色然后再删除角色目录");
+            return result;
+        }
+        result.setSuccess(true);
+        int count = sysRoleDao.delete(param);
+        result.setMessage("你删除了" + count + "条数据！" );
+        return result;
     }
 
 

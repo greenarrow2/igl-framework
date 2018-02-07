@@ -28,7 +28,7 @@ public class SysUserController {
     @RequestMapping("/list")
     public DataGridResult list(HttpServletRequest request, SysUserDto userDto){
 
-        return  sysUserService.queryPageList(request,userDto);
+        return  sysUserService.queryPageList(request);
     }
 
 

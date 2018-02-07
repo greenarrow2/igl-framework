@@ -1,5 +1,6 @@
 package com.igl.gov.system.service.impl;
 
+import com.igl.gov.common.utils.ResultUtils;
 import com.igl.gov.redis.cache.RedisCache;
 import com.igl.gov.redis.util.RedisConst;
 import com.igl.gov.system.dao.SysDictionaryDao;
@@ -36,11 +37,23 @@ public class SysDictionaryServiceImpl  implements SysDictionaryService{
     }
 
     @Override
-    public int save(SysDictionary dictionary) {
+    public ResultUtils save(SysDictionary dictionary) {
+        ResultUtils result = new ResultUtils();
         if(dictionary.getId() != null){
-           return sysDictionaryDao.update(dictionary);
+           sysDictionaryDao.update(dictionary);
+           result.setSuccess(true);
+           result.setMessage("更新成功！");
+           return result;
         }
-        return sysDictionaryDao.insert(dictionary);
+        if(sysDictionaryDao.countSysDictByDictCode(dictionary.getDictCode()) > 0){
+            result.setSuccess(false);
+            result.setMessage("你保存的字典编码已存在！");
+            return result;
+        }
+        sysDictionaryDao.insert(dictionary);
+        result.setSuccess(true);
+        result.setMessage("保存成功！");
+        return result;
     }
 
     @Override

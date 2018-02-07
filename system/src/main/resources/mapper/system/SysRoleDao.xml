@@ -99,4 +99,10 @@
             #{id}
         </foreach>
     </delete>
+    <select id="countChildren" parameterType="map" resultType="int">
+        SELECT COUNT(1)  from sys_role where id in
+        <foreach collection="ids" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </select>
 </mapper>

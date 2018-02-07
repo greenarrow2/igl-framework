@@ -36,4 +36,8 @@
     </foreach>
     </delete>
 
+    <select id="countSysDictByDictCode" parameterType="integer" resultType="int">
+        SELECT  count(1) FROM sys_dictionary WHERE dict_code = #{dictCode}
+    </select>
+
 </mapper>

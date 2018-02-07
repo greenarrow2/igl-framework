@@ -17,7 +17,7 @@ public interface SysUserService{
 
     public Map<String,Object> findUserByUsernamePassword(String username, String password);
 
-    public DataGridResult<SysUserDto> queryPageList(HttpServletRequest request,SysUserDto userDto);
+    public DataGridResult<SysUserDto> queryPageList(HttpServletRequest request);
 
     /**
      * 查询用户详情

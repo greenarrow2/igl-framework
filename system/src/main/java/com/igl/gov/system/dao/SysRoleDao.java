@@ -21,4 +21,6 @@ public interface SysRoleDao {
 
     SysRoleDto find(Integer id);
 
+    int countChildren(Map<String,Object> param);
+
 }

@@ -19,4 +19,6 @@ public interface SysDictionaryDao {
 
     int delete(Map<String,Object> param);
 
+    int countSysDictByDictCode(Integer dictCode);
+
 }

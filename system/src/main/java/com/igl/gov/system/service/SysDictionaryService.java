@@ -1,5 +1,6 @@
 package com.igl.gov.system.service;
 
+import com.igl.gov.common.utils.ResultUtils;
 import com.igl.gov.system.dto.SysDictSimpleDto;
 import com.igl.gov.system.dto.SysDictionaryDto;
 import com.igl.gov.system.entity.SysDictionary;
@@ -21,7 +22,7 @@ public interface SysDictionaryService {
      * @param dictionary
      * @return
      */
-    public int save(SysDictionary dictionary);
+    public ResultUtils save(SysDictionary dictionary);
 
     public int delete(String [] ids);
 
