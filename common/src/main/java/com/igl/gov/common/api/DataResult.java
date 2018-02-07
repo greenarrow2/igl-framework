@@ -1,6 +1,7 @@
 package com.igl.gov.common.api;
 
 import com.igl.gov.common.utils.CommonMsgUtils;
+import com.igl.gov.common.utils.ResultUtils;
 import com.igl.gov.common.utils.StringUtils;
 
 import java.util.List;
@@ -61,10 +62,6 @@ public class DataResult {
         this.message = message;
     }
 
-    public DataResult(Boolean success,String message){
-        this.success = success;
-        this.message = message;
-    }
 
     public DataResult(ResultUtils result){
         this.success = result.isSuccess();
