@@ -3,7 +3,6 @@ package com.igl.gov.system.dao;
 import com.igl.gov.system.dto.SysRoleDto;
 import com.igl.gov.system.entity.SysRole;
 import org.apache.ibatis.annotations.Mapper;
-
 import java.util.List;
 import java.util.Map;
 
@@ -19,4 +18,7 @@ public interface SysRoleDao {
     List<SysRoleDto> query(Map<String,Object> param);
 
     int count(Map<String,Object> param);
+
+    SysRoleDto find(Integer id);
+
 }

@@ -2,20 +2,17 @@ package com.igl.gov.system.dto;
 
 import java.io.Serializable;
 
-public class SysRoleDto  implements Serializable {
+public class SysRoleDto implements Serializable {
+
     private Integer id;
 
-    private String roleName;
+    private Integer pid;
 
     private Integer roleType;
 
+    private String roleName;
+
     private Integer state;
-
-    private Integer createBy;
-
-    private Integer updateBy;
-
-    private Integer version;
 
     public Integer getId() {
         return id;
@@ -23,14 +20,6 @@ public class SysRoleDto  implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public String getRoleName() {
-        return roleName;
-    }
-
-    public void setRoleName(String roleName) {
-        this.roleName = roleName;
     }
 
     public Integer getRoleType() {
@@ -41,6 +30,14 @@ public class SysRoleDto  implements Serializable {
         this.roleType = roleType;
     }
 
+    public String getRoleName() {
+        return roleName;
+    }
+
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
+    }
+
     public Integer getState() {
         return state;
     }
@@ -49,27 +46,11 @@ public class SysRoleDto  implements Serializable {
         this.state = state;
     }
 
-    public Integer getCreateBy() {
-        return createBy;
+    public Integer getPid() {
+        return pid;
     }
 
-    public void setCreateBy(Integer createBy) {
-        this.createBy = createBy;
-    }
-
-    public Integer getUpdateBy() {
-        return updateBy;
-    }
-
-    public void setUpdateBy(Integer updateBy) {
-        this.updateBy = updateBy;
-    }
-
-    public Integer getVersion() {
-        return version;
-    }
-
-    public void setVersion(Integer version) {
-        this.version = version;
+    public void setPid(Integer pid) {
+        this.pid = pid;
     }
 }

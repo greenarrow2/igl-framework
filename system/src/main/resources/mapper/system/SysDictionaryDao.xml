@@ -30,4 +30,10 @@
              dict_no = #{dictNo}
 	 </select>
 
+    <delete id="delete" parameterType="map" >
+        DELETE  FROM sys_dictionary WHERE id in <foreach collection="ids" item="id" open="(" separator="," close=")">
+        #{id}
+    </foreach>
+    </delete>
+
 </mapper>

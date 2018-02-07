@@ -82,7 +82,7 @@ public class SysUserServiceImpl implements SysUserService{
 
     @Override
     public DataGridResult<SysUserDto> queryPageList(HttpServletRequest request, SysUserDto userDto){
-        Map<String,Object> param = DtoToMapUtils.toMap(userDto);
+        Map<String,Object> param = DtoToMapUtils.dtoToMap(userDto);
         Integer page = Integer.valueOf(request.getParameter("page"));
         Integer rows = Integer.valueOf(request.getParameter("rows"));
         PageHelper.startPage(page,rows);
@@ -91,5 +91,10 @@ public class SysUserServiceImpl implements SysUserService{
         DataGridResult<SysUserDto> pageData = new DataGridResult<>(page, rows, countNums);
         pageData.setItems(allItems);
         return pageData;
+    }
+
+    @Override
+    public SysUserDto find(Integer id) {
+        return sysUserDao.find(id);
     }
 }

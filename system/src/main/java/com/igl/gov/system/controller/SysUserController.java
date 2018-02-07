@@ -48,4 +48,9 @@ public class SysUserController {
          Integer count = sysUserService.delete("1");
           return new DataResult(true,null,"你删除了" + count + "条记录！");
     }
+
+    @RequestMapping("/find")
+    public DataResult find(Integer id){
+      return  new DataResult(sysUserService.find(id),null);
+    }
 }

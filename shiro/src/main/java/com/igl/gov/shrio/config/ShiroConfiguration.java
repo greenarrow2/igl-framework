@@ -50,7 +50,7 @@ R( /favicon.ico)
         filterChainDefinitionMap.put("/static/common/images/favicon.ico","anon");
         filterChainDefinitionMap.put("/resources/**","anon");
         filterChainDefinitionMap.put("/systemManage/resources/**","anon");
-        filterChainDefinitionMap.put("/api/**", "statelessAuthc");
+        //filterChainDefinitionMap.put("/api/**", "statelessAuthc");
         filterChainDefinitionMap.put("/api/login", "anon");
         filterChainDefinitionMap.put("/favicon.ico","anon");
         filterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);

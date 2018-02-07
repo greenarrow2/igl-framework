@@ -19,4 +19,11 @@ public interface SysUserService{
 
     public DataGridResult<SysUserDto> queryPageList(HttpServletRequest request,SysUserDto userDto);
 
+    /**
+     * 查询用户详情
+     * @param id
+     * @return
+     */
+    public SysUserDto find(Integer id);
+
 }

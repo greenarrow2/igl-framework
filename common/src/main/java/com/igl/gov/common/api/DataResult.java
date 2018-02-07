@@ -34,6 +34,12 @@ public class DataResult {
         }
     }
 
+    public  DataResult(Object obj,String message){
+        this.obj = obj;
+        this.message = message;
+    }
+
+
     public DataResult(Boolean success,Object obj,String message){
         this.success = success;
         this.obj = obj;

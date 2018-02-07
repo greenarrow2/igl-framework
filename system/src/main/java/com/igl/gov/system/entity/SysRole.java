@@ -1,22 +1,23 @@
 package com.igl.gov.system.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 
-public class SysRole implements Serializable{
+public class SysRole implements Serializable {
 
-   private Integer id;
+    private Integer id;
 
-   private String roleName;
+    private Integer pid;
 
-   private Integer roleType;
+    private Integer roleType;
 
-   private Integer state;
+    private String roleName;
 
-   private Integer createBy;
+    private Integer state;
 
-   private Integer updateBy;
+    private Integer createBy;
 
-   private Integer version;
+    private Integer updateBy;
 
     public Integer getId() {
         return id;
@@ -26,20 +27,20 @@ public class SysRole implements Serializable{
         this.id = id;
     }
 
-    public String getRoleName() {
-        return roleName;
-    }
-
-    public void setRoleName(String roleName) {
-        this.roleName = roleName;
-    }
-
     public Integer getRoleType() {
         return roleType;
     }
 
     public void setRoleType(Integer roleType) {
         this.roleType = roleType;
+    }
+
+    public String getRoleName() {
+        return roleName;
+    }
+
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
     }
 
     public Integer getState() {
@@ -66,11 +67,11 @@ public class SysRole implements Serializable{
         this.updateBy = updateBy;
     }
 
-    public Integer getVersion() {
-        return version;
+    public Integer getPid() {
+        return pid;
     }
 
-    public void setVersion(Integer version) {
-        this.version = version;
+    public void setPid(Integer pid) {
+        this.pid = pid;
     }
 }

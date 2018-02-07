@@ -1,15 +1,22 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.igl.gov.system.dao.SysRoleDao">
-    <resultMap id="sysRoleDto" type="SysRoleDto">
-        <id property="id" column="id"/>
+    <resultMap id="sysRoleDto" type="com.igl.gov.system.dto.SysRoleDto">
+        <id column="id" property="id"/>
         <id property="roleName" column="role_name"/>
         <id property="roleType" column="role_type"/>
-        <id property="state" column="state"/>
+        <id property="pid" column="pid" />
+        <id property="state" column="state" />
     </resultMap>
-
+    <sql id="sysRoleBase">
+            id,
+            pid,
+            role_name,
+            role_type,
+            state
+    </sql>
     <insert id="insert" parameterType="SysRole" keyProperty="id" useGeneratedKeys="true">
-		INSERT INTO sys_role(role_name,role_type,state,create_time,create_by,version) VALUES (#{roleName},#{roleType},#{state},now(),
+		INSERT INTO sys_user(user_name,name,mobile,email,password,create_time,create_by,version) VALUES (#{username},#{name},#{mobile},#{email},#{password},now(),
 		<choose>
             <when test="createBy != null">
                 #{createBy}
@@ -20,101 +27,64 @@
         </choose> ,0)
 	 </insert>
 
+    <select id="query" parameterType="map" resultMap="sysRoleDto">
+            SELECT
+            <include refid="sysRoleBase"/>
+            FROM
+            sys_role
+            <where>
+                <if test="roleName != null and roleName != ''">
+                    role_name LIKE CONCAT('%',TRIM(#{roleName}),'%')
+                </if>
+                <if test="state != null">
+                    AND state = #{name}
+                </if>
+                <if test="roleType != null">
+                    AND  role_type = #{roleType}
+                </if>
+            </where>
+            Limit #{start} , #{offset}
+    </select>
+
+    <select id="count" parameterType="map" resultType="int">
+        SELECT
+        count(id)
+        FROM
+        sys_role
+        <where>
+            <if test="roleName != null and roleName != ''">
+                role_name LIKE CONCAT('%',TRIM(#{roleName}),'%')
+            </if>
+            <if test="state != null">
+                AND state = #{state}
+            </if>
+            <if test="roleType != null">
+                AND  role_type = #{roleType}
+            </if>
+        </where>
+    </select>
+
+    <select id="find" parameterType="integer" resultMap="sysRoleDto">
+		SELECT
+            <include refid="sysRoleBase"/>
+            FROM
+            sys_role
+            where
+            id = #{id}
+	</select>
+
+    <!--更新用户-->
     <update id="update" parameterType="SysRole">
         UPDATE sys_role
         <set>
             <if test="roleName != null and roleName != ''">
                 role_name = #{roleName},
             </if>
-            <if test="roleType != null">
-                role_type = #{roleType},
+            <if test="role_type != null">
+                name = #{roleType},
             </if>
             <if test="state != null">
                 state = #{state},
-            </if>
-            <if test="updateBy!= null">
-                update_by = #{updateBy},
-            </if>
-            update_time = #{updateTime},
-            version = version + 1
-        </set>
-        <where>
-            id = #{id}
-        </where>
-    </update>
-
-    <select id="query" parameterType="map" resultType="SysRoleDto">
-            SELECT
-            u.id AS id,
-            u.user_name AS username,
-            u.`name` AS `name`,
-            u.mobile AS mobile,
-            u.email AS email,
-            ui.gender AS gender,
-            ui.role_id AS roleId
-            FROM
-            sys_user AS u
-            INNER JOIN sys_user_info AS ui ON u.id = ui.user_id
-            <where>
-                <if test="username != null and username != ''">
-                    u.user_name LIKE CONCAT('%',TRIM(#{username}),'%')
-                </if>
-                <if test="name != null and name != ''">
-                    AND u.name LIKE CONCAT('%',TRIM(#{name}),'%')
-                </if>
-                <if test="mobile != null and mobile !=''">
-                    AND  u.mobile LIKE CONCAT('%',TRIM(#{mobile}),'%')
-                </if>
-                <if test="email != null and email !=''">
-                    AND u.email LIKE CONCAT('%',TRIM(#{email}),'%')
-                </if>
-            </where>
-    </select>
-
-    <select id="count" parameterType="map" resultType="int">
-        SELECT
-        COUNT(1)
-        FROM
-        sys_user AS u
-        INNER JOIN sys_user_info AS ui ON u.id = ui.user_id
-        <where>
-            <if test="username != null and username != ''">
-                u.user_name LIKE CONCAT('%',TRIM(#{username}),'%')
-            </if>
-            <if test="name != null and name != ''">
-                AND u.name LIKE CONCAT('%',TRIM(#{name}),'%')
-            </if>
-            <if test="mobile != null and mobile !=''">
-                AND  u.mobile LIKE CONCAT('%',TRIM(#{mobile}),'%')
-            </if>
-            <if test="email != null and email !=''">
-                AND u.email LIKE CONCAT('%',TRIM(#{email}),'%')
-            </if>
-        </where>
-    </select>
-
-    <select id="queryLoginUser" parameterType="java.util.Map" resultType="SysUserDto">
-		SELECT id,user_name as username,create_time as createTime FROM sys_user where (user_name = #{username} OR mobile = #{username} OR  email = #{username})and password = #{password}
-	</select>
-
-    <!--更新用户-->
-    <update id="update" parameterType="SysUser">
-        UPDATE sys_user
-        <set>
-            <if test="username != null and username != ''">
-                user_name = #{username},
-            </if>
-            <if test="name != null and name !=''">
-                name = #{name},
-            </if>
-            <if test="mobile != null and mobile != ''">
-                mobile = #{mobile},
-            </if>
-            <if test="password!= null and password != ''">
-                password = #{password},
-            </if>
-            <if test="email != null and email != ''">
-                email = #{email},
             </if>
             version = version + 1
         </set>
@@ -124,15 +94,9 @@
     </update>
 
     <delete id="delete" parameterType="map">
-        DELETE  from sys_user where id in
-        <foreach collection="ids" item="id" open="(" separator="," close=")">
-            #{id}
-        </foreach>
-        ;
-        DELETE  from sys_user_info where user_id in
+        DELETE  from sys_role where id in
         <foreach collection="ids" item="id" open="(" separator="," close=")">
             #{id}
         </foreach>
     </delete>
-
 </mapper>
