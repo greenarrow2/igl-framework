@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.igl.gov.system.dao.SysOrganizationDao">
+    <resultMap id="sysOrganizationDto" type="com.igl.gov.system.dto.SysOrganizationDto">
+        <id column="id" property="id"/>
+        <id property="orgName" column="org_name"/>
+        <id property="orgType" column="org_type"/>
+        <id property="orgCode" column="org_code" />
+        <id property="state" column="state" />
+        <id property="pid" column="pid" />
+    </resultMap>
+    <sql id="sysOrganizationBase">
+            id,
+            pid,
+            org_code,
+            org_name,
+            org_type,
+            state
+    </sql>
+    <insert id="insert" parameterType="SysOrganization" keyProperty="id" useGeneratedKeys="true">
+		INSERT INTO sys_organization(pid,org_code,org_name,org_type,state,create_time,create_by,version) VALUES (#{pid},#{orgCode},#{orgName},#{orgType},#{state},now(),
+		<choose>
+            <when test="createBy != null">
+                #{createBy}
+            </when>
+            <otherwise>
+                0
+            </otherwise>
+        </choose> ,0)
+	 </insert>
+    <sql id="queryWhere">
+        <where>
+            <if test="orgCode != null and orgCode != ''">
+                org_code LIKE CONCAT('%',TRIM(#{orgCode}),'%')
+            </if>
+            <if test="orgName != null and orgName != ''">
+                org_name LIKE CONCAT('%',TRIM(#{orgName}),'%')
+            </if>
+            <if test="state != null">
+                AND state = #{state}
+            </if>
+            <if test="orgType != null">
+                AND  org_type = #{orgType}
+            </if>
+        </where>
+    </sql>
+    <select id="query" parameterType="SysOrganizationParam" resultMap="sysOrganizationDto">
+            SELECT
+            <include refid="sysOrganizationBase"/>
+            FROM
+            sys_organization
+             <include refid="queryWhere"/>
+            Limit #{start} , #{offset}
+    </select>
+    
+    <select id="countByOrgCode" parameterType="String" resultType="int">
+        SELECT
+        count(1)
+        FROM
+        sys_organization
+        WHERE
+        org_code = #{orgCode}
+    </select>
+
+    <select id="count" parameterType="SysOrganizationParam" resultType="int">
+        SELECT
+        count(id)
+        FROM
+        sys_organization
+        <include refid="queryWhere"/>
+    </select>
+
+    <select id="find" parameterType="integer" resultMap="sysOrganizationDto">
+		SELECT
+            <include refid="sysOrganizationBase"/>
+            FROM
+            sys_organization
+            where
+            id = #{id}
+	</select>
+
+    <!--更新用户-->
+    <update id="update" parameterType="SysOrganization">
+        UPDATE sys_organization
+        <set>
+            <if test="orgCode != null and orgCode != ''">
+                 org_code = #{orgCode},
+            </if>
+            <if test="orgName != null and orgName != ''">
+                  org_name = #{orgName},
+            </if>
+            <if test="state != null">
+                  state = #{state},
+            </if>
+            <if test="orgType != null">
+                   org_type = #{orgType},
+            </if>
+            update_by = #{updateBy},
+            update_time = now(),
+            version = version + 1
+        </set>
+        <where>
+            id = #{id}
+        </where>
+    </update>
+
+    <delete id="delete" parameterType="map">
+        DELETE  from sys_organization where id in
+        <foreach collection="ids" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>
