@@ -1,9 +1,13 @@
 package com.igl.gov.common.param;
 
+import io.swagger.annotations.ApiModelProperty;
+
 public class PageParam {
 
+    @ApiModelProperty(name = "page",value = "页码",required = true,dataType = "integer")
     private Integer page;
 
+    @ApiModelProperty(name = "rows",value = "分页长度",required = true,dataType = "integer")
     private Integer rows;
 
     private Integer start;

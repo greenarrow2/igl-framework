@@ -24,4 +24,6 @@ public interface SysOrganizationDao {
     int  delete(Map<String,Object> param);
 
     SysOrganizationDto find(Integer id);
+
+    int countChildren(Map<String,Object> param);
 }

@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.igl.gov.system.dao.SysDictionaryDao">
-
+    <resultMap id="sysDictionaryDto" type="com.igl.gov.system.dto.SysDictionaryDto">
+        <id property="id" column="id"/>
+        <id property="dictCode" column="dict_code"/>
+        <id property="dictName" column="dict_name"/>
+        <id property="dictNo" column="dict_no"/>
+        <id property="dictDesc" column="dict_desc"/>
+        <id property="remarks" column="remarks"/>
+    </resultMap>
     <insert id="insert" parameterType="SysDictionary" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO sys_dictionary(dict_code,dict_name,dict_no,dict_desc,remarks,create_time,create_by,version)
 		VALUES (#{dictCode},#{dictName},#{dictNo},#{dictDesc},#{remarks},now(),#{createBy},0)
@@ -38,6 +45,52 @@
 
     <select id="countSysDictByDictCode" parameterType="integer" resultType="int">
         SELECT  count(1) FROM sys_dictionary WHERE dict_code = #{dictCode}
+    </select>
+    
+    <sql id="sysDictionaryBase">
+        id,
+        dict_code,
+        dict_name,
+        dict_no,
+        dict_desc,
+        remarks
+    </sql>
+    
+    <select id="query" parameterType="map" resultMap="sysDictionaryDto">
+        SELECT
+        <include refid="sysDictionaryBase"/>
+        FROM
+        sys_dictionary
+        <where>
+            <if test="dictCode != null">
+              AND  dict_code = #{dictCode}
+            </if>
+            <if test="dictName != null and dictName !=''">
+                AND  dict_name like  CONCAT('%',trim(#{dictName}),'%')
+            </if>
+            <if test="dictNo != null">
+                AND  dict_code = #{dictNo}
+            </if>
+        </where>
+        limit #{start},#{offset}
+    </select>
+
+    <select id="count" parameterType="map" resultType="int" >
+        SELECT
+        count(1)
+        FROM
+        sys_dictionary
+        <where>
+            <if test="dictCode != null">
+                AND  dict_code = #{dictCode}
+            </if>
+            <if test="dictName != null and dictName !=''">
+                AND  dict_name like  CONCAT('%',trim(#{dictName}),'%')
+            </if>
+            <if test="dictNo != null">
+                AND  dict_code = #{dictNo}
+            </if>
+        </where>
     </select>
 
 </mapper>

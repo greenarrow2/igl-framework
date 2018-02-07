@@ -38,6 +38,17 @@ public class DataGridResult<T> {
         this.isMore = this.currentPage >= this.totalPage ? 0 : 1;
     }
 
+    public DataGridResult(Integer currentPage, Integer pageSize, Integer totalNum,List<T> items) {
+        super();
+        this.currentPage = currentPage;
+        this.pageSize = pageSize;
+        this.totalNum = totalNum;
+        this.items = items;
+        this.totalPage = (this.totalNum + this.pageSize - 1) / this.pageSize;
+        this.startIndex = (this.currentPage - 1) * this.pageSize;
+        this.isMore = this.currentPage >= this.totalPage ? 0 : 1;
+    }
+
     public DataGridResult(Object object, Integer totalNum,List<T> items) {
         super();
         PageParam param = (PageParam)object;

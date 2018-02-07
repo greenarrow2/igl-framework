@@ -21,4 +21,8 @@ public interface SysDictionaryDao {
 
     int countSysDictByDictCode(Integer dictCode);
 
+    List<SysDictionaryDto> query(Map<String,Object> param);
+
+    int count(Map<String,Object> param);
+
 }

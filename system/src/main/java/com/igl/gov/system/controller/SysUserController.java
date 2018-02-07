@@ -6,9 +6,12 @@ import com.igl.gov.common.api.DataResult;
 import com.igl.gov.system.dto.SysUserDto;
 import com.igl.gov.system.entity.SysUser;
 import com.igl.gov.system.entity.SysUserInfo;
+import com.igl.gov.system.param.SysUserParam;
 import com.igl.gov.system.service.SysUserService;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletRequest;
 
@@ -19,16 +22,13 @@ public class SysUserController {
     @Autowired
     private SysUserService sysUserService;
 
-    /**
-     *分页查询用户
-     * @param request
-     * @param userDto
-     * @return
-     */
-    @RequestMapping("/list")
-    public DataGridResult list(HttpServletRequest request, SysUserDto userDto){
 
-        return  sysUserService.queryPageList(request);
+
+    @ApiOperation("用户查询")
+    @RequestMapping(value = "/pagelist",method = RequestMethod.POST)
+    public DataGridResult pageList(SysUserParam param){
+
+        return  sysUserService.queryPageList(param);
     }
 
 

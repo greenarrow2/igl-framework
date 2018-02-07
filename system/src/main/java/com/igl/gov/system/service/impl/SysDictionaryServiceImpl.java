@@ -1,10 +1,13 @@
 package com.igl.gov.system.service.impl;
 
+import com.igl.gov.common.api.DataGridResult;
+import com.igl.gov.common.utils.DtoToMapUtils;
 import com.igl.gov.common.utils.ResultUtils;
 import com.igl.gov.redis.cache.RedisCache;
 import com.igl.gov.redis.util.RedisConst;
 import com.igl.gov.system.dao.SysDictionaryDao;
 import com.igl.gov.system.dto.SysDictSimpleDto;
+import com.igl.gov.system.dto.SysDictionaryDto;
 import com.igl.gov.system.entity.SysDictionary;
 import com.igl.gov.system.service.SysDictionaryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,5 +64,13 @@ public class SysDictionaryServiceImpl  implements SysDictionaryService{
         Map<String,Object> param = new HashMap<>(1);
          param.put("ids",ids);
         return sysDictionaryDao.delete(param);
+    }
+
+    @Override
+    public DataGridResult<SysDictionaryDto> queryPageList(Map<String, Object> param) {
+        DtoToMapUtils.paramToPageMap(param);
+        List<SysDictionaryDto> list = sysDictionaryDao.query(param);
+        int count = sysDictionaryDao.count(param);
+        return new DataGridResult<>(Integer.parseInt(param.get("page").toString()),Integer.parseInt(param.get("rows").toString()),count,list);
     }
 }

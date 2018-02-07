@@ -5,6 +5,7 @@ import com.igl.gov.common.api.DataGridResult;
 import com.igl.gov.system.dto.SysUserDto;
 import com.igl.gov.system.entity.SysUser;
 import com.igl.gov.system.entity.SysUserInfo;
+import com.igl.gov.system.param.SysUserParam;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
@@ -17,7 +18,7 @@ public interface SysUserService{
 
     public Map<String,Object> findUserByUsernamePassword(String username, String password);
 
-    public DataGridResult<SysUserDto> queryPageList(HttpServletRequest request);
+    public DataGridResult<SysUserDto> queryPageList(SysUserParam param);
 
     /**
      * 查询用户详情

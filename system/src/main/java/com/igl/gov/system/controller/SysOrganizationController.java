@@ -12,10 +12,8 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
 @Api(tags = "组织",value = "组织操作增删改查")
 @RestController
 @RequestMapping("/api/sysorg/")
@@ -26,10 +24,10 @@ public class SysOrganizationController {
 
     @ApiOperation(value = "组织分页查询")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "orgCode",value = "组织编号",dataType = "string"),
-            @ApiImplicitParam(name = "orgType",value = "组织类型",dataType = "integer"),
-            @ApiImplicitParam(name = "orgName",value = "组织名称",dataType = "string"),
-            @ApiImplicitParam(name = "state",value = "状态",dataType = "Integer"),
+            @ApiImplicitParam(name = "orgCode",value = "组织编号",dataType = "string",paramType = "query"),
+            @ApiImplicitParam(name = "orgType",value = "组织类型",dataType = "integer",paramType = "query"),
+            @ApiImplicitParam(name = "orgName",value = "组织名称",dataType = "string",paramType = "query"),
+            @ApiImplicitParam(name = "state",value = "状态",dataType = "integer",paramType = "query"),
     })
     @RequestMapping(value = "pagelist",method = RequestMethod.POST)
     public DataGridResult<SysOrganizationDto> pageList(SysOrganizationParam param){
@@ -38,16 +36,26 @@ public class SysOrganizationController {
 
     @ApiOperation(value = "组织保存")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "orgCode",value = "组织编号",dataType = "string",required = true),
-            @ApiImplicitParam(name = "orgType",value = "组织类型",dataType = "integer",required = true),
-            @ApiImplicitParam(name = "orgName",value = "组织名称",dataType = "string",required = true),
-            @ApiImplicitParam(name = "state",value = "状态",dataType = "Integer",required = true),
-            @ApiImplicitParam(name = "pid",value = "父组织",dataType = "integer",required = false)
+            @ApiImplicitParam(name = "orgCode",value = "组织编号",dataType = "string",required = true,paramType = "form"),
+            @ApiImplicitParam(name = "orgType",value = "组织类型",dataType = "integer",required = true,paramType = "form"),
+            @ApiImplicitParam(name = "orgName",value = "组织名称",dataType = "string",required = true,paramType = "form"),
+            @ApiImplicitParam(name = "state",value = "状态",dataType = "integer",required = true,paramType = "form"),
+            @ApiImplicitParam(name = "pid",value = "父组织",dataType = "integer",required = false,paramType = "form")
     })
     @RequestMapping(value = "save",method = RequestMethod.POST)
     @ResponseBody
     public DataResult save(SysOrganization organization){
           return new DataResult(true,sysOrganizationService.save(organization));
+    }
+
+    @ApiOperation(value = "组织删除")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "ids",value = "组织编号",dataType = "string",required = true,paramType = "path"),
+    })
+    @RequestMapping(value = "delete/{ids}",method = RequestMethod.DELETE)
+    public DataResult delete(@PathVariable("ids") String ids){
+        Integer count = sysOrganizationService.delete(ids);
+       return new DataResult(true,"已删除" + count + "条记录");
     }
 
 }

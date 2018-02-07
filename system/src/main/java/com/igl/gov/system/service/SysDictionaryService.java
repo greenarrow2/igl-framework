@@ -1,5 +1,6 @@
 package com.igl.gov.system.service;
 
+import com.igl.gov.common.api.DataGridResult;
 import com.igl.gov.common.utils.ResultUtils;
 import com.igl.gov.system.dto.SysDictSimpleDto;
 import com.igl.gov.system.dto.SysDictionaryDto;
@@ -7,6 +8,7 @@ import com.igl.gov.system.entity.SysDictionary;
 
 import java.io.UnsupportedEncodingException;
 import java.util.List;
+import java.util.Map;
 
 public interface SysDictionaryService {
 
@@ -25,5 +27,7 @@ public interface SysDictionaryService {
     public ResultUtils save(SysDictionary dictionary);
 
     public int delete(String [] ids);
+
+    public DataGridResult<SysDictionaryDto> queryPageList(Map<String,Object> param);
 
 }

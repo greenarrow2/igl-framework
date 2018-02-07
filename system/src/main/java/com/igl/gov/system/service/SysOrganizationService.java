@@ -16,4 +16,6 @@ public interface SysOrganizationService {
 
     SysOrganization save(SysOrganization organization);
 
+    Integer delete(String ids);
+
 }

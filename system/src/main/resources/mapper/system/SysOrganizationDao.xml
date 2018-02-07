@@ -79,6 +79,15 @@
             id = #{id}
 	</select>
 
+    <select id="countChildren" parameterType="map" resultType="int">
+        SELECT count(1)
+        FROM sys_organization
+        WHERE pid in
+        <foreach collection="ids" item="id" open="(" separator="," close=")">
+           #{id}
+        </foreach>
+    </select>
+
     <!--更新用户-->
     <update id="update" parameterType="SysOrganization">
         UPDATE sys_organization

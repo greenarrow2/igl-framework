@@ -27,9 +27,9 @@ public class SysRoleController {
             @ApiImplicitParam(name = "page",value = "页面参数",required = true,dataType = "integer"),
             @ApiImplicitParam(name = "size",value = "分页大小",required = true,dataType = "integer")
     })
-    @RequestMapping(value = "list",method = RequestMethod.POST)
+    @RequestMapping(value = "pagelist",method = RequestMethod.POST)
     @ResponseBody
-    public DataGridResult<SysRoleDto> list(HttpServletRequest request){
+    public DataGridResult<SysRoleDto> pageList(HttpServletRequest request){
         return sysRoleService.queryPageList(request);
     }
 

@@ -2,6 +2,7 @@ package com.igl.gov.system.dao;
 
 import com.igl.gov.system.dto.SysUserDto;
 import com.igl.gov.system.entity.SysUser;
+import com.igl.gov.system.param.SysUserParam;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -16,9 +17,9 @@ public interface SysUserDao {
 
     int update(SysUser user);
 
-    List<SysUserDto> query(Map<String,Object> param);
+    List<SysUserDto> query(SysUserParam param);
 
-    Integer count(Map<String,Object> param);
+    Integer count(SysUserParam param);
 
     int delete(Map<String,Object> param);
 

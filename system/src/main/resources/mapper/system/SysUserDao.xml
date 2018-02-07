@@ -22,7 +22,7 @@
         </choose> ,0)
 	 </insert>
 
-    <select id="query" parameterType="map" resultType="SysUserDto">
+    <select id="query" parameterType="SysUserParam" resultType="SysUserDto">
             SELECT
             u.id AS id,
             u.user_name AS username,
@@ -50,7 +50,7 @@
             </where>
     </select>
 
-    <select id="count" parameterType="map" resultType="int">
+    <select id="count" parameterType="SysUserParam" resultType="int">
         SELECT
         COUNT(1)
         FROM

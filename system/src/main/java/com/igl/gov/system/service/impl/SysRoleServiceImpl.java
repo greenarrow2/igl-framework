@@ -48,6 +48,8 @@ public class SysRoleServiceImpl implements SysRoleService {
         int count = sysRoleDao.count(param);
         result.setItems(list);
         result.setTotalNum(count);
+        result.setCurrentPage(Integer.valueOf(param.get("page").toString()));
+        result.setPageSize(Integer.valueOf(param.get("rows").toString()));
         return result;
     }
 

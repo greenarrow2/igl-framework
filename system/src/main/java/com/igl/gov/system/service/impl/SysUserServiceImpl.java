@@ -12,6 +12,7 @@ import com.igl.gov.system.dao.SysUserInfoDao;
 import com.igl.gov.system.dto.SysUserDto;
 import com.igl.gov.system.entity.SysUser;
 import com.igl.gov.system.entity.SysUserInfo;
+import com.igl.gov.system.param.SysUserParam;
 import com.igl.gov.system.service.SysUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -81,14 +82,10 @@ public class SysUserServiceImpl implements SysUserService{
     }
 
     @Override
-    public DataGridResult<SysUserDto> queryPageList(HttpServletRequest request){
-        Map<String,Object> param = DtoToMapUtils.requestToMapPage(request);
-        List<SysUserDto> allItems = sysUserDao.query(param);        //全部商品
+    public DataGridResult<SysUserDto> queryPageList(SysUserParam param){
+        List<SysUserDto> items = sysUserDao.query(param);
         int countNums = sysUserDao.count(param);            //总记录数
-        DataGridResult<SysUserDto> pageData = new DataGridResult<>();
-        pageData.setItems(allItems);
-        pageData.setTotalNum(countNums);
-        return pageData;
+        return new DataGridResult<SysUserDto>(param,countNums,items);
     }
 
     @Override
