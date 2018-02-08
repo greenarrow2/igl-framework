@@ -1,5 +1,6 @@
 package com.igl.gov.common.utils;
 
+import com.igl.gov.common.api.DataGridResult;
 import com.igl.gov.common.api.DataListResult;
 import com.igl.gov.common.api.DataResult;
 import com.igl.gov.common.api.DatasResult;
@@ -32,6 +33,10 @@ public class ResponseUtils {
         if(result == null){
             result = new DataListResult(true);
         }
+        return result;
+    }
+
+    public static DataGridResult success(DataGridResult result){
         return result;
     }
 

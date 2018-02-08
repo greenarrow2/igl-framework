@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.igl.gov.system.dao.SysModuleDao">
+    <resultMap id="sysModuleDto" type="com.igl.gov.system.dto.SysModuleDto">
+        <id column="id" property="id"/>
+        <id property="pid" column="pid" />
+        <id property="moduleCode" column="module_code"/>
+        <id property="moduleName" column="module_name"/>
+        <id property="moduleType" column="module_type" />
+        <id property="moduleDesc" column="module_desc" />
+        <id property="parentModuleName" column="parentModuleName" />
+        <id property="state" column="state" />
+    </resultMap>
+
+    <resultMap id="sysModuleTreeDto" type="com.igl.gov.system.dto.SysModuleTreeDto">
+        <id column="id" property="id"/>
+        <id property="pid" column="pid" />
+        <id property="moduleCode" column="module_code"/>
+        <id property="moduleName" column="module_name"/>
+        <id property="moduleType" column="module_type" />
+        <id property="moduleDesc" column="module_desc" />
+        <id property="state" column="state" />
+    </resultMap>
+
+    <sql id="sysModuleBase">
+            a.id,
+            a.url,
+            a.module_name,
+            a.module_desc,
+            a.module_type,
+            a.state,
+            a.module_code,
+            a.pid,
+            b.module_name AS parentModuleName
+    </sql>
+    <sql id="queryWhere">
+        <where>
+            <if test="moduleCode != null and moduleCode != ''">
+                a.module_code LIKE CONCAT('%',TRIM(#{moduleCode}),'%')
+            </if>
+            <if test="moduleName != null and moduleName != ''">
+                a.module_name LIKE CONCAT('%',TRIM(#{moduleName}),'%')
+            </if>
+            <if test="moduleDesc != null and moduleDesc != ''">
+                a.module_desc LIKE CONCAT('%',TRIM(#{moduleDesc}),'%')
+            </if>
+            <if test="state != null">
+                AND a.state = #{state}
+            </if>
+            <if test="moduleType != null">
+                AND  a.module_type = #{moduleType}
+            </if>
+            <if test="pid != null">
+                AND  a.pid = #{pid}
+            </if>
+            <if test="url != null">
+                AND a.url LIKE CONCAT('%',TRIM(#{url}),'%')
+            </if>
+        </where>
+    </sql>
+
+    <select id="queryModuleList" parameterType="map" resultMap="sysModuleTreeDto">
+        SELECT
+            id,
+            url,
+            module_name,
+            module_desc,
+            module_type,
+            state,
+            module_code,
+            pid
+        FROM
+        sys_module
+        <where>
+            <choose>
+                <when test="id != null">
+                     id = #{id}
+                </when>
+                <when test="pid != null">
+                    pid = #{pid}
+                </when>
+                <otherwise>
+                    pid is null
+                </otherwise>
+            </choose>
+        </where>
+
+    </select>
+    <insert id="insert" parameterType="SysModule" keyProperty="id" useGeneratedKeys="true">
+		INSERT INTO sys_module(pid,org_code,org_name,org_type,state,create_time,create_by,version) VALUES (#{pid},#{orgCode},#{orgName},#{orgType},#{state},now(),
+		<choose>
+            <when test="createBy != null">
+                #{createBy}
+            </when>
+            <otherwise>
+                0
+            </otherwise>
+        </choose> ,0)
+	 </insert>
+    <select id="query" parameterType="SysModuleParam" resultMap="sysModuleDto">
+        SELECT
+        <include refid="sysModuleBase"/>
+        FROM
+        sys_module AS a INNER JOIN
+        sys_module AS b ON(a.pid = b.id)
+        <include refid="queryWhere"/>
+         Limit #{start} , #{offset}
+    </select>
+    
+    <select id="countByModuleCode" parameterType="map" resultType="int">
+        SELECT
+        count(1)
+        FROM
+        sys_module
+        WHERE
+        module_code = #{moduleCode}
+        <if test="id != null">
+            AND id != #{id}
+        </if>
+    </select>
+
+    <select id="count" parameterType="SysModuleParam" resultType="int">
+        SELECT
+        count(1)
+        FROM
+        sys_module AS a INNER JOIN
+        sys_module AS b ON(a.pid = b.id)
+        <include refid="queryWhere"/>
+    </select>
+
+    <select id="find" parameterType="integer" resultMap="sysModuleDto">
+		SELECT
+            <include refid="sysModuleBase"/>
+            FROM
+            sys_module
+            where
+            id = #{id}
+	</select>
+
+    <select id="countChildren" parameterType="map" resultType="int">
+        SELECT count(1)
+        FROM sys_module
+        WHERE pid in
+        <foreach collection="ids" item="id" open="(" separator="," close=")">
+           #{id}
+        </foreach>
+    </select>
+
+    <!--更新用户-->
+    <update id="update" parameterType="SysModule">
+        UPDATE sys_module
+        <set>
+            <if test="orgCode != null and orgCode != ''">
+                 org_code = #{orgCode},
+            </if>
+            <if test="orgName != null and orgName != ''">
+                  org_name = #{orgName},
+            </if>
+            <if test="state != null">
+                  state = #{state},
+            </if>
+            <if test="orgType != null">
+                   org_type = #{orgType},
+            </if>
+            update_by = #{updateBy},
+            update_time = now(),
+            version = version + 1
+        </set>
+        <where>
+            id = #{id}
+        </where>
+    </update>
+
+    <delete id="delete" parameterType="map">
+        DELETE  from sys_module where id in
+        <foreach collection="ids" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

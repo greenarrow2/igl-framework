@@ -25,7 +25,7 @@ public class SysRoleController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "roleName",value = "角色名称",required = false,dataType = "string"),
             @ApiImplicitParam(name = "page",value = "页面参数",required = true,dataType = "integer"),
-            @ApiImplicitParam(name = "size",value = "分页大小",required = true,dataType = "integer")
+            @ApiImplicitParam(name = "rows",value = "分页大小",required = true,dataType = "integer")
     })
     @RequestMapping(value = "pagelist",method = RequestMethod.POST)
     @ResponseBody
