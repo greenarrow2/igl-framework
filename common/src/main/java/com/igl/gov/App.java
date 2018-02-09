@@ -9,7 +9,6 @@ import static org.springframework.boot.SpringApplication.run;
  * @author fancr
  */
 @SpringBootApplication
-@Controller
 public class App {
 
     public static void main(String[] args) {
