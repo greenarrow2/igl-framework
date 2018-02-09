@@ -24,4 +24,10 @@ public class SysUserParam extends PageParam {
     @ApiModelProperty(name = "gender",value = "性别",required = false,dataType = "integer")
     private Integer gender;
 
+    @ApiModelProperty(name = "roleId",value = "角色id",required = false,dataType = "integer")
+    private Integer roleId;
+
+    @ApiModelProperty(name = "orgId",value = "组织id",required = false,dataType = "integer")
+    private Integer orgId;
+
 }

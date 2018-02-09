@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 
 @Api(value = "角色操作类",tags = "角色",description = "角色增删该查的基础操作")
 @RestController
-@RequestMapping("/sysrole/")
+@RequestMapping("/api/sysrole/")
 public class SysRoleController {
 
     @Autowired

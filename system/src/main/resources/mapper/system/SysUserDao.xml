@@ -21,55 +21,59 @@
             </otherwise>
         </choose> ,0)
 	 </insert>
-
+    <sql id="whereSql">
+        <where>
+            <if test="username != null and username != ''">
+                a.user_name LIKE CONCAT('%',TRIM(#{username}),'%')
+            </if>
+            <if test="name != null and name != ''">
+                AND a.name LIKE CONCAT('%',TRIM(#{name}),'%')
+            </if>
+            <if test="mobile != null and mobile !=''">
+                AND  a.mobile LIKE CONCAT('%',TRIM(#{mobile}),'%')
+            </if>
+            <if test="email != null and email !=''">
+                AND a.email LIKE CONCAT('%',TRIM(#{email}),'%')
+            </if>
+            <if test="gender != null">
+               AND f.gender = #{gender}
+            </if>
+            <if test="orgId != null">
+               AND d.org_id = #{orgId}
+            </if>
+            <if test="roleId != null">
+                AND b.org_id = #{roleId}
+            </if>
+        </where>
+    </sql>
     <select id="query" parameterType="SysUserParam" resultType="SysUserDto">
-            SELECT
-            u.id AS id,
-            u.user_name AS username,
-            u.`name` AS `name`,
-            u.mobile AS mobile,
-            u.email AS email,
-            ui.gender AS gender,
-            ui.role_id AS roleId
-            FROM
-            sys_user AS u
-            INNER JOIN sys_user_info AS ui ON u.id = ui.user_id
-            <where>
-                <if test="username != null and username != ''">
-                    u.user_name LIKE CONCAT('%',TRIM(#{username}),'%')
-                </if>
-                <if test="name != null and name != ''">
-                    AND u.name LIKE CONCAT('%',TRIM(#{name}),'%')
-                </if>
-                <if test="mobile != null and mobile !=''">
-                    AND  u.mobile LIKE CONCAT('%',TRIM(#{mobile}),'%')
-                </if>
-                <if test="email != null and email !=''">
-                    AND u.email LIKE CONCAT('%',TRIM(#{email}),'%')
-                </if>
-            </where>
+              SELECT
+                a.id as id,
+                a.user_name as username,
+                a.name as name,
+                a.email as email,
+                a.mobile as mobile,
+                a.create_time,
+                f.gender,
+                GROUP_CONCAT(b.role_id) as roleIds,
+                GROUP_CONCAT(d.org_id) as orgIds,
+                GROUP_CONCAT(c.role_name) as roleNames,
+                GROUP_CONCAT(e.org_name) as orgNames
+                FROM
+                sys_user a
+                INNER JOIN sys_user_info f ON (a.id = f.user_id)
+                INNER JOIN sys_role_user b ON (a.id = b.user_id)
+                INNER JOIN sys_role c ON (b.role_id = c.id)
+                INNER JOIN sys_role_organization d ON (b.role_id = d.role_id)
+                INNER JOIN sys_organization e ON (d.org_id = e.id)
+                <include refid="whereSql"/>
+        Limit #{start} , #{offset}
     </select>
 
     <select id="count" parameterType="SysUserParam" resultType="int">
         SELECT
-        COUNT(1)
-        FROM
-        sys_user AS u
-        INNER JOIN sys_user_info AS ui ON u.id = ui.user_id
-        <where>
-            <if test="username != null and username != ''">
-                u.user_name LIKE CONCAT('%',TRIM(#{username}),'%')
-            </if>
-            <if test="name != null and name != ''">
-                AND u.name LIKE CONCAT('%',TRIM(#{name}),'%')
-            </if>
-            <if test="mobile != null and mobile !=''">
-                AND  u.mobile LIKE CONCAT('%',TRIM(#{mobile}),'%')
-            </if>
-            <if test="email != null and email !=''">
-                AND u.email LIKE CONCAT('%',TRIM(#{email}),'%')
-            </if>
-        </where>
+        count(1)
+        <include refid="whereSql"/>
     </select>
 
     <select id="queryLoginUser" parameterType="java.util.Map" resultType="SysUserDto">

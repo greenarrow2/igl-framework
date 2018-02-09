@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.igl.gov.system.dao.SysRoleUserDao">
+    <resultMap id="sysRoleUserDto" type="com.igl.gov.system.dto.SysRoleUserDto">
+        <id column="id" property="id"/>
+        <id property="roleId" column="role_id"/>
+        <id property="userId" column="user_id"/>
+        <id property="roleName" column="role_name" />
+        <id property="userName" column="user_name" />
+        <id property="roleTypeName" column="roleTypeName"/>
+    </resultMap>
+    <insert id="insert" parameterType="SysRoleUser" keyProperty="id" useGeneratedKeys="true">
+		INSERT INTO sys_role_user(role_id,user_id,create_time,create_by) VALUES (#{roleId},#{userId},now(),
+		<choose>
+            <when test="createBy != null">
+                #{createBy}
+            </when>
+            <otherwise>
+                0
+            </otherwise>
+        </choose>)
+	 </insert>
+
+    <select id="query" parameterType="SysRoleUserParam" resultMap="sysRoleUserDto">
+            SELECT
+            a.id,
+            a.role_id,
+            a.user_id,
+            b.role_name,
+            c.user_name,
+            d.dict_name AS roleTypeName
+            FROM
+            sys_role_user AS a
+            INNER  JOIN sys_role AS b ON(a.role_id  = b.id)
+            LEFT JOIN sys_user AS c ON (a.user_id = c.id)
+            INNER JOIN sys_dictionary AS d ON(b.role_type = d.dict_code)
+            <where>
+                <if test="username != null and username != ''">
+                    c.user_name LIKE CONCAT('%',TRIM(#{username}),'%')
+                </if>
+                <if test="roleName != null and roleName != ''">
+                    AND b.role_name LIKE CONCAT('%',TRIM(#{roleName}),'%')
+                </if>
+                <if test="roleType != null">
+                    AND b.role_type = #{roleType}
+                </if>
+            </where>
+    </select>
+
+    <select id="count" parameterType="SysRoleUserParam" resultType="int">
+        SELECT
+        COUNT(1)
+        FROM
+        sys_role_user AS a
+        INNER  JOIN sys_role AS b ON(a.role_id  = b.id)
+        LEFT JOIN sys_user AS c ON (a.user_id = c.id)
+        <where>
+            <if test="username != null and username != ''">
+                c.user_name LIKE CONCAT('%',TRIM(#{username}),'%')
+            </if>
+            <if test="roleName != null and roleName != ''">
+                AND b.role_name LIKE CONCAT('%',TRIM(#{roleName}),'%')
+            </if>
+            <if test="roleType != null">
+                AND b.role_type = #{roleType}
+            </if>
+        </where>
+    </select>
+
+    <delete id="delete" parameterType="map">
+        DELETE  from sys_role_user where id in
+        <foreach collection="ids" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <select id="find" parameterType="integer" resultMap="sysRoleUserDto" >
+        SELECT
+            a.id,
+            a.role_id,
+            a.user_id,
+            b.role_name,
+            c.user_name,
+            d.dict_name AS roleTypeName
+            FROM
+            sys_role_user AS a
+            INNER  JOIN sys_role AS b ON(a.role_id  = b.id)
+            LEFT JOIN sys_user AS c ON (a.user_id = c.id)
+            INNER JOIN sys_dictionary AS d ON(b.role_type = d.dict_code)
+            WHERE a.id = #{id}
+    </select>
+
+    <select id="countRoleUser" parameterType="SysRoleUser" resultType="int" >
+        SELECT
+        count(1)
+        FROM
+        sys_role_user
+        WHERE user_id = #{userId}
+        and role_id = #{roleId}
+    </select>
+</mapper>
