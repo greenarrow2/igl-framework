@@ -24,9 +24,9 @@ public class SysUserDto implements Serializable {
 
     private Integer gender;
 
-    private Integer roleIds;
+    private String roleIds;
 
-    private Integer orgIds;
+    private String orgIds;
 
     private String roleNames;
 

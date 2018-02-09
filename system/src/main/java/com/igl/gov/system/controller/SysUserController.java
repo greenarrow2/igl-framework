@@ -51,7 +51,7 @@ public class SysUserController {
     })
     @RequestMapping(value = "delete",method = RequestMethod.POST)
     public DataResult delete(String ids){
-         Integer count = sysUserService.delete("1");
+         Integer count = sysUserService.delete(ids);
           return new DataResult(true,null,"你删除了" + count + "条记录！");
     }
 

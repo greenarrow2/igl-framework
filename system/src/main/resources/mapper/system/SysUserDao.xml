@@ -119,7 +119,26 @@
     </delete>
 
     <select id="find" parameterType="integer" resultMap="sysUserDto" >
-        SELECT u.*,ui.* FROM sys_user u,sys_user_info  ui WHERE u.id = ui.user_id and u.id = #{id} limit 1
+        SELECT
+                a.id as id,
+                a.user_name as username,
+                a.name as name,
+                a.email as email,
+                a.mobile as mobile,
+                a.create_time,
+                f.gender,
+                GROUP_CONCAT(DISTINCT b.role_id) as roleIds,
+                GROUP_CONCAT(DISTINCT d.org_id) as orgIds,
+                GROUP_CONCAT(DISTINCT c.role_name) as roleNames,
+                GROUP_CONCAT(DISTINCT e.org_name) as orgNames
+                FROM
+                sys_user a
+                INNER JOIN sys_user_info f ON (a.id = f.user_id)
+                INNER JOIN sys_role_user b ON (a.id = b.user_id)
+                INNER JOIN sys_role c ON (b.role_id = c.id)
+                INNER JOIN sys_role_organization d ON (b.role_id = d.role_id)
+                INNER JOIN sys_organization e ON (d.org_id = e.id)
+                WHERE a.id = #{id}
     </select>
 
 </mapper>

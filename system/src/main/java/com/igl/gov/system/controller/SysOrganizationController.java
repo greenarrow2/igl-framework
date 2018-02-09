@@ -50,10 +50,10 @@ public class SysOrganizationController {
 
     @ApiOperation(value = "组织删除")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "ids",value = "组织编号",dataType = "string",required = true,paramType = "path"),
+            @ApiImplicitParam(name = "ids",value = "组织编号",dataType = "string",required = true,paramType = "query"),
     })
-    @RequestMapping(value = "delete/{ids}",method = RequestMethod.DELETE)
-    public DataResult delete(@PathVariable("ids") String ids){
+    @RequestMapping(value = "delete",method = RequestMethod.POST)
+    public DataResult delete(String ids){
         Integer count = sysOrganizationService.delete(ids);
        return new DataResult(true,"已删除" + count + "条记录");
     }

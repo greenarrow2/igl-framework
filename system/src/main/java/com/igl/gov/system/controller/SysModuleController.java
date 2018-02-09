@@ -25,7 +25,7 @@ public class SysModuleController {
     private SysModuleService sysModuleService;
 
     @ApiOperation("分页查询")
-    @RequestMapping(value = "pagelist",method = RequestMethod.GET)
+    @RequestMapping(value = "pagelist",method = RequestMethod.POST)
     public DataGridResult pageList(SysModuleParam param){
         return  sysModuleService.queryPageList(param);
     }
@@ -34,7 +34,7 @@ public class SysModuleController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id",value = "菜单id",dataType = "integer",paramType = "query",required = false)
     })
-    @RequestMapping(value = "tree",method = RequestMethod.GET)
+    @RequestMapping(value = "tree",method = RequestMethod.POST)
     public List<SysModuleTreeDto> tree(Integer id){
          return sysModuleService.queryModuleTree(id);
     }

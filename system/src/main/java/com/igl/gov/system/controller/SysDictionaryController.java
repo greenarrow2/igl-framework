@@ -26,15 +26,15 @@ public class SysDictionaryController {
     @Autowired
     private SysDictionaryService sysDictionaryService;
 
-    @ApiOperation(value = "数据字典",notes = "根据字典编号查询字典",httpMethod = "GET")
+    @ApiOperation(value = "数据字典",notes = "根据字典编号查询字典")
     @ApiImplicitParam(name = "dictNo",value = "字典编号",required = true,paramType = "query",dataType = "integer"
     )
-    @RequestMapping(value = "dictlistbydictno",method = RequestMethod.GET)
+    @RequestMapping(value = "dictlistbydictno",method = RequestMethod.POST)
     public List<SysDictSimpleDto> dictListByDictNo( Integer dictNo)   {
         return sysDictionaryService.querySysDictionaryByDictNo(dictNo);
     }
 
-    @ApiOperation(value = "字典保存",notes = "字典插入和修改",httpMethod = "POST")
+    @ApiOperation(value = "字典保存",notes = "字典插入和修改")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "dictCode",value = "字典编码",required = true,dataType = "integer",paramType = "form"),
             @ApiImplicitParam(name = "dictName",value = "字典名称",required = true,dataType = "string",paramType = "form"),
@@ -48,9 +48,9 @@ public class SysDictionaryController {
     }
 
     @ApiOperation(value = "删除字典",httpMethod = "DELETE")
-    @ApiImplicitParam(name = "ids",value = "删除字典字符串例如‘1,2,3,4’",required = true,dataType = "string",paramType = "path")
-    @RequestMapping(value = "delete/{ids}",method = RequestMethod.DELETE)
-    public DataResult delete(@PathVariable("ids") String ids) {
+    @ApiImplicitParam(name = "ids",value = "删除字典字符串例如‘1,2,3,4’",required = true,dataType = "string",paramType = "query")
+    @RequestMapping(value = "delete",method = RequestMethod.POST)
+    public DataResult delete(String ids) {
         String [] idarr = ids.split(",");
         return new DataResult(true,sysDictionaryService.delete(idarr));
     }
@@ -65,7 +65,7 @@ public class SysDictionaryController {
                     @ApiImplicitParam(name = "dictCode",value = "字典编码", paramType = "query",dataType = "integer"),
             }
     )
-    @RequestMapping(value = "pagelist",method = RequestMethod.GET)
+    @RequestMapping(value = "pagelist",method = RequestMethod.POST)
     public DataGridResult<SysDictionaryDto> pageList(Integer page,Integer rows,  Integer dictNo, String dictName, Integer dictCode){
         Map<String,Object> param = new HashMap<>();
            param.put("page",page);
