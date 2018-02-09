@@ -99,10 +99,12 @@
 	 </insert>
     <select id="query" parameterType="SysModuleParam" resultMap="sysModuleDto">
         SELECT
-        <include refid="sysModuleBase"/>
+        <include refid="sysModuleBase"/>,
+        c.dict_name as moduleTypeName
         FROM
         sys_module AS a INNER JOIN
         sys_module AS b ON(a.pid = b.id)
+        LEFT JOIN sys_dictionary AS c ON(a.module_type = c.dict_code)
         <include refid="queryWhere"/>
          Limit #{start} , #{offset}
     </select>
