@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.igl.gov.system.dao.SysRoleOrganizationDao">
+    <resultMap id="sysRoleOrganizationDto" type="com.igl.gov.system.dto.SysRoleOrganizationDto">
+        <id column="id" property="id"/>
+        <id property="roleId" column="role_id"/>
+        <id property="orgId" column="org_id"/>
+        <id property="orgCode" column="org_code"/>
+        <id property="roleName" column="role_name" />
+        <id property="orgName" column="org_name" />
+        <id property="roleTypeName" column="roleTypeName"/>
+        <id property="orgTypeName" column="orgTypeName"/>
+    </resultMap>
+    <insert id="insert" parameterType="SysRoleOrganization" keyProperty="id" useGeneratedKeys="true">
+		INSERT INTO sys_role_organization(role_id,org_id,create_time,create_by) VALUES (#{roleId},#{orgId},now(),
+		<choose>
+            <when test="createBy != null">
+                #{createBy}
+            </when>
+            <otherwise>
+                0
+            </otherwise>
+        </choose>)
+	 </insert>
+
+    <sql id="whereSql">
+        <where>
+            <if test="orgName != null and orgName != ''">
+                 c.org_name LIKE CONCAT('%',#{orgName},'%')
+            </if>
+            <if test="roleName != null and roleName != ''">
+                 b.role_name like CONCAT('%',#{roleName},'%')
+            </if>
+            <if test="orgCode != null and orgCode != ''">
+                 c.org_code like CONCAT('%',#{orgCode},'%')
+            </if>
+            <if test="roleType != null">
+                b.role_type = #{roleType}
+            </if>
+            <if test="orgType != null">
+                c.org_type = #{orgType}
+            </if>
+        </where>
+    </sql>
+
+    <select id="query" parameterType="SysRoleOrganizationParam" resultMap="sysRoleOrganizationDto">
+            SELECT
+            a.id,
+            a.role_id,
+            a.org_id,
+            b.role_name,
+            d.dict_name AS roleTypeName,
+            c.org_code,
+            c.org_name,
+            e.dict_name as orgTypeName
+            FROM
+            sys_role_organization AS a
+            INNER  JOIN sys_role AS b ON(a.role_id  = b.id)
+            INNER  JOIN sys_organization AS c ON (a.org_id = c.id)
+            INNER JOIN sys_dictionary AS d ON(b.role_type = d.dict_code)
+            INNER JOIN sys_dictionary AS e ON(c.org_type = e.dict_code)
+            <include refid="whereSql"/>
+            limit #{start},#{offset}
+    </select>
+
+    <select id="count" parameterType="SysRoleOrganizationParam" resultType="int">
+        SELECT
+        COUNT(1)
+        FROM
+        sys_role_organization AS a
+        INNER  JOIN sys_role AS b ON(a.role_id  = b.id)
+        INNER  JOIN sys_organization AS c ON (a.org_id = c.id)
+        <include refid="whereSql"/>
+    </select>
+
+    <delete id="delete" parameterType="map">
+        DELETE  from sys_role_organization where id in
+        <foreach collection="ids" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <select id="find" parameterType="integer" resultMap="sysRoleOrganizationDto" >
+            SELECT
+            a.id,
+            a.role_id,
+            a.org_id,
+            b.role_name,
+            d.dict_name AS roleTypeName,
+            c.org_code,
+            c.org_name,
+            c.org_type,
+            e.dict_name as orgTypeName
+            FROM
+            sys_role_organization AS a
+            INNER  JOIN sys_role AS b ON(a.role_id  = b.id)
+            INNER  JOIN sys_organization AS c ON (a.org_id = c.id)
+            INNER JOIN sys_dictionary AS d ON(b.role_type = d.dict_code)
+            INNER JOIN sys_dictionary AS e ON(c.org_type = e.dict_code)
+            WHERE a.id = #{id}
+    </select>
+
+    <select id="countRoleOrganization" parameterType="SysRoleOrganization" resultType="int" >
+        SELECT
+        count(1)
+        FROM
+        sys_role_organization
+        WHERE org_id = #{orgId}
+        and role_id = #{roleId}
+    </select>
+</mapper>

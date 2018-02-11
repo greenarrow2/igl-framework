@@ -5,16 +5,17 @@ import io.swagger.annotations.ApiModel;
 import lombok.Data;
 
 @Data
-@ApiModel("SysRoleOrganizationParam")
-public class SysRoleOrganizationParam extends PageParam {
+@ApiModel("SysRoleModuleParam")
+public class SysRoleModuleParam extends PageParam{
 
-    private String orgName;
-
-    private String orgCode;
+    private String moduleName;
 
     private String roleName;
 
-    private Integer orgType;
+    private String moduleCode;
 
     private Integer roleType;
+
+    private Integer moduleType;
+
 }

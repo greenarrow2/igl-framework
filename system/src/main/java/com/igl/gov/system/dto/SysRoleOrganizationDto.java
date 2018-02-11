@@ -21,4 +21,5 @@ public class SysRoleOrganizationDto implements Serializable {
 
     private String orgTypeName;
 
+    private String orgCode;
 }
