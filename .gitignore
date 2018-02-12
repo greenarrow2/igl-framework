@@ -10,3 +10,4 @@ admin/package-lock.json
 common/igl-framework-common.iml
 redis/igl-framework-redis.iml
 system/igl-framework-system.iml
+admin/node_modules
