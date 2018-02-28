@@ -4,7 +4,6 @@ import com.igl.gov.common.api.DataGridResult;
 import com.igl.gov.common.api.DataResult;
 import com.igl.gov.common.utils.JacksonUtils;
 import com.igl.gov.system.dto.SysRoleOrganizationDto;
-import com.igl.gov.system.entity.SysRoleModule;
 import com.igl.gov.system.entity.SysRoleOrganization;
 import com.igl.gov.system.param.SysRoleOrganizationParam;
 import com.igl.gov.system.service.SysRoleOrganizationService;
@@ -16,13 +15,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-
 import java.text.MessageFormat;
 import java.util.List;
 
 @Api(tags = "角色组织")
 @RestController
-@RequestMapping("/api/sysroleorganization/")
+@RequestMapping(value = "/api/sysroleorganization/")
 public class SysRoleOrganizationController {
 
     @Autowired
