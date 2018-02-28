@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import java.util.Properties;
 
 @Configuration
-public class MybatisConfiguration {
+public class MybatisConfig {
 
     //配置mybatis的分页插件pageHelper
  /*   @Bean

@@ -21,9 +21,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Configuration
-public class DruidConfiguration {
+public class DruidConfig {
 
-    private static final Logger logger = Logger.getLogger(DruidConfiguration.class);
+    private static final Logger logger = Logger.getLogger(DruidConfig.class);
 
     private static final String DB_PREFIX = "spring.datasource";
 
