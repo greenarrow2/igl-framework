@@ -22,7 +22,8 @@ const Dashboard = Mock.mock({
       color: color.purple,
       title: '用户管理',
 
-    }, {
+    },
+    {
       icon: 'message',
       color: color.red,
       title: '操作日志',

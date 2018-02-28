@@ -13,6 +13,7 @@ let database = [
 module.exports = {
 
   [`GET ${apiPrefix}/menus`] (req, res) {
+    console.log("======",res)
     res.status(200).json(database)
   },
 }

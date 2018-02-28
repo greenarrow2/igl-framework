@@ -61,7 +61,6 @@ export default {
 
   },
   effects: {
-
     * query ({
       payload,
     }, { call, put, select }) {
@@ -69,6 +68,7 @@ export default {
       const { locationPathname } = yield select(_ => _.app)
       if (success && user) {
         const { list } = yield call(menusService.query)
+        console.log("list list",list)
         const { permissions } = user
         let menu = list
         if (permissions.role === EnumRoleType.ADMIN || permissions.role === EnumRoleType.DEVELOPER) {

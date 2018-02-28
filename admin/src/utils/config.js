@@ -19,5 +19,6 @@ module.exports = {
     user: `${APIV1}/user/:id`,
     dashboard: `${APIV1}/dashboard`,
     menus: `${APIV1}/menus`,
+    // menus: `http://101.200.42.185:8001/api/sysmodule/pagelist`,
   },
 }
