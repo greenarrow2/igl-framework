@@ -87,7 +87,7 @@ public class SysRoleModuleController {
     @ApiOperation("根据角色获取权限列表（分步获取）")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "roleIds",value = "角色字符串，多个角色（1，2）",dataType = "integer",paramType = "query",required = true),
-            @ApiImplicitParam(name = "pid",value = "模块父id",dataType = "integer",paramType = "query",required = true),
+            @ApiImplicitParam(name = "pid",value = "模块父id",dataType = "integer",paramType = "query",required = false),
     })
     @RequestMapping(value = "queryrolemodulebyroleidandpid",method = RequestMethod.POST)
     public List<SysRoleModuleTreeDto> queryRoleModuleByRoleIdAndPid(String roleIds,Integer pid){
