@@ -16,11 +16,15 @@ const fetch = (options) => {
 
   switch (method.toLowerCase()) {
     case 'get':
-      return axios.get(url, {params: cloneData,})
+      let ret =  axios.get(url, {params: cloneData,})
+      console.log("get :",ret)
+      return ret
     case 'delete':
       return axios.delete(url, {data: cloneData,})
     case 'post':
-      return axios.post(url, cloneData)
+       ret =  axios.post(url, cloneData)
+      console.log("post :",ret)
+      return ret
     case 'put':
       return axios.put(url, cloneData)
     case 'patch':

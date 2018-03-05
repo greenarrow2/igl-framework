@@ -6,7 +6,6 @@ import { model } from 'models/common'
 export default modelExtend(model, {
   namespace: 'dashboard',
   state: {
-
     numbers: [],
   },
   subscriptions: {
@@ -22,7 +21,9 @@ export default modelExtend(model, {
     * query ({
       payload,
     }, { call, put }) {
-      const data = yield call(query, parse(payload))
+        console.log("dashboard")
+
+        const data = yield call(query, parse(payload))
       yield put({
         type: 'updateState',
         payload: data,
