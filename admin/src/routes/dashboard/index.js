@@ -7,13 +7,6 @@ import { Page } from 'components'
 import { NumberCard} from './components'
 import styles from './index.less'
 
-const bodyStyle = {
-  bodyStyle: {
-    height: 432,
-    background: '#fff',
-  },
-}
-
 function Dashboard ({ dashboard, loading }) {
   const {numbers} = dashboard
     console.log("numbers numbers",numbers)

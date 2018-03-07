@@ -19,12 +19,7 @@ export default {
       visit: [],
     },
     menu: [
-      {
-        id: 1,
-        icon: 'laptop',
-        name: 'Dashboard',
-        router: '/dashboard',
-      },
+
     ],
     menuPopoverVisible: false,
     siderFold: window.localStorage.getItem(`${prefix}siderFold`) === 'true',
@@ -61,14 +56,14 @@ export default {
 
   },
   effects: {
-
     * query ({
       payload,
     }, { call, put, select }) {
       const { success, user } = yield call(query, payload)
       const { locationPathname } = yield select(_ => _.app)
       if (success && user) {
-        const { list } = yield call(menusService.query)
+        const {list} = yield call(menusService.query,queryString.stringify({"roleIds":1}))
+          console.log("list list",list)
         const { permissions } = user
         let menu = list
         if (permissions.role === EnumRoleType.ADMIN || permissions.role === EnumRoleType.DEVELOPER) {
@@ -76,12 +71,14 @@ export default {
         } else {
           menu = list.filter((item) => {
             const cases = [
-              permissions.visit.includes(item.id),
+              !permissions.visit.includes(item.id),
               item.mpid ? permissions.visit.includes(item.mpid) || item.mpid === '-1' : true,
               item.bpid ? permissions.visit.includes(item.bpid) : true,
             ]
             return cases.every(_ => _)
           })
+            console.log("menu list",menu)
+
         }
         yield put({
           type: 'updateState',

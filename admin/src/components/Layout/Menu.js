@@ -7,11 +7,13 @@ import pathToRegexp from 'path-to-regexp'
 
 const Menus = ({ siderFold, darkTheme, navOpenKeys, changeOpenKeys, menu, location }) => {
   // 生成树状
-  const menuTree = arrayToTree(menu.filter(_ => _.mpid !== '-1'), 'id', 'mpid')
+  // const menuTree = arrayToTree(menu.filter(_ => _.mpid !== '-1'), 'id', 'mpid')
+  const menuTree = menu
   const levelMap = {}
 
   // 递归生成菜单
   const getMenus = (menuTreeN, siderFoldN) => {
+    console.log("menuTreeNmenuTreeN",menuTreeN)
     return menuTreeN.map((item) => {
       if (item.children) {
         if (item.mpid) {
@@ -29,11 +31,13 @@ const Menus = ({ siderFold, darkTheme, navOpenKeys, changeOpenKeys, menu, locati
           </Menu.SubMenu>
         )
       }
+      console.log("itemitem",item)
+      item.icon = "laptop"
       return (
-        <Menu.Item key={item.id}>
-          <Link to={item.route || '#'}>
+        <Menu.Item key={item.moduleId}>
+          <Link to="dashboard">
             {item.icon && <Icon type={item.icon} />}
-            {(!siderFoldN || !menuTree.includes(item)) && item.name}
+            {(!siderFoldN || !menuTree.includes(item)) && item.moduleName}
           </Link>
         </Menu.Item>
       )

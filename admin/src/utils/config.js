@@ -1,5 +1,6 @@
 const APIV1 = '/api/v1'
 const APIV2 = '/api/v2'
+const DOMIN = 'http://101.200.42.185:8001'
 
 module.exports = {
   name: 'Team Admin',
@@ -18,6 +19,7 @@ module.exports = {
     userLogout: `${APIV1}/user/logout`,
     user: `${APIV1}/user/:id`,
     dashboard: `${APIV1}/dashboard`,
-    menus: `${APIV1}/menus`,
+    // menus: `${APIV1}/menus`,
+    menus: `${DOMIN}/api/sysrolemodule/queryrolemodulebyroleid`,
   },
 }

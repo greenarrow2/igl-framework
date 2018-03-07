@@ -38,9 +38,9 @@ public class SysRoleOrganizationServiceImpl implements SysRoleOrganizationServic
 
     @Override
     public List<SysRoleOrganization> addList(List<SysRoleOrganization> roleOrganizations) {
-        for (SysRoleOrganization roleOrg: roleOrganizations
+        for (SysRoleOrganization roleOrganization: roleOrganizations
              ) {
-            add(roleOrg);
+            add(roleOrganization);
         }
         return roleOrganizations;
     }

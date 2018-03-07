@@ -1,7 +1,13 @@
 package com.igl.gov.common.utils;
 
+import org.apache.commons.codec.DecoderException;
+import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.codec.binary.Hex;
+
+import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+
 //http://tool.oschina.net/encrypt?type=2
 public class EncryptUtils {
 
@@ -58,17 +64,87 @@ public class EncryptUtils {
         return getSH1(StringUtils.getRandomString());
     }
 
+    public  static String getBase64Encode(String param){
+        if(StringUtils.isEmpty(param)){
+            return null;
+        }
+        String encode = null;
+        try {
+            encode =  Base64.encodeBase64String(param.getBytes("UTF-8"));
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        return encode;
+    }
+
+    public  static String getBase64Decode(String param){
+        if(StringUtils.isEmpty(param)){
+            return null;
+        }
+        String decode = null;
+        try {
+            decode = new String(Base64.decodeBase64(param),"UTF-8");
+        }  catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        return decode;
+    }
+    /**
+     * 得到hex值
+     * @param param
+     * @return
+     */
+   public  static String getHexEncode(String param){
+        if(StringUtils.isEmpty(param)){
+            return null;
+        }
+       String encode = null;
+       try {
+         encode =  Hex.encodeHexString(param.getBytes("UTF-8"));
+       } catch (UnsupportedEncodingException e) {
+           e.printStackTrace();
+       }
+       return encode;
+   }
+
+    public  static String getHexDecode(String param){
+        if(StringUtils.isEmpty(param)){
+            return null;
+        }
+        String decode = null;
+        try {
+            decode = new String(Hex.decodeHex(param),"UTF-8");
+        }   catch (DecoderException e) {
+            e.printStackTrace();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        return decode;
+    }
+
     public static void main(String[] args) {
-        System.out.println("args = [" + getSH1("geely@321") + "]");
-        System.out.println("args = [" + getRandomSH1String() + "]");
-        System.out.println("args = [" + getRandomSH1String() + "]");
-        System.out.println("args = [" + getRandomSH1String() + "]");
-        System.out.println("args = [" + getRandomSH1String() + "]");
-        System.out.println("args = [" + getRandomSH1String() + "]");
-        System.out.println("args = [" + getRandomSH1String() + "]");
-        System.out.println("args = [" + getRandomSH1String() + "]");
-        System.out.println("args = [" + getRandomSH1String() + "]");
-        System.out.println("args = [" + getRandomSH1String() + "]");
+
+
+            String code = "{\n" +
+                    "  \"id\": 1,\n" +
+                    "  \"mobile\": \"13325914005\",\n" +
+                    "  \"roleIds\": \"1\",\n" +
+                    "  \"orgIds\": \"1,2\",\n" +
+                    "}";
+            System.out.println(code);
+       /*   String  encode =  Base64Utils.encodeToString(code.getBytes("UTF-8"));
+            System.out.println(encode);
+         byte [] aa =  Base64Utils.decodeFromString(encode);
+            System.out.println(new String(aa,"UTF-8"));*/
+       String a1 =   getHexEncode(code);
+        System.out.println(a1);
+        String a2 = getHexDecode(a1);
+        System.out.println(a2);
+      /*  String a1 =   getBase64Encode(code);
+        System.out.println(a1);
+        String a2 = getBase64Decode(a1);
+        System.out.println(a2);*/
+
     }
 }
 

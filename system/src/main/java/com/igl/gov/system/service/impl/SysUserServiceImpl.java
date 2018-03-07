@@ -1,9 +1,7 @@
 package com.igl.gov.system.service.impl;
 
 
-import com.github.pagehelper.PageHelper;
 import com.igl.gov.common.api.DataGridResult;
-import com.igl.gov.common.utils.DtoToMapUtils;
 import com.igl.gov.common.utils.EncryptUtils;
 import com.igl.gov.common.utils.StringUtils;
 import com.igl.gov.redis.cache.RedisCache;
@@ -18,7 +16,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

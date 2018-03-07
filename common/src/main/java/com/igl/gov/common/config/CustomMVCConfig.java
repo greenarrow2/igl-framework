@@ -14,7 +14,7 @@ import java.util.List;
  * 配置解决中文乱码问题
  */
 @Configuration
-public class CustomMVCConfiguration extends WebMvcConfigurerAdapter {
+public class CustomMVCConfig extends WebMvcConfigurerAdapter {
     @Bean
     public HttpMessageConverter<String> responseBodyConverter() {
         StringHttpMessageConverter converter = new StringHttpMessageConverter(
