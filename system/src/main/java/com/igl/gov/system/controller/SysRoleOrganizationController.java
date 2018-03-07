@@ -2,6 +2,7 @@ package com.igl.gov.system.controller;
 
 import com.igl.gov.common.api.DataGridResult;
 import com.igl.gov.common.api.DataResult;
+import com.igl.gov.common.utils.JacksonUtils;
 import com.igl.gov.system.dto.SysRoleOrganizationDto;
 import com.igl.gov.system.entity.SysRoleOrganization;
 import com.igl.gov.system.param.SysRoleOrganizationParam;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.text.MessageFormat;
+import java.util.List;
 
 @Api(tags = "角色组织")
 @RestController
@@ -37,7 +39,7 @@ public class SysRoleOrganizationController {
         return new DataResult(true, MessageFormat.format("删除了{0}条数据",sysRoleOrganizationService.delete(ids)));
     }
 
-    @ApiOperation("删除")
+    @ApiOperation("绑定")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "roleId",value = "角色id",dataType = "integer",paramType = "form",required = true),
             @ApiImplicitParam(name = "orgId",value = "组织id",dataType = "integer",paramType = "form",required = true)
@@ -46,6 +48,17 @@ public class SysRoleOrganizationController {
     public DataResult bind(SysRoleOrganization roleOrganization){
         return new DataResult(true, sysRoleOrganizationService.add(roleOrganization) ,"绑定数据成功！");
     }
+
+    @ApiOperation("批量绑定")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "roleOrganizations",value = "roleOrganizations的json字符串对象",dataType = "string",paramType = "query",required = true),
+    })
+    @RequestMapping(value = "bindlist",method = RequestMethod.POST)
+    public DataResult bindList(String roleOrganizations){
+        List<SysRoleOrganization> roleOrganizationList = JacksonUtils.deserializeJsonToList(roleOrganizations,SysRoleOrganization.class);
+        return new DataResult(true, sysRoleOrganizationService.addList(roleOrganizationList) ,"绑定数据成功！");
+    }
+
 
     @ApiOperation("获取单条数据")
     @ApiImplicitParams({

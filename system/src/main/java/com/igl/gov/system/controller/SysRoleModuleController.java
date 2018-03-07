@@ -52,13 +52,13 @@ public class SysRoleModuleController {
     }
 
     @ApiOperation("批量绑定")
-   /* @ApiImplicitParams({
-            @ApiImplicitParam(name = "roleId",value = "角色id",dataType = "integer",paramType = "form",required = true),
-            @ApiImplicitParam(name = "moduleId",value = "模块id",dataType = "integer",paramType = "form",required = true)
-    })*/
+   @ApiImplicitParams({
+            @ApiImplicitParam(name = "roleModules",value = "roleModules的json字符串对象",dataType = "string",paramType = "query",required = true),
+    })
     @RequestMapping(value = "bindlist",method = RequestMethod.POST)
     public DataResult bindList(String roleModules){
         List<SysRoleModule> roleModuleList = JacksonUtils.deserializeJsonToList(roleModules,SysRoleModule.class);
+        sysRoleModuleService.addList(roleModuleList);
         return new DataResult(true,  null ,MessageFormat.format("绑定{0}条数据成功！",roleModuleList.size()));
     }
 

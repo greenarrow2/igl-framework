@@ -37,6 +37,15 @@ public class SysRoleOrganizationServiceImpl implements SysRoleOrganizationServic
     }
 
     @Override
+    public List<SysRoleOrganization> addList(List<SysRoleOrganization> roleOrganizations) {
+        for (SysRoleOrganization roleOrg: roleOrganizations
+             ) {
+            add(roleOrg);
+        }
+        return roleOrganizations;
+    }
+
+    @Override
     public SysRoleOrganizationDto find(Integer id) {
         return SysRoleOrganizationDao.find(id);
     }

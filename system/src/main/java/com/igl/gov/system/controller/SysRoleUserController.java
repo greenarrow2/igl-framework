@@ -38,7 +38,7 @@ public class SysRoleUserController {
         return new DataResult(true, MessageFormat.format("删除了{0}条数据",sysRoleUserService.delete(ids)));
     }
 
-    @ApiOperation("删除")
+    @ApiOperation("绑定")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "roleId",value = "角色id",dataType = "integer",paramType = "form",required = true),
             @ApiImplicitParam(name = "userId",value = "用户id",dataType = "integer",paramType = "form",required = true)
