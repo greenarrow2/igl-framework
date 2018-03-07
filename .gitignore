@@ -11,3 +11,8 @@ common/igl-framework-common.iml
 redis/igl-framework-redis.iml
 system/igl-framework-system.iml
 admin/node_modules
+/common/*.iml
+/rabbitmq/*.iml
+/system/*.iml
+/shiro/*.iml
+/redis/*.iml
