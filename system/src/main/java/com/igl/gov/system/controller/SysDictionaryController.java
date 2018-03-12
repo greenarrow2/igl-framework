@@ -18,7 +18,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Api(tags = "数据字典")
 @RestController
 @RequestMapping("/api/sysdict/")
 public class SysDictionaryController {
