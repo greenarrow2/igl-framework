@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Data
-@ApiModel("SysRoleModuleTreeDto")
 public class SysRoleModuleTreeDto {
 
     private Integer roleId;
@@ -17,6 +16,8 @@ public class SysRoleModuleTreeDto {
     private Integer moduleId;
 
     private String url;
+
+    private String icon;
 
     private String moduleCode;
 

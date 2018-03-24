@@ -4,6 +4,8 @@
     <resultMap id="sysModuleDto" type="com.igl.gov.system.dto.SysModuleDto">
         <id column="id" property="id"/>
         <id property="pid" column="pid" />
+        <id property="url" column="url"/>
+        <id property="icon" column="icon"/>
         <id property="moduleCode" column="module_code"/>
         <id property="moduleName" column="module_name"/>
         <id property="moduleType" column="module_type" />
@@ -15,6 +17,8 @@
     <resultMap id="sysModuleTreeDto" type="com.igl.gov.system.dto.SysModuleTreeDto">
         <id column="id" property="id"/>
         <id property="pid" column="pid" />
+        <id property="url" column="url"/>
+        <id property="icon" column="icon"/>
         <id property="moduleCode" column="module_code"/>
         <id property="moduleName" column="module_name"/>
         <id property="moduleType" column="module_type" />

@@ -6,6 +6,7 @@
         <id property="roleId" column="role_id"/>
         <id property="moduleId" column="module_id"/>
         <id property="url" column="url"/>
+        <id property="icon" column="icon"/>
         <id property="moduleCode" column="module_code"/>
         <id property="roleName" column="role_name" />
         <id property="roleTypeName" column="roleTypeName" />
@@ -17,6 +18,7 @@
         <id property="roleId" column="role_id"/>
         <id property="moduleId" column="module_id"/>
         <id property="url" column="url"/>
+        <id property="icon" column="icon"/>
         <id property="moduleCode" column="module_code"/>
         <id property="roleName" column="role_name" />
         <id property="moduleName" column="module_name" />
@@ -63,6 +65,7 @@
             b.role_name,
             d.dict_name AS roleTypeName,
             c.url,
+            c.icon,
             c.module_code,
             c.module_name,
             c.module_desc,
@@ -102,6 +105,7 @@
             b.role_name,
             d.dict_name AS roleTypeName,
             c.url,
+            c.icon,
             c.module_code,
             c.module_name,
             c.module_desc,
@@ -133,6 +137,7 @@
               c.module_type,
               c.module_desc,
               b.role_name,
+              c.icon,
               c.url
             FROM
                 sys_role_module a
