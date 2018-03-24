@@ -99,6 +99,39 @@ const arrayToTree = (array, id = 'id', pid = 'pid', children = 'children') => {
   return result
 }
 
+const treeToArray=(tree)=>{
+  let array=[]
+  tree.map((item) => {
+    if (item.roleModuleTrees.length>0) {
+      item.roleModuleTrees.map((childItem)=>{
+
+        if(childItem.roleModuleTrees.length>0){
+          childItem.roleModuleTrees.map((childChildItem)=>{
+            childChildItem.id=childChildItem.moduleId
+            childChildItem.name=childChildItem.moduleName
+            childChildItem.route=childChildItem.url
+            childChildItem.bpid=childItem.id
+            childChildItem.mpid=childItem.id
+            array.push(item)
+          })
+        }
+        childItem.children=childItem.roleModuleTrees
+        childItem.id=childItem.moduleId
+        childItem.name=item.moduleName
+        childItem.route=item.url
+        childItem.bpid=item.id
+        childItem.mpid=item.id
+        array.push(item)
+      })
+    }
+    item.children=item.roleModuleTrees
+    item.id=item.moduleId
+    item.name=item.moduleName
+    array.push(item)
+  })
+  return array;
+}
+
 module.exports = {
   config,
   request,
@@ -106,5 +139,6 @@ module.exports = {
   classnames,
   queryURL,
   queryArray,
+  treeToArray,
   arrayToTree,
 }
