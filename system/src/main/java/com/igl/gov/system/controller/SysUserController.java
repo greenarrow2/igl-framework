@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletRequest;
 
-@Api(tags = "用户")
 @RestController
 @RequestMapping("/api/sysuser/")
 public class SysUserController {

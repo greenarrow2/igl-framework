@@ -6,8 +6,9 @@ import com.igl.gov.common.utils.ResultUtils;
 import com.igl.gov.redis.cache.RedisCache;
 import com.igl.gov.redis.util.RedisConst;
 import com.igl.gov.system.dao.SysDictionaryDao;
-import com.igl.gov.system.dto.SysDictSimpleDto;
+import com.igl.gov.system.dto.SysDictionarySimpleDto;
 import com.igl.gov.system.dto.SysDictionaryDto;
+import com.igl.gov.system.dto.SysDictionaryTreeDto;
 import com.igl.gov.system.entity.SysDictionary;
 import com.igl.gov.system.service.SysDictionaryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,8 +29,8 @@ public class SysDictionaryServiceImpl  implements SysDictionaryService{
 
 
     @Override
-    public List<SysDictSimpleDto> querySysDictionaryByDictNo(Integer dictNo) {
-      List<SysDictSimpleDto> dictionaryDtos = redisCache.getListCache(RedisConst.SYS_DICT + dictNo,SysDictSimpleDto.class );
+    public List<SysDictionarySimpleDto> querySysDictionaryByDictNo(Integer dictNo) {
+      List<SysDictionarySimpleDto> dictionaryDtos = redisCache.getListCache(RedisConst.SYS_DICT + dictNo,SysDictionarySimpleDto.class );
        if(dictionaryDtos == null || dictionaryDtos.size() == 0){
            Map<String,Object> param = new HashMap<>(1);
            param.put("dictNo",dictNo);
@@ -67,10 +68,16 @@ public class SysDictionaryServiceImpl  implements SysDictionaryService{
     }
 
     @Override
-    public DataGridResult<SysDictionaryDto> queryPageList(Map<String, Object> param) {
-        DtoToMapUtils.paramToPageMap(param);
-        List<SysDictionaryDto> list = sysDictionaryDao.query(param);
-        int count = sysDictionaryDao.count(param);
-        return new DataGridResult<>(Integer.parseInt(param.get("page").toString()),Integer.parseInt(param.get("rows").toString()),count,list);
+    public List<SysDictionaryDto> queryList(Map<String, Object> param) {
+        return sysDictionaryDao.query(param);
+    }
+
+    @Override
+    public List<SysDictionaryTreeDto> querySysDictionaryTree(Integer moduleDictNo) {
+           List<SysDictionaryTreeDto>  dictionaryTreeDtos = sysDictionaryDao.queryModuleByNo(moduleDictNo);
+           for (SysDictionaryTreeDto dictionaryTreeDto : dictionaryTreeDtos){
+              dictionaryTreeDto.getDictNoList().addAll(sysDictionaryDao.queryDictByNo(dictionaryTreeDto.getModuleDictNo()));
+           }
+        return dictionaryTreeDtos;
     }
 }

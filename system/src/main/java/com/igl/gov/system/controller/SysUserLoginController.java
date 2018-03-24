@@ -17,7 +17,6 @@ import java.util.Map;
 //import org.springframework.amqp.rabbit.core.RabbitMessagingTemplate;
 
 
-@Api(tags = "用户登录操作")
 @RestController
 public class SysUserLoginController {
 

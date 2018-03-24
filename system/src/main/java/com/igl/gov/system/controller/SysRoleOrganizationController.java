@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 import java.text.MessageFormat;
 import java.util.List;
 
-@Api(tags = "角色组织")
 @RestController
 @RequestMapping(value = "/api/sysroleorganization/")
 public class SysRoleOrganizationController {

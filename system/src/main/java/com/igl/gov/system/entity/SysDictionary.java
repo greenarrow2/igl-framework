@@ -18,6 +18,10 @@ public class SysDictionary  implements Serializable {
 
     private String dictDesc;
 
+    private Integer moduleDictNo;
+
+    private String moduleDictDesc;
+
     private String remarks;
 
     private Date createTime;

@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.text.MessageFormat;
 
-@Api(tags = "角色用户")
 @RestController
 @RequestMapping("/api/sysroleuser/")
 public class SysRoleUserController {

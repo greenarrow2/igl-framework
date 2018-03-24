@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.RestController;
 import java.text.MessageFormat;
 import java.util.List;
 
-@Api(tags = "角色模块")
 @RestController
 @RequestMapping("/api/sysrolemodule/")
 public class SysRoleModuleController {

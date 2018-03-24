@@ -8,10 +8,12 @@
         <id property="dictNo" column="dict_no"/>
         <id property="dictDesc" column="dict_desc"/>
         <id property="remarks" column="remarks"/>
+        <id property="moduleDictNo" column="module_dict_no"/>
+        <id property="moduleDictDesc" column="module_dict_desc" />
     </resultMap>
     <insert id="insert" parameterType="SysDictionary" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO sys_dictionary(dict_code,dict_name,dict_no,dict_desc,remarks,create_time,create_by,version)
-		VALUES (#{dictCode},#{dictName},#{dictNo},#{dictDesc},#{remarks},now(),#{createBy},0)
+        INSERT INTO sys_dictionary(dict_code,dict_name,dict_no,dict_desc,remarks,create_time,create_by,version,module_dict_no,module_dict_desc)
+		VALUES (#{dictCode},#{dictName},#{dictNo},#{dictDesc},#{remarks},now(),#{createBy},0,#{moduleDictNo},#{moduleDictDesc})
 	 </insert>
 
     <update id="update" parameterType="SysDictionary">
@@ -21,6 +23,8 @@
             dict_name = #{dictName},
             dict_no = #{dictNo},
             dict_desc = #{dictDesc},
+            module_dict_no = #{moduleDictNo},
+            module_dict_desc = #{moduleDictDesc},
             remarks = #{remarks},
             update_time = now(),
             update_by = #{updateBy},
@@ -31,7 +35,7 @@
         </where>
     </update>
 
-    <select id="querySysDictionaryByDictNo" parameterType="java.util.Map" resultType="SysDictSimpleDto">
+    <select id="querySysDictionaryByDictNo" parameterType="java.util.Map" resultType="com.igl.gov.system.dto.SysDictionarySimpleDto">
              SELECT dict_code as dictCode,dict_name as dictName FROM sys_dictionary
              WHERE
              dict_no = #{dictNo}
@@ -43,7 +47,7 @@
     </foreach>
     </delete>
 
-    <select id="countSysDictByDictCode" parameterType="integer" resultType="int">
+    <select id="countSysDictByDictCode" parameterType="integer" resultType="java.lang.Integer">
         SELECT  count(1) FROM sys_dictionary WHERE dict_code = #{dictCode}
     </select>
     
@@ -53,6 +57,8 @@
         dict_name,
         dict_no,
         dict_desc,
+        module_dict_no,
+        module_dict_desc,
         remarks
     </sql>
     
@@ -69,13 +75,12 @@
                 AND  dict_name like  CONCAT('%',trim(#{dictName}),'%')
             </if>
             <if test="dictNo != null">
-                AND  dict_code = #{dictNo}
+                AND  dict_no = #{dictNo}
             </if>
         </where>
-        limit #{start},#{offset}
     </select>
 
-    <select id="count" parameterType="map" resultType="int" >
+    <select id="count" parameterType="map" resultType="java.lang.Integer" >
         SELECT
         count(1)
         FROM
@@ -91,6 +96,18 @@
                 AND  dict_code = #{dictNo}
             </if>
         </where>
+    </select>
+    
+    <select id="queryModuleByNo" parameterType="java.lang.Integer" resultType="com.igl.gov.system.dto.SysDictionaryTreeDto">
+          SELECT DISTINCT module_dict_no moduleDictNo,module_dict_desc moduleDictDesc  FROM sys_dictionary
+          <where>
+            <if test="moduleDictNo != null">
+                module_dict_no = #{moduleDictNo}
+            </if>
+          </where>
+    </select>
+    <select id="queryDictByNo" parameterType="java.lang.Integer" resultType="com.igl.gov.system.dto.SysDictionaryNoDto">
+        SELECT DISTINCT dict_no DictNo,dict_desc dictDesc  FROM sys_dictionary WHERE  module_dict_no = #{moduleDictNo}
     </select>
 
 </mapper>

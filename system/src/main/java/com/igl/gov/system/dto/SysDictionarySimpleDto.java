@@ -2,7 +2,7 @@ package com.igl.gov.system.dto;
 
 import java.io.Serializable;
 
-public class SysDictSimpleDto implements Serializable {
+public class SysDictionarySimpleDto implements Serializable {
 
     private Integer dictCode;
 
