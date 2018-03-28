@@ -18,7 +18,7 @@ module.exports = {
     userLogin: `${APIV1}/user/login`,
     userLogout: `${APIV1}/user/logout`,
     user: `${APIV1}/user/:id`,
-    dashboard: `${APIV1}/dashboard`,
+    dashboard: `${DOMIN}/api/sysrolemodule/queryrolemodulebyroleidandpid`,
     // menus: `${APIV1}/menus`,
     menus: `${DOMIN}/api/sysrolemodule/queryrolemodulebyroleid`,
   },

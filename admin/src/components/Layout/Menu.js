@@ -38,7 +38,7 @@ console.log("menumenumenumenu",menuTree)
       return (
         <Menu.Item key={item.moduleId}>
           <Link to="dashboard">
-            {item.icon && <Icon type={item.icon} />}
+            {/*{item.icon && <Icon type={item.icon} />}*/}
             {(!siderFoldN || !menuTree.includes(item)) && item.moduleName}
           </Link>
         </Menu.Item>

@@ -103,9 +103,11 @@ const treeToArray=(tree)=>{
   let array=[]
   tree.map((item) => {
     if (item.roleModuleTrees.length>0) {
+      item.children=item.roleModuleTrees
       item.roleModuleTrees.map((childItem)=>{
 
         if(childItem.roleModuleTrees.length>0){
+          childItem.children=childItem.roleModuleTrees
           childItem.roleModuleTrees.map((childChildItem)=>{
             childChildItem.id=childChildItem.moduleId
             childChildItem.name=childChildItem.moduleName
@@ -115,7 +117,7 @@ const treeToArray=(tree)=>{
             array.push(item)
           })
         }
-        childItem.children=childItem.roleModuleTrees
+
         childItem.id=childItem.moduleId
         childItem.name=item.moduleName
         childItem.route=item.url
@@ -124,7 +126,7 @@ const treeToArray=(tree)=>{
         array.push(item)
       })
     }
-    item.children=item.roleModuleTrees
+
     item.id=item.moduleId
     item.name=item.moduleName
     array.push(item)
