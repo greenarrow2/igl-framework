@@ -10,16 +10,16 @@ import Filter from './Filter'
 import Modal from './Modal'
 
 
-const User = ({
+const Dic = ({
     location, dispatch, user, loading,
 }) => {
     location.query = queryString.parse(location.search)
-    console.log("dddddddd location.query",location.query)
-    const { query, pathname } = location
-    const {
-        list, pagination, currentItem, modalVisible, modalType, isMotion, selectedRowKeys,
-    } = user
 
+    const { query, pathname } = location
+
+    const {
+        list, pagination, currentItem, modalVisible, modalType, selectedRowKeys,
+    } = user
     const handleRefresh = (newQuery) => {
         dispatch(routerRedux.push({
             pathname,
@@ -34,7 +34,7 @@ const User = ({
         item: modalType === 'create' ? {} : currentItem,
         visible: modalVisible,
         maskClosable: false,
-        confirmLoading: loading.effects['user/update'],
+        confirmLoading: loading.effects['dicItem/update'],
         title: `${modalType === 'create' ? '创建菜单' : '更新菜单'}`,
         wrapClassName: 'vertical-center-modal',
         onOk (data) {
@@ -51,7 +51,7 @@ const User = ({
     }
 
     const listProps = {
-        dataSource: list,
+        dataSource: list.list,
         loading: loading.effects['user/query'],
         pagination,
         location,
@@ -151,11 +151,11 @@ const User = ({
     )
 }
 
-User.propTypes = {
+Dic.propTypes = {
     user: PropTypes.object,
     location: PropTypes.object,
     dispatch: PropTypes.func,
     loading: PropTypes.object,
 }
 
-export default connect(({ user, loading }) => ({ user, loading }))(User)
+export default connect(({ user, loading }) => ({ user, loading }))(Dic)

@@ -1,19 +1,19 @@
 import { request, config } from 'utils'
 
 const { api } = config
-const { user } = api
+const { dashboard } = api
 
 export async function query (params) {
   return request({
-    url: user,
-    method: 'get',
+    url: dashboard,
+    method: 'post',
     data: params,
   })
 }
 
 export async function create (params) {
   return request({
-    url: user.replace('/:id', ''),
+    url: dashboard.replace('/:id', ''),
     method: 'post',
     data: params,
   })
@@ -21,7 +21,7 @@ export async function create (params) {
 
 export async function remove (params) {
   return request({
-    url: user,
+    url: dashboard,
     method: 'delete',
     data: params,
   })
@@ -29,7 +29,7 @@ export async function remove (params) {
 
 export async function update (params) {
   return request({
-    url: user,
+    url: dashboard,
     method: 'patch',
     data: params,
   })
