@@ -14,7 +14,6 @@ const Dic = ({
     location, dispatch, user, loading,
 }) => {
     location.query = queryString.parse(location.search)
-
     const { query, pathname } = location
 
     const {
@@ -34,7 +33,7 @@ const Dic = ({
         item: modalType === 'create' ? {} : currentItem,
         visible: modalVisible,
         maskClosable: false,
-        confirmLoading: loading.effects['dicItem/update'],
+        confirmLoading: loading.effects['user/update'],
         title: `${modalType === 'create' ? '创建菜单' : '更新菜单'}`,
         wrapClassName: 'vertical-center-modal',
         onOk (data) {
@@ -112,9 +111,7 @@ const Dic = ({
                     modalType: 'create',
                 },
             })
-                .then(() => handleRefresh)
-        }
-
+        },
     }
 
     const handleDeleteItems = () => {
