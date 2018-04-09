@@ -1,15 +1,19 @@
 package com.igl.gov.system.controller;
 
-import com.igl.gov.common.api.DataGridResult;
 import com.igl.gov.common.api.DataResult;
-import com.igl.gov.system.dto.SysDictionarySimpleDto;
 import com.igl.gov.system.dto.SysDictionaryDto;
+import com.igl.gov.system.dto.SysDictionarySimpleDto;
 import com.igl.gov.system.dto.SysDictionaryTreeDto;
 import com.igl.gov.system.entity.SysDictionary;
 import com.igl.gov.system.service.SysDictionaryService;
-import io.swagger.annotations.*;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
 import java.util.List;
@@ -31,15 +35,8 @@ public class SysDictionaryController {
     }
 
     @ApiOperation(value = "字典保存",notes = "字典插入和修改")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "dictCode",value = "字典编码",required = true,dataType = "integer",paramType = "form"),
-            @ApiImplicitParam(name = "dictName",value = "字典名称",required = true,dataType = "string",paramType = "form"),
-            @ApiImplicitParam(name = "dictNo",value = "字典编号",required = true,dataType = "string",paramType = "form"),
-            @ApiImplicitParam(name = "dictDesc",value = "字典描述",dataType = "string",paramType = "form"),
-            @ApiImplicitParam(name = "remarks",value = "备注",dataType = "string",paramType = "form")
-    })
-    @RequestMapping(value = "save",method = RequestMethod.POST)
-    public DataResult save(@ModelAttribute("dictionary") SysDictionary dictionary)   {
+    @RequestMapping(value = "save", method = RequestMethod.POST)
+    public DataResult save( @RequestBody SysDictionary dictionary)   {
         return new DataResult(sysDictionaryService.save(dictionary));
     }
 
