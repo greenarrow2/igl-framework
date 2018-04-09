@@ -5,6 +5,8 @@ import com.igl.gov.common.api.DataListResult;
 import com.igl.gov.common.api.DataResult;
 import com.igl.gov.common.api.DatasResult;
 
+import java.util.List;
+
 /**
  * 前端返回结果响应工具
  *  fancr
@@ -15,29 +17,20 @@ public class ResponseUtils {
 
     }
 
-    public static DataResult success(DataResult result){
-         if(result == null){
-             result = new DataResult(true);
-         }
-        return result;
+    public static DataResult success(Object obj){
+        return new DataResult(true,obj);
     }
 
-    public static DatasResult success(DatasResult result){
-        if(result == null){
-            result = new DatasResult(true);
-        }
-        return result;
+    public static DatasResult success(Object obj,String message){
+        return new DatasResult(true,obj,message);
     }
 
-    public static DataListResult success(DataListResult result){
-        if(result == null){
-            result = new DataListResult(true);
-        }
-        return result;
+    public static DataListResult success(List items){
+        return new DataListResult(true,items);
     }
 
-    public static DataGridResult success(DataGridResult result){
-        return result;
+    public static DataListResult success(List items,String message){
+        return new DataListResult(true,items,message);
     }
 
     public static DataResult error(DataResult result){
