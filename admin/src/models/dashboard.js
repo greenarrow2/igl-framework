@@ -3,10 +3,10 @@ import modelExtend from 'dva-model-extend'
 import queryString from 'query-string'
 import { config } from 'utils'
 import { create, remove, update } from 'services/dashboard'
-import * as usersService from 'services/users'
+import * as dicService from 'services/dashboard'
 import { pageModel } from './common'
 
-const { query } = usersService
+const { query } = dicService
 const { prefix } = config
 
 export default modelExtend(pageModel, {
@@ -17,13 +17,12 @@ export default modelExtend(pageModel, {
     modalVisible: false,
     modalType: 'create',
     selectedRowKeys: [],
-    isMotion: window.localStorage.getItem(`${prefix}userIsMotion`) === 'true',
   },
 
   subscriptions: {
     setup ({ dispatch, history }) {
       history.listen((location) => {
-        if (location.pathname === '/user') {
+        if (location.pathname === '/dashboard') {
           const payload = queryString.parse(location.search) || { page: 1, pageSize: 10 }
           dispatch({
             type: 'query',
@@ -42,11 +41,11 @@ export default modelExtend(pageModel, {
         yield put({
           type: 'querySuccess',
           payload: {
-            list: data.data,
+            list: data,
             pagination: {
               current: Number(payload.page) || 1,
               pageSize: Number(payload.pageSize) || 10,
-              total: data.total,
+              total: 20 //data.total,
             },
           },
         })
@@ -64,7 +63,7 @@ export default modelExtend(pageModel, {
     },
 
     * multiDelete ({ payload }, { call, put }) {
-      const data = yield call(usersService.remove, payload)
+      const data = yield call(dicService.remove, payload)
       if (data.success) {
         yield put({ type: 'updateState', payload: { selectedRowKeys: [] } })
       } else {
@@ -102,11 +101,6 @@ export default modelExtend(pageModel, {
 
     hideModal (state) {
       return { ...state, modalVisible: false }
-    },
-
-    switchIsMotion (state) {
-      window.localStorage.setItem(`${prefix}userIsMotion`, !state.isMotion)
-      return { ...state, isMotion: !state.isMotion }
     },
 
   },

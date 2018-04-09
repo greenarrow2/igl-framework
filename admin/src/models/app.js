@@ -57,6 +57,7 @@ export default {
   },
   effects: {
     * query ({
+
       payload,
     }, { call, put, select }) {
       const { success, user } = yield call(query, payload)

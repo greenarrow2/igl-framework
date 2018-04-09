@@ -1,8 +1,10 @@
 package com.igl.gov.system.controller;
 
 import com.igl.gov.common.api.DataGridResult;
+import com.igl.gov.common.api.DataResult;
 import com.igl.gov.common.utils.ResponseUtils;
 import com.igl.gov.system.dto.SysModuleTreeDto;
+import com.igl.gov.system.entity.SysModule;
 import com.igl.gov.system.param.SysModuleParam;
 import com.igl.gov.system.service.SysModuleService;
 import io.swagger.annotations.Api;
@@ -36,5 +38,14 @@ public class SysModuleController {
     @RequestMapping(value = "tree",method = RequestMethod.POST)
     public List<SysModuleTreeDto> tree(Integer id){
          return sysModuleService.queryModuleTree(id);
+    }
+
+    @ApiOperation("保存")
+    @ApiImplicitParams({
+
+    })
+    @RequestMapping(value = "save",method = RequestMethod.POST)
+    public DataResult save(SysModule param){
+      return  ResponseUtils.success(sysModuleService.save(param));
     }
 }

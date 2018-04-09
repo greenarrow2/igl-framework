@@ -10,16 +10,15 @@ import Filter from './Filter'
 import Modal from './Modal'
 
 
-const User = ({
+const Dic = ({
     location, dispatch, user, loading,
 }) => {
     location.query = queryString.parse(location.search)
-    console.log("dddddddd location.query",location.query)
     const { query, pathname } = location
-    const {
-        list, pagination, currentItem, modalVisible, modalType, isMotion, selectedRowKeys,
-    } = user
 
+    const {
+        list, pagination, currentItem, modalVisible, modalType, selectedRowKeys,
+    } = user
     const handleRefresh = (newQuery) => {
         dispatch(routerRedux.push({
             pathname,
@@ -51,7 +50,7 @@ const User = ({
     }
 
     const listProps = {
-        dataSource: list,
+        dataSource: list.list,
         loading: loading.effects['user/query'],
         pagination,
         location,
@@ -112,9 +111,7 @@ const User = ({
                     modalType: 'create',
                 },
             })
-                .then(() => handleRefresh)
-        }
-
+        },
     }
 
     const handleDeleteItems = () => {
@@ -151,11 +148,11 @@ const User = ({
     )
 }
 
-User.propTypes = {
+Dic.propTypes = {
     user: PropTypes.object,
     location: PropTypes.object,
     dispatch: PropTypes.func,
     loading: PropTypes.object,
 }
 
-export default connect(({ user, loading }) => ({ user, loading }))(User)
+export default connect(({ user, loading }) => ({ user, loading }))(Dic)

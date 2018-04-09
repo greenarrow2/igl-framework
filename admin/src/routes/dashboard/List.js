@@ -67,7 +67,6 @@ const List = ({
       {...tableProps}
       className={classnames(styles.table, { [styles.motion]: isMotion })}
       bordered
-      scroll={{ x: 1250 }}
       columns={columns}
       simple
       rowKey={record => record.id}

@@ -2,17 +2,18 @@ package com.igl.gov.system.controller;
 
 import com.igl.gov.common.api.DataGridResult;
 import com.igl.gov.common.api.DataResult;
-import com.igl.gov.common.utils.ResponseUtils;
 import com.igl.gov.system.dto.SysOrganizationDto;
 import com.igl.gov.system.entity.SysOrganization;
 import com.igl.gov.system.param.SysOrganizationParam;
 import com.igl.gov.system.service.SysOrganizationService;
-import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/sysorg/")

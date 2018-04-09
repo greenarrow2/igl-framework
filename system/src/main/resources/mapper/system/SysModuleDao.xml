@@ -91,7 +91,7 @@
 
     </select>
     <insert id="insert" parameterType="SysModule" keyProperty="id" useGeneratedKeys="true">
-		INSERT INTO sys_module(pid,org_code,org_name,org_type,state,create_time,create_by,version) VALUES (#{pid},#{orgCode},#{orgName},#{orgType},#{state},now(),
+		INSERT INTO sys_module(pid,url,icon,module_code,module_name,module_desc,module_type,state,create_time,create_by,version) VALUES (#{pid},#{url},#{icon},#{moduleCode},#{moduleName},#{moduleDesc},#{moduleType},#{state},now(),
 		<choose>
             <when test="createBy != null">
                 #{createBy}
@@ -156,17 +156,29 @@
     <update id="update" parameterType="SysModule">
         UPDATE sys_module
         <set>
-            <if test="orgCode != null and orgCode != ''">
-                 org_code = #{orgCode},
+            <if test="pid != null">
+                pid = #{pid},
             </if>
-            <if test="orgName != null and orgName != ''">
-                  org_name = #{orgName},
+            <if test="url != null and url != ''">
+                url = #{url},
+            </if>
+            <if test="icon != null and icon != ''">
+                icon = #{icon},
+            </if>
+            <if test="moduleCode != null and moduleCode != ''">
+                module_code = #{moduleCode},
+            </if>
+            <if test="moduleName != null and moduleName != ''">
+                module_name = #{moduleName},
+            </if>
+            <if test="moduleDesc != null and moduleDesc != ''">
+                module_desc = #{moduleDesc},
             </if>
             <if test="state != null">
                   state = #{state},
             </if>
-            <if test="orgType != null">
-                   org_type = #{orgType},
+            <if test="moduleType != null">
+                module_type = #{moduleType},
             </if>
             update_by = #{updateBy},
             update_time = now(),

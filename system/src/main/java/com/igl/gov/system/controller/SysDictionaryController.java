@@ -12,6 +12,7 @@ import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -40,11 +41,11 @@ public class SysDictionaryController {
             @ApiImplicitParam(name = "remarks",value = "备注",dataType = "string",paramType = "form")
     })
     @RequestMapping(value = "save",method = RequestMethod.POST)
-    public DataResult save(@ModelAttribute("dictionary") SysDictionary dictionary)   {
+    public DataResult save(@ModelAttribute("dictionary") SysDictionary dictionary, HttpServletRequest request)   {
         return new DataResult(sysDictionaryService.save(dictionary));
     }
 
-    @ApiOperation(value = "删除字典",httpMethod = "DELETE")
+    @ApiOperation(value = "删除字典",httpMethod = "POST")
     @ApiImplicitParam(name = "ids",value = "删除字典字符串例如‘1,2,3,4’",required = true,dataType = "string",paramType = "query")
     @RequestMapping(value = "delete",method = RequestMethod.POST)
     public DataResult delete(String ids) {

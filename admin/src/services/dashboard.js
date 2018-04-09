@@ -1,19 +1,20 @@
 import { request, config } from 'utils'
 
 const { api } = config
-const { user } = api
+const { dicList,dicSave,dicDelete } = api
 
 export async function query (params) {
   return request({
-    url: user,
-    method: 'get',
+    url: dicList,
+    method: 'post',
     data: params,
   })
 }
 
 export async function create (params) {
+  console.log("protocolprotocol",params)
   return request({
-    url: user.replace('/:id', ''),
+    url: dicSave,
     method: 'post',
     data: params,
   })
@@ -21,16 +22,16 @@ export async function create (params) {
 
 export async function remove (params) {
   return request({
-    url: user,
-    method: 'delete',
+    url: dicDelete,
+    method: 'post',
     data: params,
   })
 }
 
 export async function update (params) {
   return request({
-    url: user,
-    method: 'patch',
+    url: dicSave,
+    method: 'post',
     data: params,
   })
 }
