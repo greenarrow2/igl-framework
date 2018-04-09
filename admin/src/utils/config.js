@@ -20,7 +20,7 @@ module.exports = {
     user: `${APIV1}/user/:id`,
     dicList: `${DOMIN}/api/sysdict/list`,
     dicSave: `${DOMIN}/api/sysdict/save`,
-    dicDelete: `${DOMIN}/api/sysdict/list`,
+    dicDelete: `${DOMIN}/api/sysdict/delete`,
     // menus: `${APIV1}/menus`,
     menus: `${DOMIN}/api/sysrolemodule/queryrolemodulebyroleid`,
   },
