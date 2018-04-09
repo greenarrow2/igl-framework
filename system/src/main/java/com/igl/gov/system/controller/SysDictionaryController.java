@@ -47,7 +47,7 @@ public class SysDictionaryController {
         return new DataResult(sysDictionaryService.save(dictionary));
     }
 
-    @ApiOperation(value = "删除字典",httpMethod = "DELETE")
+    @ApiOperation(value = "删除字典",httpMethod = "POST")
     @ApiImplicitParam(name = "ids",value = "删除字典字符串例如‘1,2,3,4’",required = true,dataType = "string",paramType = "query")
     @RequestMapping(value = "delete",method = RequestMethod.POST)
     public DataResult delete(String ids) {
