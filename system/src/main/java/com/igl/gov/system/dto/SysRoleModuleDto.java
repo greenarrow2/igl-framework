@@ -17,6 +17,8 @@ public class SysRoleModuleDto implements Serializable {
 
     private String url;
 
+    private String icon;
+
     private String moduleName;
 
     private String moduleCode;

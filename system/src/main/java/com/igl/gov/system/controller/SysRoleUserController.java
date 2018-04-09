@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.text.MessageFormat;
 
-@Api(tags = "角色用户")
 @RestController
 @RequestMapping("/api/sysroleuser/")
 public class SysRoleUserController {
@@ -38,7 +37,7 @@ public class SysRoleUserController {
         return new DataResult(true, MessageFormat.format("删除了{0}条数据",sysRoleUserService.delete(ids)));
     }
 
-    @ApiOperation("删除")
+    @ApiOperation("绑定")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "roleId",value = "角色id",dataType = "integer",paramType = "form",required = true),
             @ApiImplicitParam(name = "userId",value = "用户id",dataType = "integer",paramType = "form",required = true)

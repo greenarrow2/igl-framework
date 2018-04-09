@@ -2,16 +2,20 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Menu, Icon } from 'antd'
 import { Link } from 'react-router-dom'
-import { arrayToTree, queryArray } from 'utils'
+import { arrayToTree,treeToArray, queryArray } from 'utils'
 import pathToRegexp from 'path-to-regexp'
 
 const Menus = ({ siderFold, darkTheme, navOpenKeys, changeOpenKeys, menu, location }) => {
   // 生成树状
-  const menuTree = arrayToTree(menu.filter(_ => _.mpid !== '-1'), 'id', 'mpid')
+  // const menuTree = arrayToTree(menu.filter(_ => _.mpid !== '-1'), 'id', 'mpid')
+  const menuTree = menu
   const levelMap = {}
-
+  const menuArr = treeToArray(menu)
+console.log("treeToArraytreeToArraytreeToArray",menuArr)
+console.log("menumenumenumenu",menuTree)
   // 递归生成菜单
   const getMenus = (menuTreeN, siderFoldN) => {
+    console.log("menuTreeNmenuTreeN",menuTreeN)
     return menuTreeN.map((item) => {
       if (item.children) {
         if (item.mpid) {
@@ -29,11 +33,13 @@ const Menus = ({ siderFold, darkTheme, navOpenKeys, changeOpenKeys, menu, locati
           </Menu.SubMenu>
         )
       }
+      console.log("itemitem",item)
+      item.icon = "laptop"
       return (
-        <Menu.Item key={item.id}>
-          <Link to={item.route || '#'}>
-            {item.icon && <Icon type={item.icon} />}
-            {(!siderFoldN || !menuTree.includes(item)) && item.name}
+        <Menu.Item key={item.moduleId}>
+          <Link to="dashboard">
+            {/*{item.icon && <Icon type={item.icon} />}*/}
+            {(!siderFoldN || !menuTree.includes(item)) && item.moduleName}
           </Link>
         </Menu.Item>
       )

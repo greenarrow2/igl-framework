@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 
-@Api(tags = "角色")
 @RestController
 @RequestMapping("/api/sysrole/")
 public class SysRoleController {

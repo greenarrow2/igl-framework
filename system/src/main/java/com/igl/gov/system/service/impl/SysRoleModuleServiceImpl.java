@@ -70,7 +70,7 @@ public class SysRoleModuleServiceImpl implements SysRoleModuleService {
         Map<String,Object> param = new HashMap<>();
             param.put("roleIds",roleIds);
            List<SysRoleModuleTreeDto> roleModuleTreeDtos =  sysRoleModuleDao.queryRoleModuleByRoleIdAndModuleId(param);
-            queryModuleChildren(roleIds,roleModuleTreeDtos,true);
+            queryModuleChildren(roleIds,roleModuleTreeDtos,false);
         return roleModuleTreeDtos;
     }
 

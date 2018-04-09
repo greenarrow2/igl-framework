@@ -17,21 +17,13 @@
     <update id="update" parameterType="SysUserInfo">
         UPDATE sys_user_info
         <set>
-            <if test="username != null and username != ''">
-                user_name = #{username},
+            <if test="gender != null">
+                gender = #{gender},
             </if>
-            <if test="name != null and name !=''">
-                name = #{name},
+            <if test="update_by != null">
+                update_by = #{updateBy},
             </if>
-            <if test="mobile != null and mobile != ''">
-                mobile = #{mobile},
-            </if>
-            <if test="password!= null and password != ''">
-                password = #{password},
-            </if>
-            <if test="email != null and email != ''">
-                email = #{email},
-            </if>
+            update_time = now(),
             version = version + 1
         </set>
         <where>

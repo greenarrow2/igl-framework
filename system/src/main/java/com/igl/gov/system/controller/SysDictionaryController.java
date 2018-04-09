@@ -2,23 +2,19 @@ package com.igl.gov.system.controller;
 
 import com.igl.gov.common.api.DataGridResult;
 import com.igl.gov.common.api.DataResult;
-import com.igl.gov.system.dto.SysDictSimpleDto;
+import com.igl.gov.system.dto.SysDictionarySimpleDto;
 import com.igl.gov.system.dto.SysDictionaryDto;
+import com.igl.gov.system.dto.SysDictionaryTreeDto;
 import com.igl.gov.system.entity.SysDictionary;
 import com.igl.gov.system.service.SysDictionaryService;
 import io.swagger.annotations.*;
-import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
-import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Api(tags = "数据字典")
 @RestController
 @RequestMapping("/api/sysdict/")
 public class SysDictionaryController {
@@ -30,7 +26,7 @@ public class SysDictionaryController {
     @ApiImplicitParam(name = "dictNo",value = "字典编号",required = true,paramType = "query",dataType = "integer"
     )
     @RequestMapping(value = "dictlistbydictno",method = RequestMethod.POST)
-    public List<SysDictSimpleDto> dictListByDictNo( Integer dictNo)   {
+    public List<SysDictionarySimpleDto> dictListByDictNo(Integer dictNo)   {
         return sysDictionaryService.querySysDictionaryByDictNo(dictNo);
     }
 
@@ -55,24 +51,32 @@ public class SysDictionaryController {
         return new DataResult(true,sysDictionaryService.delete(idarr));
     }
 
-    @ApiOperation(value = "数据字典分页查询")
+    @ApiOperation(value = "数据字典查询")
     @ApiImplicitParams(
             {
-                    @ApiImplicitParam(name = "page",value = "当前页",required = true,paramType = "query",dataType = "integer"),
-                    @ApiImplicitParam(name = "rows",value = "条数",required = true,paramType = "query",dataType = "integer"),
                     @ApiImplicitParam(name = "dictNo",value = "字典编号", paramType = "query",dataType = "integer"),
                     @ApiImplicitParam(name = "dictName",value = "字典名称", paramType = "query",dataType = "string"),
                     @ApiImplicitParam(name = "dictCode",value = "字典编码", paramType = "query",dataType = "integer"),
+                    @ApiImplicitParam(name = "moduleDictNo",value = "模块字典编号", paramType = "query",dataType = "integer"),
             }
     )
-    @RequestMapping(value = "pagelist",method = RequestMethod.POST)
-    public DataGridResult<SysDictionaryDto> pageList(Integer page,Integer rows,  Integer dictNo, String dictName, Integer dictCode){
+    @RequestMapping(value = "list",method = RequestMethod.POST)
+    public List<SysDictionaryDto> list(Integer dictNo, String dictName, Integer dictCode,Integer moduleDictNo){
         Map<String,Object> param = new HashMap<>();
-           param.put("page",page);
-           param.put("rows",rows);
            param.put("dictNo",dictNo);
            param.put("dictName",dictName);
            param.put("dictCode",dictCode);
-        return sysDictionaryService.queryPageList(param);
+        return sysDictionaryService.queryList(param);
+    }
+
+    @ApiOperation(value = "左侧字典菜单")
+    @ApiImplicitParams(
+            {
+                    @ApiImplicitParam(name = "moduleDictNo",value = "模块字典编号", paramType = "query",dataType = "integer"),
+            }
+    )
+    @RequestMapping(value = "querydicttree",method = RequestMethod.POST)
+    public List<SysDictionaryTreeDto> queryDictTree(Integer moduleDictNo){
+        return sysDictionaryService.querySysDictionaryTree(moduleDictNo);
     }
 }

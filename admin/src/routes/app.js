@@ -29,8 +29,12 @@ const App = ({
   let { pathname } = location
   pathname = pathname.startsWith('/') ? pathname : `/${pathname}`
   const { iconFontJS, iconFontCSS, logo } = config
-  const current = menu.filter(item => pathToRegexp(item.route || '').exec(pathname))
-  const hasPermission = current.length ? permissions.visit.includes(current[0].id) : false
+  console.log("current pathname",pathname)
+  const current = menu.filter(item => pathToRegexp(item.url || '').exec(pathname))
+  console.log("current current",current)
+  const hasPermission = true // current.length ? permissions.visit.includes(current[0].moduleId) : false todo:权限验证
+  console.log("menu hasPermission",hasPermission)
+
   const { href } = window.location
 
   if (lastHref !== href) {

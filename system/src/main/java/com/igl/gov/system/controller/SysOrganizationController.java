@@ -14,7 +14,6 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-@Api(tags = "组织",value = "组织操作增删改查")
 @RestController
 @RequestMapping("/api/sysorg/")
 public class SysOrganizationController {

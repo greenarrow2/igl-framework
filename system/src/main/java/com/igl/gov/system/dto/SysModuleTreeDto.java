@@ -15,6 +15,8 @@ public class SysModuleTreeDto implements Serializable {
 
     private String url;
 
+    private String icon;
+
     private String moduleCode;
 
     private String moduleName;

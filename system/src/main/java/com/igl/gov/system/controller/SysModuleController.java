@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@Api(tags = "模块")
 @RestController
 @RequestMapping("/api/sysmodule/")
 public class SysModuleController {
