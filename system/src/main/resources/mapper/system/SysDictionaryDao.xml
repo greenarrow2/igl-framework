@@ -109,5 +109,47 @@
     <select id="queryDictByNo" parameterType="java.lang.Integer" resultType="com.igl.gov.system.dto.SysDictionaryNoDto">
         SELECT DISTINCT dict_no DictNo,dict_desc dictDesc  FROM sys_dictionary WHERE  module_dict_no = #{moduleDictNo}
     </select>
+    
+    <select id="queryPage" parameterType="SysDictionaryParam" resultMap="sysDictionaryDto">
+        SELECT
+        <include refid="sysDictionaryBase"/>
+        FROM
+        sys_dictionary
+        <where>
+            <if test="dictCode != null">
+                AND  dict_code = #{dictCode}
+            </if>
+            <if test="dictName != null and dictName !=''">
+                AND  dict_name like  CONCAT('%',trim(#{dictName}),'%')
+            </if>
+            <if test="dictNo != null">
+                AND  dict_no = #{dictNo}
+            </if>
+            <if test="moduleDictNo != null">
+                AND module_dict_no = #{moduleDictNo}
+            </if>
+        </where>
+        Limit #{start} , #{offset}
+    </select>
 
+    <select id="countForPage" parameterType="SysDictionaryParam" resultType="int">
+        SELECT
+        count(1)
+        FROM
+        sys_dictionary
+        <where>
+            <if test="dictCode != null">
+                AND  dict_code = #{dictCode}
+            </if>
+            <if test="dictName != null and dictName !=''">
+                AND  dict_name like  CONCAT('%',trim(#{dictName}),'%')
+            </if>
+            <if test="dictNo != null">
+                AND  dict_no = #{dictNo}
+            </if>
+            <if test="moduleDictNo != null">
+                AND module_dict_no = #{moduleDictNo}
+            </if>
+        </where>
+    </select>
 </mapper>

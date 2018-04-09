@@ -10,6 +10,7 @@ import com.igl.gov.system.dto.SysDictionarySimpleDto;
 import com.igl.gov.system.dto.SysDictionaryDto;
 import com.igl.gov.system.dto.SysDictionaryTreeDto;
 import com.igl.gov.system.entity.SysDictionary;
+import com.igl.gov.system.param.SysDictionaryParam;
 import com.igl.gov.system.service.SysDictionaryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -79,5 +80,10 @@ public class SysDictionaryServiceImpl  implements SysDictionaryService{
               dictionaryTreeDto.getDictNoList().addAll(sysDictionaryDao.queryDictByNo(dictionaryTreeDto.getModuleDictNo()));
            }
         return dictionaryTreeDtos;
+    }
+
+    @Override
+    public DataGridResult<SysDictionaryDto> pageList(SysDictionaryParam param) {
+        return new DataGridResult<>(param,sysDictionaryDao.countForPage(param),sysDictionaryDao.queryPage(param));
     }
 }
