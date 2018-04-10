@@ -19,7 +19,7 @@ const List = ({
       onEditItem(record)
     } else if (e.key === '2') {
       confirm({
-        title: 'Are you sure delete this record?',
+        title: '你确定要删除该条记录吗?',
         onOk () {
           onDeleteItem(record.id)
         },
@@ -45,9 +45,17 @@ const List = ({
       dataIndex: 'dictDesc',
       key: 'dictDesc',
     }, {
+      title: '模块编号',
+      dataIndex: 'moduleDictNo',
+      key: 'moduleDictNo',
+    }, {
+      title: '模块描述',
+      dataIndex: 'moduleDictDesc',
+      key: 'moduleDictDesc',
+    }, {
       title: '备注',
-      dataIndex: 'mark',
-      key: 'mark',
+      dataIndex: 'remarks',
+      key: 'remarks',
     }, {
       title: '操作',
       key: 'operation',
