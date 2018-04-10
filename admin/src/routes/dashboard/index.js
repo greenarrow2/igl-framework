@@ -34,7 +34,7 @@ const Dic = ({
         visible: modalVisible,
         maskClosable: false,
         confirmLoading: loading.effects['user/update'],
-        title: `${modalType === 'create' ? '创建菜单' : '更新菜单'}`,
+        title: `${modalType === 'create' ? '创建数据字典' : '更新数据字典'}`,
         wrapClassName: 'vertical-center-modal',
         onOk (data) {
             dispatch({

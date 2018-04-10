@@ -78,11 +78,36 @@ const modal = ({
         <FormItem label="字典描述" hasFeedback {...formItemLayout}>
           {getFieldDecorator('dictDesc', {
             initialValue: item.dictDesc,
+            rules: [
+              {
+                required: true,
+              },
+            ],
+          })(<Input />)}
+        </FormItem>
+        <FormItem label="模块编号" hasFeedback {...formItemLayout}>
+          {getFieldDecorator('moduleDictNo', {
+            initialValue: item.moduleDictNo,
+            rules: [
+              {
+                required: true,
+              },
+            ],
+          })(<Input />)}
+        </FormItem>
+        <FormItem label="模块描述" hasFeedback {...formItemLayout}>
+          {getFieldDecorator('moduleDictDesc', {
+            initialValue: item.moduleDictDesc,
+            rules: [
+              {
+                required: true,
+              },
+            ],
           })(<Input />)}
         </FormItem>
         <FormItem label="备注" hasFeedback {...formItemLayout}>
-          {getFieldDecorator('mark', {
-            initialValue: item.mark,
+          {getFieldDecorator('remarks', {
+            initialValue: item.remarks,
           })(<Input />)}
         </FormItem>
       </Form>
