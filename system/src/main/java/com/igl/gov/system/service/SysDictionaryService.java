@@ -6,6 +6,7 @@ import com.igl.gov.system.dto.SysDictionarySimpleDto;
 import com.igl.gov.system.dto.SysDictionaryDto;
 import com.igl.gov.system.dto.SysDictionaryTreeDto;
 import com.igl.gov.system.entity.SysDictionary;
+import com.igl.gov.system.param.SysDictionaryParam;
 
 import java.util.List;
 import java.util.Map;
@@ -31,5 +32,7 @@ public interface SysDictionaryService {
     public List<SysDictionaryDto> queryList(Map<String,Object> param);
 
     public List<SysDictionaryTreeDto> querySysDictionaryTree(Integer moduleDictNo);
+
+    public DataGridResult<SysDictionaryDto> pageList(SysDictionaryParam param);
 
 }

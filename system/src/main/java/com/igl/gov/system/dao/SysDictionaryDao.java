@@ -5,6 +5,7 @@ import com.igl.gov.system.dto.SysDictionaryDto;
 import com.igl.gov.system.dto.SysDictionaryNoDto;
 import com.igl.gov.system.dto.SysDictionaryTreeDto;
 import com.igl.gov.system.entity.SysDictionary;
+import com.igl.gov.system.param.SysDictionaryParam;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -30,5 +31,9 @@ public interface SysDictionaryDao {
     List<SysDictionaryTreeDto> queryModuleByNo(Integer moduleDictNo);
 
     List<SysDictionaryNoDto> queryDictByNo(Integer moduleDictNo);
+
+    List<SysDictionaryDto> queryPage(SysDictionaryParam param);
+
+    int countForPage(SysDictionaryParam param);
 
 }

@@ -5,6 +5,7 @@ import com.igl.gov.system.dto.SysDictionaryDto;
 import com.igl.gov.system.dto.SysDictionarySimpleDto;
 import com.igl.gov.system.dto.SysDictionaryTreeDto;
 import com.igl.gov.system.entity.SysDictionary;
+import com.igl.gov.system.param.SysDictionaryParam;
 import com.igl.gov.system.service.SysDictionaryService;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -75,5 +77,12 @@ public class SysDictionaryController {
     @RequestMapping(value = "querydicttree",method = RequestMethod.POST)
     public List<SysDictionaryTreeDto> queryDictTree(Integer moduleDictNo){
         return sysDictionaryService.querySysDictionaryTree(moduleDictNo);
+    }
+
+
+    @ApiOperation(value = "分页查询")
+    @RequestMapping(value = "pagelist",method = RequestMethod.POST)
+    public DataGridResult<SysDictionaryDto>  pageList(SysDictionaryParam param){
+        return sysDictionaryService.pageList(param);
     }
 }

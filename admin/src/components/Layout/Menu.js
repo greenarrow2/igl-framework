@@ -33,12 +33,12 @@ console.log("menumenumenumenu",menuTree)
           </Menu.SubMenu>
         )
       }
-      console.log("itemitem",item)
-      item.icon = "laptop"
+      console.log("itemitem",item);
+     /* item.icon = "laptop"*/
       return (
         <Menu.Item key={item.moduleId}>
           <Link to="dashboard">
-            {/*{item.icon && <Icon type={item.icon} />}*/}
+            {item.icon && <Icon type={item.icon} />}
             {(!siderFoldN || !menuTree.includes(item)) && item.moduleName}
           </Link>
         </Menu.Item>
