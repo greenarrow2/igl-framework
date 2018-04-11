@@ -21,6 +21,7 @@ const fetch = (options) => {
       return ret
     case 'delete':
       return axios.delete(url, {data: cloneData,})
+      console.log("delete :",{data: cloneData,})
     case 'post':
        ret =  axios.post(url, cloneData)
       console.log("post :",ret)

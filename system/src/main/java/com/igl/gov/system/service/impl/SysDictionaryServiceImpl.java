@@ -1,13 +1,12 @@
 package com.igl.gov.system.service.impl;
 
 import com.igl.gov.common.api.DataGridResult;
-import com.igl.gov.common.utils.DtoToMapUtils;
 import com.igl.gov.common.utils.ResultUtils;
 import com.igl.gov.redis.cache.RedisCache;
 import com.igl.gov.redis.util.RedisConst;
 import com.igl.gov.system.dao.SysDictionaryDao;
-import com.igl.gov.system.dto.SysDictionarySimpleDto;
 import com.igl.gov.system.dto.SysDictionaryDto;
+import com.igl.gov.system.dto.SysDictionarySimpleDto;
 import com.igl.gov.system.dto.SysDictionaryTreeDto;
 import com.igl.gov.system.entity.SysDictionary;
 import com.igl.gov.system.param.SysDictionaryParam;
@@ -66,6 +65,11 @@ public class SysDictionaryServiceImpl  implements SysDictionaryService{
         Map<String,Object> param = new HashMap<>(1);
          param.put("ids",ids);
         return sysDictionaryDao.delete(param);
+    }
+
+    @Override
+    public int delete(String id) {
+        return 0;
     }
 
     @Override

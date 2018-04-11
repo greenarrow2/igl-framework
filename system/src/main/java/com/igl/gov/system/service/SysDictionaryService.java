@@ -27,7 +27,9 @@ public interface SysDictionaryService {
      */
     public ResultUtils save(SysDictionary dictionary);
 
-    public int delete(String [] ids);
+    public int delete(String[] ids);
+
+    public int delete(String id);
 
     public List<SysDictionaryDto> queryList(Map<String,Object> param);
 

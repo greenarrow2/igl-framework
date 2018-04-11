@@ -5,10 +5,10 @@ import io.swagger.annotations.ApiModelProperty;
 public class PageParam {
 
     @ApiModelProperty(name = "page",value = "页码",required = true,dataType = "integer")
-    private Integer page;
+    private Integer page=1;
 
-    @ApiModelProperty(name = "rows",value = "分页长度",required = true,dataType = "integer")
-    private Integer rows;
+    @ApiModelProperty(name = "pageSize",value = "分页长度",required = true,dataType = "integer")
+    private Integer pageSize=20;
 
     private Integer start;
 
@@ -22,12 +22,12 @@ public class PageParam {
         this.page = page;
     }
 
-    public Integer getRows() {
-        return rows;
+    public Integer getPageSize() {
+        return pageSize;
     }
 
-    public void setRows(Integer rows) {
-        this.rows = rows;
+    public void setPageSize(Integer pageSize) {
+        this.pageSize = pageSize;
     }
 
     public Integer getStart() {
@@ -35,12 +35,12 @@ public class PageParam {
             this.start = 0;
             return start;
         }
-        this.start = (this.page - 1) * this.rows;
+        this.start = (this.page - 1) * this.pageSize;
         return start;
     }
 
     public Integer getOffset() {
-        offset = rows;
+        offset = pageSize;
         return offset;
     }
 

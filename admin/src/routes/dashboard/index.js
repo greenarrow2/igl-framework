@@ -50,7 +50,7 @@ const Dic = ({
     }
 
     const listProps = {
-        dataSource: list.list,
+        dataSource: list,
         loading: loading.effects['user/query'],
         pagination,
         location,
@@ -102,6 +102,7 @@ const Dic = ({
             handleRefresh({
                 ...value,
                 page: 1,
+                pageSize: 20,
             })
         },
         onAdd () {

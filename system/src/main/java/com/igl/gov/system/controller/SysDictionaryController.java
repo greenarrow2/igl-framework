@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
@@ -38,16 +39,22 @@ public class SysDictionaryController {
 
     @ApiOperation(value = "字典保存",notes = "字典插入和修改")
     @RequestMapping(value = "save", method = RequestMethod.POST)
-    public DataResult save( @RequestBody SysDictionary dictionary)   {
+    public DataResult save(@RequestBody SysDictionary dictionary)   {
         return new DataResult(sysDictionaryService.save(dictionary));
     }
 
-    @ApiOperation(value = "删除字典",httpMethod = "POST")
-    @ApiImplicitParam(name = "ids",value = "删除字典字符串例如‘1,2,3,4’",required = true,dataType = "string",paramType = "query")
-    @RequestMapping(value = "delete",method = RequestMethod.POST)
-    public DataResult delete(String ids) {
-        String [] idarr = ids.split(",");
-        return new DataResult(true,sysDictionaryService.delete(idarr));
+    @ApiOperation(value = "删除字典")
+    @RequestMapping(value = "delete",method = RequestMethod.DELETE)
+    public DataResult delete(@RequestBody String[] ids,@RequestParam String id) {
+
+        return new DataResult(true,sysDictionaryService.delete(ids));
+    }
+
+    @ApiOperation(value = "删除字典")
+    @RequestMapping(value = "multiDelete",method = RequestMethod.DELETE)
+    public DataResult multiDelete(@RequestBody String[] ids) {
+
+        return new DataResult(true,sysDictionaryService.delete(ids));
     }
 
     @ApiOperation(value = "数据字典查询")
@@ -82,7 +89,7 @@ public class SysDictionaryController {
 
     @ApiOperation(value = "分页查询")
     @RequestMapping(value = "pagelist",method = RequestMethod.POST)
-    public DataGridResult<SysDictionaryDto> pageList(SysDictionaryParam param){
+    public DataGridResult<SysDictionaryDto> pageList(@RequestBody SysDictionaryParam param){
         return sysDictionaryService.pageList(param);
     }
 }

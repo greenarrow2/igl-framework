@@ -53,7 +53,7 @@ public class DataGridResult<T> {
         super();
         PageParam param = (PageParam)object;
         this.currentPage = param.getPage();
-        this.pageSize = param.getRows();
+        this.pageSize = param.getPageSize();
         this.totalNum = totalNum;
         this.items = items;
         this.totalPage = (this.totalNum + this.pageSize - 1) / this.pageSize;

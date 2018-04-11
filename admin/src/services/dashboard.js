@@ -1,7 +1,7 @@
 import { request, config } from 'utils'
 
 const { api } = config
-const { dicList,dicSave,dicDelete } = api
+const { dicList,dicSave,dicDelete,dicMultiDelete } = api
 
 export async function query (params) {
   return request({
@@ -12,7 +12,6 @@ export async function query (params) {
 }
 
 export async function create (params) {
-  console.log("protocolprotocol",params)
   return request({
     url: dicSave,
     method: 'post',
@@ -21,9 +20,19 @@ export async function create (params) {
 }
 
 export async function remove (params) {
+  console.log("delete ddd",params)
   return request({
     url: dicDelete,
-    method: 'post',
+    method: 'delete',
+    data: params,
+  })
+}
+
+export async function multiRemove (params) {
+  console.log("multiRemove ddd",params)
+  return request({
+    url: dicMultiDelete,
+    method: 'delete',
     data: params,
   })
 }
