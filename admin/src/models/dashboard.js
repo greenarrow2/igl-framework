@@ -41,11 +41,11 @@ export default modelExtend(pageModel, {
         yield put({
           type: 'querySuccess',
           payload: {
-            list: data,
+            list: data.items,
             pagination: {
-              current: Number(payload.page) || 1,
-              pageSize: Number(payload.pageSize) || 10,
-              total: 20 //data.total,
+              current: Number(data.currentPage) || 1,
+              pageSize: Number(data.pageSize) || 20,
+              total: data.totalNum,
             },
           },
         })
@@ -63,7 +63,7 @@ export default modelExtend(pageModel, {
     },
 
     * multiDelete ({ payload }, { call, put }) {
-      const data = yield call(dicService.remove, payload)
+      const data = yield call(dicService.multiRemove, payload)
       if (data.success) {
         yield put({ type: 'updateState', payload: { selectedRowKeys: [] } })
       } else {
