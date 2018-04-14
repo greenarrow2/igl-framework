@@ -20,8 +20,8 @@ const fetch = (options) => {
       console.log("get :",ret)
       return ret
     case 'delete':
-      return axios.delete(url, {data: cloneData,})
       console.log("delete :",{data: cloneData,})
+      return axios.delete(url, {data: cloneData,})
     case 'post':
        ret =  axios.post(url, cloneData)
       console.log("post :",ret)

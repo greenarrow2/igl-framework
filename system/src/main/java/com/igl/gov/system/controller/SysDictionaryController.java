@@ -45,9 +45,9 @@ public class SysDictionaryController {
 
     @ApiOperation(value = "删除字典")
     @RequestMapping(value = "delete",method = RequestMethod.DELETE)
-    public DataResult delete(@RequestBody String[] ids,@RequestParam String id) {
+    public DataResult delete(@RequestParam String id) {
 
-        return new DataResult(true,sysDictionaryService.delete(ids));
+        return new DataResult(true,sysDictionaryService.delete(id));
     }
 
     @ApiOperation(value = "删除字典")

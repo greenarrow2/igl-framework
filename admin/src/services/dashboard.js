@@ -20,7 +20,6 @@ export async function create (params) {
 }
 
 export async function remove (params) {
-  console.log("delete ddd",params)
   return request({
     url: dicDelete,
     method: 'delete',

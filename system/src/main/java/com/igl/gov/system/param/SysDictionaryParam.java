@@ -16,4 +16,6 @@ public class SysDictionaryParam extends PageParam {
 
     private Integer moduleDictNo;
 
+    private String[] createTime;
+
 }
