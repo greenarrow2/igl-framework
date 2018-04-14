@@ -15,7 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
@@ -45,16 +44,20 @@ public class SysDictionaryController {
 
     @ApiOperation(value = "删除字典")
     @RequestMapping(value = "delete",method = RequestMethod.DELETE)
-    public DataResult delete(@RequestParam String id) {
-
-        return new DataResult(true,sysDictionaryService.delete(id));
+    public DataResult delete(@RequestBody Map<String,String> idDic) {
+        if(idDic!=null){
+            return new DataResult(true,sysDictionaryService.delete(idDic.get("id")));
+        }
+        return new DataResult(false,"参数错误");
     }
 
     @ApiOperation(value = "删除字典")
     @RequestMapping(value = "multiDelete",method = RequestMethod.DELETE)
-    public DataResult multiDelete(@RequestBody String[] ids) {
-
-        return new DataResult(true,sysDictionaryService.delete(ids));
+    public DataResult multiDelete(@RequestBody Map<String,String[]> ids) {
+        if(ids!=null){
+            return new DataResult(true,sysDictionaryService.delete(ids.get("ids")));
+        }
+        return new DataResult(false,"参数错误");
     }
 
     @ApiOperation(value = "数据字典查询")

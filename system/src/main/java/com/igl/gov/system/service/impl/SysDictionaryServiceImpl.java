@@ -69,7 +69,9 @@ public class SysDictionaryServiceImpl  implements SysDictionaryService{
 
     @Override
     public int delete(String id) {
-        return 0;
+        Map<String,Object> param = new HashMap<>(1);
+        param.put("ids",id);
+        return sysDictionaryDao.delete(param);
     }
 
     @Override
