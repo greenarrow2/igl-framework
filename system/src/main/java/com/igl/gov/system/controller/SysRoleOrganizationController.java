@@ -19,7 +19,7 @@ import java.text.MessageFormat;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/api/sysroleorganization/")
+@RequestMapping(value = "/api/sysroleorg/")
 public class SysRoleOrganizationController {
 
     @Autowired
