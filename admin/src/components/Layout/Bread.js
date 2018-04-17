@@ -11,6 +11,9 @@ const Bread = ({ menu, location }) => {
   let pathArray = []
   let current
   for (let index in menu) {
+    console.log("currentcurrent1 ",index)
+    console.log("currentcurrent2 ",location.pathname)
+    console.log("currentcurrent3 ",menu[index].route)
     if (menu[index].route && pathToRegexp(menu[index].route).exec(location.pathname)) {
       current = menu[index]
       break

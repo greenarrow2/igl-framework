@@ -23,7 +23,9 @@ module.exports = {
     dicSave: `${DOMIN}/api/sysdict/save`,
     dicDelete: `${DOMIN}/api/sysdict/delete`,
     dicMultiDelete: `${DOMIN}/api/sysdict/multiDelete`,
-    // menus: `${APIV1}/menus`,
+    organizationList: `${DOMIN}//api/sysorg/pagelist`,
+    organizationDel: `${DOMIN}//api/sysorg/delete`,
+    organizationSave: `${DOMIN}//api/sysorg/save`,
     menus: `${DOMIN}/api/sysrolemodule/queryrolemodulebyroleid`,
   },
 }

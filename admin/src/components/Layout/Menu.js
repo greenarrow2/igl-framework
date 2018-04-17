@@ -11,11 +11,8 @@ const Menus = ({ siderFold, darkTheme, navOpenKeys, changeOpenKeys, menu, locati
   const menuTree = menu
   const levelMap = {}
   const menuArr = treeToArray(menu)
-console.log("treeToArraytreeToArraytreeToArray",menuArr)
-console.log("menumenumenumenu",menuTree)
   // 递归生成菜单
   const getMenus = (menuTreeN, siderFoldN) => {
-    console.log("menuTreeNmenuTreeN",menuTreeN)
     return menuTreeN.map((item) => {
       if (item.children) {
         if (item.mpid) {
@@ -33,11 +30,9 @@ console.log("menumenumenumenu",menuTree)
           </Menu.SubMenu>
         )
       }
-      console.log("itemitem",item);
-     /* item.icon = "laptop"*/
       return (
         <Menu.Item key={item.moduleId}>
-          <Link to="dashboard">
+          <Link to={item.url || '#'} >
             {item.icon && <Icon type={item.icon} />}
             {(!siderFoldN || !menuTree.includes(item)) && item.moduleName}
           </Link>
