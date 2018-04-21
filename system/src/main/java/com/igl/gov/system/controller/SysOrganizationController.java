@@ -41,7 +41,7 @@ public class SysOrganizationController {
     })
     @RequestMapping(value = "save",method = RequestMethod.POST)
     @ResponseBody
-    public DataResult save(SysOrganization organization){
+    public DataResult save(@RequestBody SysOrganization organization){
           return new DataResult(true,sysOrganizationService.save(organization));
     }
 
@@ -50,7 +50,7 @@ public class SysOrganizationController {
             @ApiImplicitParam(name = "ids",value = "组织编号",dataType = "string",required = true,paramType = "query"),
     })
     @RequestMapping(value = "delete",method = RequestMethod.POST)
-    public DataResult delete(String ids){
+    public DataResult delete(@RequestBody String ids){
         Integer count = sysOrganizationService.delete(ids);
        return new DataResult(true,"已删除" + count + "条记录");
     }

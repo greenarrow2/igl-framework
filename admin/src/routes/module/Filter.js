@@ -79,13 +79,13 @@ const Filter = ({
   return (
     <Row gutter={24}>
       <Col {...ColProps} xl={{ span: 4 }} md={{ span: 8 }}>
-      {getFieldDecorator('name', { initialValue: name })(<Search placeholder="姓名" onSearch={handleSubmit} />)}
+      {getFieldDecorator('moduleCode', { initialValue: name })(<Search placeholder="模块编码" onSearch={handleSubmit} />)}
     </Col>
       <Col {...ColProps} xl={{ span: 4 }} md={{ span: 8 }}>
-        {getFieldDecorator('mobile', { initialValue: mobile })(<Search placeholder="手机" onSearch={handleSubmit} />)}
+        {getFieldDecorator('moduleName', { initialValue: mobile })(<Search placeholder="模块名称" onSearch={handleSubmit} />)}
       </Col>
       <Col {...ColProps} xl={{ span: 4 }} md={{ span: 8 }}>
-        {getFieldDecorator('email', { initialValue: email })(<Search placeholder="邮箱" onSearch={handleSubmit} />)}
+        {getFieldDecorator('moduleType', { initialValue: email })(<Search placeholder="模块类型" onSearch={handleSubmit} />)}
       </Col>
       <Col {...TwoColProps} xl={{ span: 10 }} md={{ span: 12 }} sm={{ span: 12 }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap' }}>

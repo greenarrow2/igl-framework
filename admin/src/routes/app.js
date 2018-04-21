@@ -6,13 +6,16 @@ import PropTypes from 'prop-types'
 import pathToRegexp from 'path-to-regexp'
 import { connect } from 'dva'
 import { Loader, MyLayout } from 'components'
-import { BackTop, Layout } from 'antd'
+import { BackTop, Layout,LocaleProvider } from 'antd'
 import { classnames, config } from 'utils'
 import { Helmet } from 'react-helmet'
 import { withRouter } from 'dva/router'
 import Error from './error'
 import '../themes/index.less'
 import './app.less'
+
+import zh_CN from 'antd/lib/locale-provider/zh_CN'
+import 'moment/locale/zh-cn'
 
 const { Content, Footer, Sider } = Layout
 const { Header, Bread, styles } = MyLayout
@@ -95,6 +98,7 @@ const App = ({
   }
 
   return (
+    <LocaleProvider locale={zh_CN}>
     <div>
       <Loader fullScreen spinning={loading.effects['app/query']} />
       <Helmet>
@@ -126,6 +130,7 @@ const App = ({
         </Layout>
       </Layout>
     </div>
+    </LocaleProvider>
   )
 }
 

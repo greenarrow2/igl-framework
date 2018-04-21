@@ -32,7 +32,7 @@ public class SysDictionaryController {
     @ApiImplicitParam(name = "dictNo",value = "字典编号",required = true,paramType = "query",dataType = "integer"
     )
     @RequestMapping(value = "dictlistbydictno",method = RequestMethod.POST)
-    public List<SysDictionarySimpleDto> dictListByDictNo(Integer dictNo)   {
+    public List<SysDictionarySimpleDto> dictListByDictNo(@RequestBody Integer dictNo)   {
         return sysDictionaryService.querySysDictionaryByDictNo(dictNo);
     }
 
@@ -70,7 +70,7 @@ public class SysDictionaryController {
             }
     )
     @RequestMapping(value = "list",method = RequestMethod.POST)
-    public List<SysDictionaryDto> list(Integer dictNo, String dictName, Integer dictCode,Integer moduleDictNo){
+    public List<SysDictionaryDto> list(@RequestBody Integer dictNo,@RequestBody String dictName,@RequestBody Integer dictCode){
         Map<String,Object> param = new HashMap<>();
            param.put("dictNo",dictNo);
            param.put("dictName",dictName);

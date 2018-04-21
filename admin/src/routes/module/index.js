@@ -11,14 +11,14 @@ import Modal from './Modal'
 
 
 const Dic = ({
-    location, dispatch, user, loading,
+    location, dispatch, module, loading,
 }) => {
     location.query = queryString.parse(location.search)
     const { query, pathname } = location
 
     const {
         list, pagination, currentItem, modalVisible, modalType, selectedRowKeys,
-    } = user
+    } = module
     const handleRefresh = (newQuery) => {
         dispatch(routerRedux.push({
             pathname,
@@ -33,25 +33,25 @@ const Dic = ({
         item: modalType === 'save' ? {} : currentItem,
         visible: modalVisible,
         maskClosable: false,
-        confirmLoading: loading.effects['user/update'],
+        confirmLoading: loading.effects['module/update'],
         title: `${modalType === 'create' ? '添加新用户' : '更新部门信息'}`,
         wrapClassName: 'vertical-center-modal',
         onOk (data) {
             dispatch({
-                type: `user/${modalType}`,
+                type: `module/${modalType}`,
                 payload: data,
             })
         },
         onCancel () {
             dispatch({
-                type: 'user/hideModal',
+                type: 'module/hideModal',
             })
         },
     }
 
     const listProps = {
         dataSource: list,
-        loading: loading.effects['user/query'],
+        loading: loading.effects['module/query'],
         pagination,
         location,
         onChange (page) {
@@ -62,7 +62,7 @@ const Dic = ({
         },
         onDeleteItem (id) {
             dispatch({
-                type: 'user/delete',
+                type: 'module/delete',
                 payload: id,
             })
                 .then(() => {
@@ -73,7 +73,7 @@ const Dic = ({
         },
         onEditItem (item) {
             dispatch({
-                type: 'user/showModal',
+                type: 'module/showModal',
                 payload: {
                     modalType: 'update',
                     currentItem: item,
@@ -85,7 +85,7 @@ const Dic = ({
             selectedRowKeys,
             onChange: (keys) => {
                 dispatch({
-                    type: 'user/updateState',
+                    type: 'module/updateState',
                     payload: {
                         selectedRowKeys: keys,
                     },
@@ -107,7 +107,7 @@ const Dic = ({
         },
         onAdd () {
             dispatch({
-                type: 'user/showModal',
+                type: 'module/showModal',
                 payload: {
                     modalType: 'create',
                 },
@@ -117,7 +117,7 @@ const Dic = ({
 
     const handleDeleteItems = () => {
         dispatch({
-            type: 'user/multiDelete',
+            type: 'module/multiDelete',
             payload: {
                 ids: selectedRowKeys,
             },
@@ -150,10 +150,10 @@ const Dic = ({
 }
 
 Dic.propTypes = {
-    user: PropTypes.object,
+    module: PropTypes.object,
     location: PropTypes.object,
     dispatch: PropTypes.func,
     loading: PropTypes.object,
 }
 
-export default connect(({ user, loading }) => ({ user, loading }))(Dic)
+export default connect(({ module, loading }) => ({ module, loading }))(Dic)

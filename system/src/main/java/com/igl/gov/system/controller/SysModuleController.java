@@ -48,4 +48,5 @@ public class SysModuleController {
     public DataResult save(SysModule param){
       return  ResponseUtils.success(sysModuleService.save(param));
     }
+
 }

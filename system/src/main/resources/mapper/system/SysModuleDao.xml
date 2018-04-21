@@ -8,10 +8,10 @@
         <id property="icon" column="icon"/>
         <id property="moduleCode" column="module_code"/>
         <id property="moduleName" column="module_name"/>
-        <id property="moduleType" column="module_type" />
+        <id property="moduleTypeName" column="moduleTypeName" />
         <id property="moduleDesc" column="module_desc" />
         <id property="parentModuleName" column="parentModuleName" />
-        <id property="state" column="state" />
+        <id property="stateName" column="stateName" />
     </resultMap>
 
     <resultMap id="sysModuleTreeDto" type="com.igl.gov.system.dto.SysModuleTreeDto">
@@ -35,6 +35,7 @@
             a.state,
             a.module_code,
             a.pid,
+            a.icon,
             b.module_name AS parentModuleName
     </sql>
     <sql id="queryWhere">
@@ -65,26 +66,27 @@
 
     <select id="queryModuleList" parameterType="map" resultMap="sysModuleTreeDto">
         SELECT
-            id,
-            url,
-            module_name,
-            module_desc,
-            module_type,
-            state,
-            module_code,
-            pid
+            a.id,
+            a.url,
+            a.module_name,
+            a.module_desc,
+            a.module_type,
+            a.state,
+            a.icon,
+            a.module_code,
+            a.pid
         FROM
-        sys_module
+        sys_module a
         <where>
             <choose>
                 <when test="id != null">
-                     id = #{id}
+                     a.id = #{id}
                 </when>
                 <when test="pid != null">
-                    pid = #{pid}
+                    a.pid = #{pid}
                 </when>
                 <otherwise>
-                    pid is null
+                    a.pid is null
                 </otherwise>
             </choose>
         </where>
@@ -104,11 +106,14 @@
     <select id="query" parameterType="SysModuleParam" resultMap="sysModuleDto">
         SELECT
         <include refid="sysModuleBase"/>,
-        c.dict_name as moduleTypeName
+        d.dict_name as moduleTypeName,
+        c.dict_name as stateName
         FROM
         sys_module AS a INNER JOIN
         sys_module AS b ON(a.pid = b.id)
-        LEFT JOIN sys_dictionary AS c ON(a.module_type = c.dict_code)
+        INNER JOIN
+        sys_dictionary AS c ON(a.state = c.dict_code)
+        INNER JOIN sys_dictionary d ON(a.module_type = d.dict_code)
         <include refid="queryWhere"/>
          Limit #{start} , #{offset}
     </select>
