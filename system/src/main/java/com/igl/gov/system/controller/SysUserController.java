@@ -4,19 +4,17 @@ package com.igl.gov.system.controller;
 import com.igl.gov.common.api.DataGridResult;
 import com.igl.gov.common.api.DataResult;
 import com.igl.gov.system.dto.SysUserDto;
-import com.igl.gov.system.entity.SysUser;
-import com.igl.gov.system.entity.SysUserInfo;
+import com.igl.gov.system.param.SysUserDetailParam;
 import com.igl.gov.system.param.SysUserParam;
 import com.igl.gov.system.service.SysUserService;
-import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import javax.servlet.http.HttpServletRequest;
 
 @RestController
 @RequestMapping("/api/sysuser/")
@@ -35,13 +33,12 @@ public class SysUserController {
     /**
      * 保存用户
      * @param user
-     * @param userInfo
      * @return
      */
     @ApiOperation("保存用户")
     @RequestMapping(value = "save",method = RequestMethod.POST)
-    public DataResult save(SysUser user, SysUserInfo userInfo){
-        return  new DataResult(sysUserService.save(user,userInfo));
+    public DataResult save(@RequestBody SysUserDetailParam user){
+        return  new DataResult(sysUserService.save(user));
     }
 
     @ApiOperation("删除")

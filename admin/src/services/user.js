@@ -1,11 +1,11 @@
 import { request, config } from 'utils'
 
 const { api } = config
-const { organizationDel,organizationList,organizationSave } = api
+const { userList,userSave,userDelete,userMultiDelete } = api
 
 export async function query (params) {
     return request({
-        url: organizationList,
+        url: userList,
         method: 'post',
         data: params,
     })
@@ -13,7 +13,7 @@ export async function query (params) {
 
 export async function create (params) {
     return request({
-        url: organizationSave,
+        url: userSave,
         method: 'post',
         data: params,
     })
@@ -21,7 +21,16 @@ export async function create (params) {
 
 export async function remove (params) {
     return request({
-        url: organizationDel,
+        url: userDelete,
+        method: 'delete',
+        data: params,
+    })
+}
+
+export async function multiRemove (params) {
+    console.log("multiRemove ddd",params)
+    return request({
+        url: userMultiDelete,
         method: 'delete',
         data: params,
     })
@@ -29,7 +38,7 @@ export async function remove (params) {
 
 export async function update (params) {
     return request({
-        url: organizationSave,
+        url: userSave,
         method: 'post',
         data: params,
     })

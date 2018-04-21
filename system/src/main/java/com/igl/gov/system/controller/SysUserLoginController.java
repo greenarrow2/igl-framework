@@ -2,10 +2,8 @@ package com.igl.gov.system.controller;
 
 import com.igl.gov.common.api.DataResult;
 import com.igl.gov.redis.cache.RedisCache;
-import com.igl.gov.system.entity.SysUser;
-import com.igl.gov.system.entity.SysUserInfo;
+import com.igl.gov.system.param.SysUserDetailParam;
 import com.igl.gov.system.service.SysUserService;
-import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -40,8 +38,8 @@ public class SysUserLoginController {
     }
 
     @RequestMapping("/register")
-    public DataResult register(SysUser user, SysUserInfo userInfo){
-        sysUserService.save(user,userInfo);
+    public DataResult register(SysUserDetailParam user){
+        sysUserService.save(user);
         return new DataResult(true,user);
     }
 

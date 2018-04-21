@@ -10,6 +10,7 @@ import com.igl.gov.system.dao.SysUserInfoDao;
 import com.igl.gov.system.dto.SysUserDto;
 import com.igl.gov.system.entity.SysUser;
 import com.igl.gov.system.entity.SysUserInfo;
+import com.igl.gov.system.param.SysUserDetailParam;
 import com.igl.gov.system.param.SysUserParam;
 import com.igl.gov.system.service.SysUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,19 +34,23 @@ public class SysUserServiceImpl implements SysUserService{
     private RedisCache redisCache;
 
     @Transactional
-    public SysUser save(SysUser user,SysUserInfo userInfo) {
+    @Override
+    public SysUser save(SysUserDetailParam user) {
+        SysUser sysUser = new SysUser();
+        SysUserInfo userInfo = new SysUserInfo();
         if(user.getId() != null){
-            sysUserDao.insert(user);
+            sysUserDao.update(sysUser);
             userInfo.setUserId(user.getId());
-            userInfo.setCreateBy(user.getCreateBy());
-            sysUserInfoDao.insert(userInfo);
-        }else {
-            sysUserDao.update(user);
-            userInfo.setUserId(user.getId());
-            userInfo.setUpdateBy(user.getUpdateBy());
+            userInfo.setUpdateBy(sysUser.getUpdateBy());
             sysUserInfoDao.update(userInfo);
+        }else {
+            sysUserDao.insert(sysUser);
+            userInfo.setUserId(sysUser.getId());
+            userInfo.setCreateBy(sysUser.getCreateBy());
+            sysUserInfoDao.insert(userInfo);
+
         }
-        return user;
+        return sysUser;
     }
 
     @Override
