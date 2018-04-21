@@ -4,6 +4,7 @@ import { Form,Select, Input, InputNumber, Radio, Modal, Cascader } from 'antd'
 import city from '../../utils/city'
 
 const Option = Select.Option;
+const OptGroup = Select.OptGroup;
 const FormItem = Form.Item
 
 const formItemLayout = {
