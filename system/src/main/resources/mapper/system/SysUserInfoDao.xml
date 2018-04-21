@@ -20,7 +20,7 @@
             <if test="gender != null">
                 gender = #{gender},
             </if>
-            <if test="update_by != null">
+            <if test="updateBy != null">
                 update_by = #{updateBy},
             </if>
             update_time = now(),

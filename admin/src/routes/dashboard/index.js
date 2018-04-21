@@ -11,14 +11,14 @@ import Modal from './Modal'
 
 
 const Dic = ({
-    location, dispatch, user, loading,
+    location, dispatch, dashboard, loading,
 }) => {
     location.query = queryString.parse(location.search)
     const { query, pathname } = location
 
     const {
         list, pagination, currentItem, modalVisible, modalType, selectedRowKeys,
-    } = user
+    } = dashboard
     const handleRefresh = (newQuery) => {
         dispatch(routerRedux.push({
             pathname,
@@ -150,10 +150,10 @@ const Dic = ({
 }
 
 Dic.propTypes = {
-    user: PropTypes.object,
+    dashboard: PropTypes.object,
     location: PropTypes.object,
     dispatch: PropTypes.func,
     loading: PropTypes.object,
 }
 
-export default connect(({ user, loading }) => ({ user, loading }))(Dic)
+export default connect(({ dashboard, loading }) => ({ dashboard, loading }))(Dic)

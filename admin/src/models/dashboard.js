@@ -10,7 +10,7 @@ const { query } = dicService
 const { prefix } = config
 
 export default modelExtend(pageModel, {
-  namespace: 'user',
+  namespace: 'dashboard',
 
   state: {
     currentItem: {},

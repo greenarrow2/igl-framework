@@ -6,7 +6,7 @@ const { userList,userSave,userDelete,userMultiDelete } = api
 export async function query (params) {
     return request({
         url: userList,
-        method: 'post',
+        method: 'get',
         data: params,
     })
 }

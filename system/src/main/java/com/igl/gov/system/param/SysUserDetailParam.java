@@ -26,13 +26,13 @@ public class SysUserDetailParam {
     @ApiModelProperty(name = "mobile",value = "手机号",required = false,dataType = "string")
     private String mobile;
 
-    @ApiModelProperty(name = "gender",value = "性别",required = false,dataType = "integer")
+    @ApiModelProperty(name = "gender",value = "性别",required = false,dataType = "Integer")
     private Integer gender;
 
-    @ApiModelProperty(name = "roleId",value = "角色id",required = false,dataType = "integer")
+    @ApiModelProperty(name = "roleId",value = "角色id",required = false,dataType = "Integer")
     private Integer roleId;
 
-    @ApiModelProperty(name = "orgId",value = "组织id",required = false,dataType = "integer")
+    @ApiModelProperty(name = "orgId",value = "组织id",required = false,dataType = "Integer")
     private Integer orgId;
 
 

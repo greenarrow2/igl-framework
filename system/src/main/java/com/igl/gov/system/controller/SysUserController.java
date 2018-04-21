@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Map;
+
 @RestController
 @RequestMapping("/api/sysuser/")
 public class SysUserController {
@@ -24,11 +26,10 @@ public class SysUserController {
     private SysUserService sysUserService;
 
     @ApiOperation("用户查询")
-    @RequestMapping(value = "pagelist",method = RequestMethod.POST)
+    @RequestMapping(value = "pagelist",method = RequestMethod.GET)
     public DataGridResult pageList(SysUserParam param){
         return  sysUserService.queryPageList(param);
     }
-
 
     /**
      * 保存用户
@@ -45,9 +46,9 @@ public class SysUserController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "ids",value = "id字符串如：1,2,3",dataType = "string",paramType = "query",required = true)
     })
-    @RequestMapping(value = "delete",method = RequestMethod.POST)
-    public DataResult delete(String ids){
-         Integer count = sysUserService.delete(ids);
+    @RequestMapping(value = "delete",method = RequestMethod.DELETE)
+    public DataResult delete(@RequestBody Map<String,String> idMap){
+         Integer count = sysUserService.delete(idMap.get("id"));
           return new DataResult(true,null,"你删除了" + count + "条记录！");
     }
 
@@ -55,7 +56,7 @@ public class SysUserController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id",value = "id",dataType = "Integer",paramType = "query",required = true)
     })
-    @RequestMapping(value = "/find",method = RequestMethod.POST)
+    @RequestMapping(value = "/find",method = RequestMethod.GET)
     public SysUserDto find(Integer id){
       return  sysUserService.find(id);
     }
