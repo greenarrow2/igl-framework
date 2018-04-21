@@ -40,6 +40,8 @@ const Dic = ({
             dispatch({
                 type: `user/${modalType}`,
                 payload: data,
+            }).then(() => {
+                handleRefresh()
             })
         },
         onCancel () {
@@ -79,7 +81,11 @@ const Dic = ({
                     currentItem: item,
                 },
             })
-                .then(() => handleRefresh)
+                .then(() => {
+                    handleRefresh({
+                        page: (list.length === 1 && pagination.current > 1) ? pagination.current - 1 : pagination.current,
+                    })
+                })
         },
         rowSelection: {
             selectedRowKeys,

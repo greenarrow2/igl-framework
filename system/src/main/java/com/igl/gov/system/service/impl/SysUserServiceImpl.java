@@ -42,10 +42,6 @@ public class SysUserServiceImpl implements SysUserService {
         SysUserInfo userInfo = new SysUserInfo();
         BeanUtils.copyProperties(user, userInfo);
         if (user.getId() != null) {
-            SysUserDto sysUserDto = sysUserDao.find(user.getId());
-
-
-
             sysUserDao.update(sysUser);
             userInfo.setUserId(user.getId());
             userInfo.setUpdateBy(sysUser.getUpdateBy());
