@@ -38,21 +38,21 @@ const List = ({
       key: 'orgName',
     }, {
       title: '组织类型',
-      dataIndex: 'orgType',
-      key: 'orgType',
+      dataIndex: 'orgTypeName',
+      key: 'orgTypeName',
     }, {
       title: '状态',
-      dataIndex: 'state',
-      key: 'state',
+      dataIndex: 'stateName',
+      key: 'stateName',
     }, {
       title: '创建时间',
-      dataIndex: 'createBy',
-      key: 'createBy',
+      dataIndex: 'createTime',
+      key: 'createTime',
     }, {
       title: '操作',
       key: 'operation',
       render: (text, record) => {
-        return <DropOption onMenuClick={e => handleMenuClick(record, e)} menuOptions={[{ key: '1', name: 'Update' }, { key: '2', name: 'Delete' }]} />
+        return <DropOption onMenuClick={e => handleMenuClick(record, e)} menuOptions={[{ key: '1', name: '更新' }, { key: '2', name: '删除' }]} />
       },
     },
   ]

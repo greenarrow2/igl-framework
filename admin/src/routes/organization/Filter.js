@@ -79,10 +79,10 @@ const Filter = ({
   return (
     <Row gutter={24}>
       <Col {...ColProps} xl={{ span: 4 }} md={{ span: 8 }}>
-        {getFieldDecorator('dictName', { initialValue: dictName })(<Search placeholder="组织名称" onSearch={handleSubmit} />)}
+        {getFieldDecorator('orgCode', { initialValue: dictName })(<Input placeholder="组织编号" onPressEnter={handleSubmit} />)}
       </Col>
       <Col {...ColProps} xl={{ span: 4 }} md={{ span: 8 }}>
-      {getFieldDecorator('dictNo', { initialValue: dictNo })(<Search placeholder="组织编号" onSearch={handleSubmit} />)}
+      {getFieldDecorator('orgName', { initialValue: dictNo })(<Input placeholder="组织名称" onPressEnter={handleSubmit} />)}
     </Col>
       <Col {...ColProps} xl={{ span: 6 }} md={{ span: 8 }} sm={{ span: 12 }} id="createTimeRangePicker">
         <FilterItem label="创建时间">

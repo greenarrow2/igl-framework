@@ -6,16 +6,19 @@
         <id property="orgName" column="org_name"/>
         <id property="orgType" column="org_type"/>
         <id property="orgCode" column="org_code" />
-        <id property="state" column="state" />
+        <id property="stateName" column="stateName" />
         <id property="pid" column="pid" />
+        <id property="orgTypeName" column="orgTypeName"/>
+        <id property="createTime" column="create_time" />
     </resultMap>
     <sql id="sysOrganizationBase">
-            id,
-            pid,
-            org_code,
-            org_name,
-            org_type,
-            state
+            a.id,
+            a.pid,
+            a.org_code,
+            a.org_name,
+            a.org_type,
+            a.create_time,
+            a.state
     </sql>
     <insert id="insert" parameterType="SysOrganization" keyProperty="id" useGeneratedKeys="true">
 		INSERT INTO sys_organization(pid,org_code,org_name,org_type,state,create_time,create_by,version) VALUES (#{pid},#{orgCode},#{orgName},#{orgType},#{state},now(),
@@ -31,24 +34,29 @@
     <sql id="queryWhere">
         <where>
             <if test="orgCode != null and orgCode != ''">
-                org_code LIKE CONCAT('%',TRIM(#{orgCode}),'%')
+                AND a.org_code LIKE CONCAT('%',TRIM(#{orgCode}),'%')
             </if>
             <if test="orgName != null and orgName != ''">
-                org_name LIKE CONCAT('%',TRIM(#{orgName}),'%')
+                AND  a.org_name LIKE CONCAT('%',TRIM(#{orgName}),'%')
             </if>
             <if test="state != null">
-                AND state = #{state}
+                AND a.state = #{state}
             </if>
             <if test="orgType != null">
-                AND  org_type = #{orgType}
+                AND a.org_type = #{orgType}
             </if>
         </where>
     </sql>
     <select id="query" parameterType="SysOrganizationParam" resultMap="sysOrganizationDto">
             SELECT
-            <include refid="sysOrganizationBase"/>
+            <include refid="sysOrganizationBase"/>,
+            b.dict_name as orgTypeName,
+            c.dict_name as stateName
             FROM
-            sys_organization
+            sys_organization a INNER JOIN sys_dictionary b
+            ON (a.org_type = b.dict_code)
+            INNER JOIN sys_dictionary c
+            ON (a.state = c.dict_code)
              <include refid="queryWhere"/>
             Limit #{start} , #{offset}
     </select>
@@ -64,17 +72,24 @@
 
     <select id="count" parameterType="SysOrganizationParam" resultType="int">
         SELECT
-        count(id)
+        count(a.id)
         FROM
-        sys_organization
+        sys_organization a
         <include refid="queryWhere"/>
     </select>
 
     <select id="find" parameterType="integer" resultMap="sysOrganizationDto">
 		SELECT
             <include refid="sysOrganizationBase"/>
+             ,
+             b.dict_name as orgTypeName
+             ,
+             c.dict_name as stateName
             FROM
-            sys_organization
+            sys_organization a INNER JOIN sys_dictionary b
+            ON (a.org_type = b.dict_code)
+            INNER JOIN sys_dictionary c
+            ON (a.state = c.dict_code)
             where
             id = #{id}
 	</select>

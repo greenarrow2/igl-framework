@@ -10,10 +10,7 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/sysorg/")
@@ -30,7 +27,7 @@ public class SysOrganizationController {
             @ApiImplicitParam(name = "state",value = "状态",dataType = "integer",paramType = "query"),
     })
     @RequestMapping(value = "pagelist",method = RequestMethod.POST)
-    public DataGridResult<SysOrganizationDto> pageList(SysOrganizationParam param){
+    public DataGridResult<SysOrganizationDto> pageList(@RequestBody SysOrganizationParam param){
         return sysOrganizationService.queryPageList(param);
     }
 
