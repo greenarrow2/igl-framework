@@ -1,9 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {Form, Select, Input, InputNumber, Radio, Modal, Cascader} from "antd";
+import enUS from 'antd/lib/locale-provider/en_US';
 
-const Option = Select.Option;
-const OptGroup = Select.OptGroup;
+const RadioButton = Radio.Button;
+const RadioGroup = Radio.Group;
 const FormItem = Form.Item
 
 const formItemLayout = {
@@ -44,14 +45,12 @@ const modal = ({
     }
 
 
-    const orgHandleChange = (key, values) => {
+    const sexHandleChange = (key, values) => {
         console.log("orgHandleChange",key,values)
     }
 
 
-    const roleHandleChange = (key, values) => {
-        console.log("roleHandleChange",key,values)
-    }
+
 
     return (
         <Modal {...modalOpts}>
@@ -77,6 +76,20 @@ const modal = ({
                     })(<Input />)}
                 </FormItem>
 
+                <FormItem label="性别" hasFeedback {...formItemLayout}>
+                    {getFieldDecorator('gender', {
+                        initialValue: item.gender,
+                        rules: [
+                            {
+                                required: true,
+                            },
+                        ],
+                    })( <RadioGroup onChange={sexHandleChange}>
+                        <RadioButton value="1">男</RadioButton>
+                        <RadioButton value="2">女</RadioButton>
+                    </RadioGroup>)}
+                </FormItem>
+
                 <FormItem label="手机" hasFeedback {...formItemLayout}>
                     {getFieldDecorator('mobile', {
                         initialValue: item.status,
@@ -97,50 +110,6 @@ const modal = ({
                         ],
                     })(<Input />)}
                 </FormItem>
-
-                <FormItem label="部门" hasFeedback {...formItemLayout}>
-                    {getFieldDecorator('orgId', {
-                        rules: [
-                            {
-                                required: true,
-                            },
-                        ],
-                    })(
-                        <Select  showSearch
-                                placeholder="请选择所属部门"
-                                onChange={orgHandleChange.bind(null, 'orgId')}
-                        >
-                            <OptGroup label="部门1">
-                                <Option value="11">部门11</Option>
-                                <Option value="12">部门12</Option>
-                            </OptGroup>
-                            <OptGroup label="部门2">
-                                <Option value="21">部门21</Option>
-                                <Option value="22">部门22</Option>
-                            </OptGroup>
-                        </Select>
-                    )}
-                </FormItem>
-
-                <FormItem label="角色" hasFeedback {...formItemLayout}>
-                    {getFieldDecorator('roleId', {
-                        rules: [
-                            {
-                                required: true,
-                            },
-                        ],
-                    })(<Select showSearch
-                               placeholder="请选择人员"
-                               optionFilterProp="children"
-                               notFoundContent="无法找到"
-                               onChange={roleHandleChange.bind(null, 'roleId')}
-                    >
-                        <Option value="jack">院长</Option>
-                        <Option value="lucy">副院长</Option>
-                        <Option value="tom">科长</Option>
-                    </Select>)}
-                </FormItem>
-
             </Form>
         </Modal>
     )

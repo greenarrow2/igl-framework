@@ -5,22 +5,24 @@
         <id column="id" property="id"/>
         <id property="username" column="user_name"/>
         <id property="email" column="email"/>
-        <id property="mobile" column="mobile" />
-        <id property="name" column="name" />
+        <id property="mobile" column="mobile"/>
+        <id property="name" column="name"/>
         <id property="gender" column="gender"/>
-        <id property="createTime" column="create_time" />
+        <id property="createTime" column="create_time"/>
     </resultMap>
     <insert id="insert" parameterType="SysUser" keyProperty="id" useGeneratedKeys="true">
-		INSERT INTO sys_user(user_name,name,mobile,email,password,create_time,create_by,version) VALUES (#{username},#{name},#{mobile},#{email},#{password},now(),
-		<choose>
+        INSERT INTO sys_user(user_name,name,mobile,email,password,create_time,create_by,version) VALUES
+        (#{username},#{name},#{mobile},#{email},#{password},now(),
+        <choose>
             <when test="createBy != null">
                 #{createBy}
             </when>
             <otherwise>
                 0
             </otherwise>
-        </choose> ,0)
-	 </insert>
+        </choose>
+        ,0)
+    </insert>
     <sql id="whereSql">
         <where>
             <if test="username != null and username != ''">
@@ -30,16 +32,16 @@
                 AND a.name LIKE CONCAT('%',TRIM(#{name}),'%')
             </if>
             <if test="mobile != null and mobile !=''">
-                AND  a.mobile LIKE CONCAT('%',TRIM(#{mobile}),'%')
+                AND a.mobile LIKE CONCAT('%',TRIM(#{mobile}),'%')
             </if>
             <if test="email != null and email !=''">
                 AND a.email LIKE CONCAT('%',TRIM(#{email}),'%')
             </if>
             <if test="gender != null">
-               AND f.gender = #{gender}
+                AND f.gender = #{gender}
             </if>
             <if test="orgId != null">
-               AND d.org_id = #{orgId}
+                AND d.org_id = #{orgId}
             </if>
             <if test="roleId != null">
                 AND b.org_id = #{roleId}
@@ -47,32 +49,35 @@
         </where>
     </sql>
     <select id="query" parameterType="SysUserParam" resultType="SysUserDto">
-              SELECT
-                a.id as id,
-                a.user_name as username,
-                a.name as name,
-                a.email as email,
-                a.mobile as mobile,
-                a.create_time,
-                f.gender,
-                GROUP_CONCAT(b.role_id) as roleIds,
-                GROUP_CONCAT(d.org_id) as orgIds,
-                GROUP_CONCAT(c.role_name) as roleNames,
-                GROUP_CONCAT(e.org_name) as orgNames
-                FROM
-                sys_user a
-                INNER JOIN sys_user_info f ON (a.id = f.user_id)
-                INNER JOIN sys_role_user b ON (a.id = b.user_id)
-                INNER JOIN sys_role c ON (b.role_id = c.id)
-                INNER JOIN sys_role_organization d ON (b.role_id = d.role_id)
-                INNER JOIN sys_organization e ON (d.org_id = e.id)
-                <include refid="whereSql"/>
+        SELECT
+        a.id AS id,
+        a.user_name AS username,
+        a.name AS name,
+        a.email AS email,
+        a.mobile AS mobile,
+        a.create_time,
+        f.gender,
+        GROUP_CONCAT(b.role_id) AS roleIds,
+        GROUP_CONCAT(d.org_id) as orgIds,
+        GROUP_CONCAT(c.role_name) as roleNames,
+        GROUP_CONCAT(e.org_name) as orgNames
+        FROM
+        sys_user a
+        LEFT JOIN sys_user_info f ON (a.id = f.user_id)
+        LEFT JOIN sys_role_user b ON (a.id = b.user_id)
+        LEFT JOIN sys_role c ON (b.role_id = c.id)
+        LEFT JOIN sys_role_organization d ON (b.role_id = d.role_id)
+        LEFT JOIN sys_organization e ON (d.org_id = e.id)
+
+        <include refid="whereSql"/>
+        GROUP BY IFNULL(b.role_id, a.id)
         Limit #{start} , #{offset}
     </select>
 
     <select id="count" parameterType="SysUserParam" resultType="int">
         SELECT
         count(1)
+        FROM sys_user a
         <include refid="whereSql"/>
     </select>
 
@@ -107,18 +112,18 @@
     </update>
 
     <delete id="delete" parameterType="map">
-        DELETE  from sys_user where id in
+        DELETE from sys_user where id in
         <foreach collection="ids" item="id" open="(" separator="," close=")">
             #{id}
         </foreach>
         ;
-        DELETE  from sys_user_info where user_id in
+        DELETE from sys_user_info where user_id in
         <foreach collection="ids" item="id" open="(" separator="," close=")">
             #{id}
         </foreach>
     </delete>
 
-    <select id="find" parameterType="integer" resultMap="sysUserDto" >
+    <select id="find" parameterType="integer" resultMap="sysUserDto">
         SELECT
                 a.id as id,
                 a.user_name as username,

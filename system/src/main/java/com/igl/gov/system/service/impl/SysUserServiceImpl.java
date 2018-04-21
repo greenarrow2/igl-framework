@@ -13,6 +13,7 @@ import com.igl.gov.system.entity.SysUserInfo;
 import com.igl.gov.system.param.SysUserDetailParam;
 import com.igl.gov.system.param.SysUserParam;
 import com.igl.gov.system.service.SysUserService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,7 +23,7 @@ import java.util.List;
 import java.util.Map;
 
 @Service
-public class SysUserServiceImpl implements SysUserService{
+public class SysUserServiceImpl implements SysUserService {
 
     @Autowired
     private SysUserDao sysUserDao;
@@ -37,13 +38,19 @@ public class SysUserServiceImpl implements SysUserService{
     @Override
     public SysUser save(SysUserDetailParam user) {
         SysUser sysUser = new SysUser();
+        BeanUtils.copyProperties(user, sysUser);
         SysUserInfo userInfo = new SysUserInfo();
-        if(user.getId() != null){
+        BeanUtils.copyProperties(user, userInfo);
+        if (user.getId() != null) {
+            SysUserDto sysUserDto = sysUserDao.find(user.getId());
+
+
+
             sysUserDao.update(sysUser);
             userInfo.setUserId(user.getId());
             userInfo.setUpdateBy(sysUser.getUpdateBy());
             sysUserInfoDao.update(userInfo);
-        }else {
+        } else {
             sysUserDao.insert(sysUser);
             userInfo.setUserId(sysUser.getId());
             userInfo.setCreateBy(sysUser.getCreateBy());
@@ -55,39 +62,39 @@ public class SysUserServiceImpl implements SysUserService{
 
     @Override
     public Integer delete(String ids) {
-        if(!StringUtils.isEmpty(ids)){
-          String [] idarr =  ids.split(",");
-          Map<String,Object> param = new HashMap<>(1);
-             param.put("ids",idarr);
-         return sysUserDao.delete(param);
+        if (!StringUtils.isEmpty(ids)) {
+            String[] idarr = ids.split(",");
+            Map<String, Object> param = new HashMap<>(1);
+            param.put("ids", idarr);
+            return sysUserDao.delete(param);
         }
         return 0;
     }
 
     @Override
-    public Map<String,Object> findUserByUsernamePassword(String username, String password) {
-        Map<String,Object> result = new HashMap<>();
-        Map<String ,String> param = new HashMap<>();
-          param.put("username",username);
-          param.put("password",password);
-         SysUserDto userDto = sysUserDao.queryLoginUser(param);
-         if(userDto != null){
-            result.put("loginSysUser",userDto);
-            if(redisCache.getCache("user-name:" + username,String.class) != null){
+    public Map<String, Object> findUserByUsernamePassword(String username, String password) {
+        Map<String, Object> result = new HashMap<>();
+        Map<String, String> param = new HashMap<>();
+        param.put("username", username);
+        param.put("password", password);
+        SysUserDto userDto = sysUserDao.queryLoginUser(param);
+        if (userDto != null) {
+            result.put("loginSysUser", userDto);
+            if (redisCache.getCache("user-name:" + username, String.class) != null) {
                 redisCache.deleteCache("user-name:" + username);
             }
-             String tokenCode = EncryptUtils.getRandomSH1String();
-             redisCache.putCache("user-name:" + username, tokenCode);
-             result.put("tokenCode",tokenCode);
-         }
-         return result;
+            String tokenCode = EncryptUtils.getRandomSH1String();
+            redisCache.putCache("user-name:" + username, tokenCode);
+            result.put("tokenCode", tokenCode);
+        }
+        return result;
     }
 
     @Override
-    public DataGridResult<SysUserDto> queryPageList(SysUserParam param){
+    public DataGridResult<SysUserDto> queryPageList(SysUserParam param) {
         List<SysUserDto> items = sysUserDao.query(param);
         int countNums = sysUserDao.count(param);            //总记录数
-        return new DataGridResult<SysUserDto>(param,countNums,items);
+        return new DataGridResult<SysUserDto>(param, countNums, items);
     }
 
     @Override

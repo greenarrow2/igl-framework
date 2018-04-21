@@ -30,8 +30,8 @@ const List = ({
   const columns = [
     {
       title: '登录用户名',
-      dataIndex: 'userName',
-      key: 'userName',
+      dataIndex: 'username',
+      key: 'username',
     }, {
       title: '姓名',
       dataIndex: 'name',
@@ -46,12 +46,12 @@ const List = ({
       key: 'email',
     }, {
       title: '所属部门',
-      dataIndex: 'orgName',
-      key: 'orgName',
+      dataIndex: 'orgNames',
+      key: 'orgNames',
     }, {
       title: '用户角色',
-      dataIndex: 'roleName',
-      key: 'roleName',
+      dataIndex: 'roleNames',
+      key: 'roleNames',
     }, {
       title: '创建时间',
       dataIndex: 'createBy',
