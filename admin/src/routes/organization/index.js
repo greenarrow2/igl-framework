@@ -29,6 +29,7 @@ const Dic = ({
         }))
     }
 
+
     const modalProps = {
         item: modalType === 'save' ? {} : currentItem,
         visible: modalVisible,

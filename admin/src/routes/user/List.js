@@ -54,8 +54,8 @@ const List = ({
       key: 'roleNames',
     }, {
       title: '创建时间',
-      dataIndex: 'createBy',
-      key: 'createBy',
+      dataIndex: 'createTime',
+      key: 'createTime',
     }, {
       title: '操作',
       key: 'operation',
