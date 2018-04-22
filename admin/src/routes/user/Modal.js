@@ -56,8 +56,8 @@ const modal = ({
         <Modal {...modalOpts}>
             <Form layout="horizontal">
                 <FormItem label="登录用户名" hasFeedback {...formItemLayout}>
-                    {getFieldDecorator('userName', {
-                        initialValue: item.dictCode,
+                    {getFieldDecorator('username', {
+                        initialValue: item.username,
                         rules: [
                             {
                                 required: true,
@@ -67,7 +67,7 @@ const modal = ({
                 </FormItem>
                 <FormItem label="姓名" hasFeedback {...formItemLayout}>
                     {getFieldDecorator('name', {
-                        initialValue: item.dictName,
+                        initialValue: item.name,
                         rules: [
                             {
                                 required: true,
@@ -92,7 +92,7 @@ const modal = ({
 
                 <FormItem label="手机" hasFeedback {...formItemLayout}>
                     {getFieldDecorator('mobile', {
-                        initialValue: item.status,
+                        initialValue: item.mobile,
                         rules: [
                             {
                                 required: true,
@@ -102,7 +102,7 @@ const modal = ({
                 </FormItem>
                 <FormItem label="邮箱" hasFeedback {...formItemLayout}>
                     {getFieldDecorator('email', {
-                        initialValue: item.status,
+                        initialValue: item.email,
                         rules: [
                             {
                                 required: true,

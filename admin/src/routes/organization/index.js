@@ -29,6 +29,7 @@ const Dic = ({
         }))
     }
 
+
     const modalProps = {
         item: modalType === 'save' ? {} : currentItem,
         visible: modalVisible,
@@ -40,6 +41,8 @@ const Dic = ({
             dispatch({
                 type: `organization/${modalType}`,
                 payload: data,
+            }).then(() => {
+                handleRefresh()
             })
         },
         onCancel () {

@@ -86,6 +86,7 @@ const Filter = ({
       <Col {...ColProps} xl={{ span: 4 }} md={{ span: 8 }}>
         {getFieldDecorator('email', { initialValue: email })(<Search placeholder="邮箱" onSearch={handleSubmit} />)}
       </Col>
+
       <Col {...TwoColProps} xl={{ span: 10 }} md={{ span: 12 }} sm={{ span: 12 }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap' }}>
           <div>
