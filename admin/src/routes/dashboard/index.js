@@ -33,7 +33,7 @@ const Dic = ({
         item: modalType === 'create' ? {} : currentItem,
         visible: modalVisible,
         maskClosable: false,
-        confirmLoading: loading.effects['user/update'],
+        confirmLoading: loading.effects['dashboard/update'],
         title: `${modalType === 'create' ? '创建数据字典' : '更新数据字典'}`,
         wrapClassName: 'vertical-center-modal',
         onOk (data) {
@@ -105,7 +105,7 @@ const Dic = ({
         },
         onAdd () {
             dispatch({
-                type: 'user/showModal',
+                type: 'dashboard/showModal',
                 payload: {
                     modalType: 'create',
                 },
@@ -115,7 +115,7 @@ const Dic = ({
 
     const handleDeleteItems = () => {
         dispatch({
-            type: 'user/multiDelete',
+            type: 'dashboard/multiDelete',
             payload: {
                 ids: selectedRowKeys,
             },
