@@ -19,6 +19,7 @@ module.exports = {
     userLogin: `${APIV1}/user/login`,
     userLogout: `${APIV1}/user/logout`,
     user: `${APIV1}/user/:id`,
+    dicListByDictNo: `${DOMIN}/api/sysdict/dictlistbydictno/:dictNo`,
     dicList: `${DOMIN}/api/sysdict/pagelist`,
     dicSave: `${DOMIN}/api/sysdict/save`,
     dicDelete: `${DOMIN}/api/sysdict/delete`,

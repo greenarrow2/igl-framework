@@ -1,7 +1,7 @@
 import { request, config } from 'utils'
 
 const { api } = config
-const { moduleList,moduleSave,moduleDel } = api
+const { moduleList,moduleSave,moduleDel,dicListByDictNo } = api
 
 export async function query (params) {
     return request({
@@ -27,11 +27,11 @@ export async function remove (params) {
     })
 }
 
-export async function multiRemove (params) {
-    console.log("multiRemove ddd",params)
+export async function queryDictByDictNo (params) {
+    console.log("dicListByDictNo",params)
     return request({
-        url: userMultiDelete,
-        method: 'delete',
+        url: dicListByDictNo,
+        method: 'post',
         data: params,
     })
 }

@@ -136,9 +136,9 @@ const Dic = ({
                 selectedRowKeys.length > 0 &&
                 <Row style={{ marginBottom: 24, textAlign: 'right', fontSize: 13 }}>
                     <Col>
-                        {`Selected ${selectedRowKeys.length} items `}
-                        <Popconfirm title="Are you sure delete these items?" placement="left" onConfirm={handleDeleteItems}>
-                            <Button type="primary" style={{ marginLeft: 8 }}>Remove</Button>
+                        {`已选择 ${selectedRowKeys.length} 条数据 `}
+                        <Popconfirm title="你确定删除已选择的数据?" placement="left" onConfirm={handleDeleteItems}>
+                            <Button type="primary" icon="minus-circle-o" style={{ marginLeft: 8 }}>批量删除</Button>
                         </Popconfirm>
                     </Col>
                 </Row>

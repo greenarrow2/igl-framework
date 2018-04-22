@@ -1,6 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {Form, Select, Input, InputNumber, Radio, Modal, Cascader} from "antd";
+import queryString from "query-string";
+import {routerRedux} from "dva/router";
 
 const Option = Select.Option;
 const OptGroup = Select.OptGroup;
@@ -49,6 +51,16 @@ const modal = ({
     }
 
 
+  /*const dictLoad = (newQuery) => {
+    dispatch(routerRedux.push({
+      '/api/sysdict/dictlistbydictno',
+      search: queryString.stringify({
+        ...query,
+        ...newQuery,
+      }),
+    }))
+  }*/
+
     const roleHandleChange = (key, values) => {
         console.log("roleHandleChange",key,values)
     }
@@ -56,9 +68,9 @@ const modal = ({
     return (
         <Modal {...modalOpts}>
             <Form layout="horizontal">
-                <FormItem label="登录用户名" hasFeedback {...formItemLayout}>
-                    {getFieldDecorator('userName', {
-                        initialValue: item.dictCode,
+                <FormItem label="模块编号" hasFeedback {...formItemLayout}>
+                    {getFieldDecorator('moduleCode', {
+                        initialValue: item.moduleCode,
                         rules: [
                             {
                                 required: true,
@@ -66,9 +78,9 @@ const modal = ({
                         ],
                     })(<Input />)}
                 </FormItem>
-                <FormItem label="姓名" hasFeedback {...formItemLayout}>
+                <FormItem label="模块名称" hasFeedback {...formItemLayout}>
                     {getFieldDecorator('name', {
-                        initialValue: item.dictName,
+                        initialValue: item.moduleName,
                         rules: [
                             {
                                 required: true,
@@ -77,9 +89,9 @@ const modal = ({
                     })(<Input />)}
                 </FormItem>
 
-                <FormItem label="手机" hasFeedback {...formItemLayout}>
-                    {getFieldDecorator('mobile', {
-                        initialValue: item.status,
+                <FormItem label="路径" hasFeedback {...formItemLayout}>
+                    {getFieldDecorator('url', {
+                        initialValue: item.url,
                         rules: [
                             {
                                 required: true,
@@ -87,9 +99,9 @@ const modal = ({
                         ],
                     })(<Input />)}
                 </FormItem>
-                <FormItem label="邮箱" hasFeedback {...formItemLayout}>
-                    {getFieldDecorator('email', {
-                        initialValue: item.status,
+                <FormItem label="模块说明" hasFeedback {...formItemLayout}>
+                    {getFieldDecorator('moduleDesc', {
+                        initialValue: item.moduleDesc,
                         rules: [
                             {
                                 required: true,
@@ -98,8 +110,9 @@ const modal = ({
                     })(<Input />)}
                 </FormItem>
 
-                <FormItem label="部门" hasFeedback {...formItemLayout}>
-                    {getFieldDecorator('orgId', {
+                <FormItem label="模块类型" hasFeedback {...formItemLayout}>
+                    {getFieldDecorator('moduleType', {
+                        initialValue: item.moduleType,
                         rules: [
                             {
                                 required: true,
@@ -110,38 +123,52 @@ const modal = ({
                                 placeholder="请选择所属部门"
                                 onChange={orgHandleChange.bind(null, 'orgId')}
                         >
-                            <OptGroup label="部门1">
-                                <Option value="11">部门11</Option>
-                                <Option value="12">部门12</Option>
-                            </OptGroup>
-                            <OptGroup label="部门2">
-                                <Option value="21">部门21</Option>
-                                <Option value="22">部门22</Option>
-                            </OptGroup>
+
                         </Select>
                     )}
                 </FormItem>
 
-                <FormItem label="角色" hasFeedback {...formItemLayout}>
-                    {getFieldDecorator('roleId', {
+                <FormItem label="状态" hasFeedback {...formItemLayout}>
+                    {getFieldDecorator('state', {
+                      initialValue: item.state,
                         rules: [
                             {
                                 required: true,
                             },
                         ],
                     })(<Select showSearch
-                               placeholder="请选择人员"
+                               placeholder="请选择状态"
                                optionFilterProp="children"
                                notFoundContent="无法找到"
-                               onChange={roleHandleChange.bind(null, 'roleId')}
+                               onChange={roleHandleChange.bind()}
                     >
-                        <Option value="jack">院长</Option>
-                        <Option value="lucy">副院长</Option>
-                        <Option value="tom">科长</Option>
+                        <Option value="1">启用</Option>
+                        <Option value="0">停用</Option>
+                        <Option value="-1">删除</Option>
                     </Select>)}
                 </FormItem>
 
+              <FormItem label="图标" hasFeedback {...formItemLayout}>
+                {getFieldDecorator('icon', {
+                  initialValue: item.icon,
+                  rules: [
+                    {
+                      required: false,
+                    },
+                  ],
+                })(<Input />)}
+              </FormItem>
             </Form>
+          <FormItem label="父级菜单" hasFeedback {...formItemLayout}>
+            {getFieldDecorator('parentModule', {
+              initialValue: item.parentModule,
+              rules: [
+                {
+                  required: false,
+                },
+              ],
+            })(<Input />)}
+          </FormItem>
         </Modal>
     )
 }
