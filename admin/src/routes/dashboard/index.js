@@ -38,20 +38,20 @@ const Dic = ({
         wrapClassName: 'vertical-center-modal',
         onOk (data) {
             dispatch({
-                type: `user/${modalType}`,
+                type: `dashboard/${modalType}`,
                 payload: data,
             })
         },
         onCancel () {
             dispatch({
-                type: 'user/hideModal',
+                type: 'dashboard/hideModal',
             })
         },
     }
 
     const listProps = {
         dataSource: list,
-        loading: loading.effects['user/query'],
+        loading: loading.effects['dashboard/query'],
         pagination,
         location,
         onChange (page) {
@@ -62,7 +62,7 @@ const Dic = ({
         },
         onDeleteItem (id) {
             dispatch({
-                type: 'user/delete',
+                type: 'dashboard/delete',
                 payload: id,
             })
                 .then(() => {
@@ -73,7 +73,7 @@ const Dic = ({
         },
         onEditItem (item) {
             dispatch({
-                type: 'user/showModal',
+                type: 'dashboard/showModal',
                 payload: {
                     modalType: 'update',
                     currentItem: item,
@@ -85,7 +85,7 @@ const Dic = ({
             selectedRowKeys,
             onChange: (keys) => {
                 dispatch({
-                    type: 'user/updateState',
+                    type: 'dashboard/updateState',
                     payload: {
                         selectedRowKeys: keys,
                     },
