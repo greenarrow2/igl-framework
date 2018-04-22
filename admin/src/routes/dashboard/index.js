@@ -64,8 +64,7 @@ const Dic = ({
             dispatch({
                 type: 'dashboard/delete',
                 payload: id,
-            })
-                .then(() => {
+            }).then(() => {
                     handleRefresh({
                         page: (list.length === 1 && pagination.current > 1) ? pagination.current - 1 : pagination.current,
                     })
@@ -79,7 +78,6 @@ const Dic = ({
                     currentItem: item,
                 },
             })
-                .then(() => handleRefresh)
         },
         rowSelection: {
             selectedRowKeys,
