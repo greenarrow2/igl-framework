@@ -40,6 +40,8 @@ const Dic = ({
             dispatch({
                 type: `dashboard/${modalType}`,
                 payload: data,
+            }).then(() => {
+                handleRefresh()
             })
         },
         onCancel () {

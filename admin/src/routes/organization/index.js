@@ -40,6 +40,8 @@ const Dic = ({
             dispatch({
                 type: `organization/${modalType}`,
                 payload: data,
+            }).then(() => {
+                handleRefresh()
             })
         },
         onCancel () {

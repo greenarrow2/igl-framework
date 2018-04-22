@@ -80,8 +80,7 @@ const Dic = ({
                     modalType: 'update',
                     currentItem: item,
                 },
-            })
-                .then(() => {
+            }).then(() => {
                     handleRefresh({
                         page: (list.length === 1 && pagination.current > 1) ? pagination.current - 1 : pagination.current,
                     })
