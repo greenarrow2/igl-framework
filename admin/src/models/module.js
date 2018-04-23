@@ -6,7 +6,7 @@ import { create, remove, update } from 'services/module'
 import * as moduleService from 'services/module'
 import { pageModel } from './common'
 
-const { query } = moduleService
+const { query, queryDictByDictNo} = moduleService
 const { prefix } = config
 
 export default modelExtend(pageModel, {
@@ -51,6 +51,18 @@ export default modelExtend(pageModel, {
                 })
             }
         },
+
+      * queryDictByNo ({ payload = {dictNo:1} }, { call, put }) {
+        const data = yield call(queryDictByDictNo, payload)
+        if (data) {
+          yield put({
+            type: 'querySuccess',
+            payload: {
+              list: data,
+            },
+          })
+        }
+      },
 
         * delete ({ payload }, { call, put, select }) {
             const data = yield call(remove, { id: payload })

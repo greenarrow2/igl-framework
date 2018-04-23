@@ -3,6 +3,7 @@ package com.igl.gov.system.controller;
 import com.igl.gov.common.api.DataGridResult;
 import com.igl.gov.common.api.DataResult;
 import com.igl.gov.common.utils.ResponseUtils;
+import com.igl.gov.system.dto.SysModuleDto;
 import com.igl.gov.system.dto.SysModuleTreeDto;
 import com.igl.gov.system.entity.SysModule;
 import com.igl.gov.system.param.SysModuleParam;
@@ -12,6 +13,7 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -27,7 +29,7 @@ public class SysModuleController {
 
     @ApiOperation("分页查询")
     @RequestMapping(value = "pagelist",method = RequestMethod.POST)
-    public DataGridResult pageList(SysModuleParam param){
+    public DataGridResult pageList(@RequestBody SysModuleParam param){
         return  sysModuleService.queryPageList(param);
     }
 
@@ -49,4 +51,13 @@ public class SysModuleController {
       return  ResponseUtils.success(sysModuleService.save(param));
     }
 
+
+    @ApiOperation("查询最上级菜单")
+    @ApiImplicitParams({
+
+    })
+    @RequestMapping(value = "queryparentmodule",method = RequestMethod.POST)
+    public List<SysModuleDto> queryParentModule(Integer pid){
+        return  sysModuleService.queryModuleByPid(pid);
+    }
 }

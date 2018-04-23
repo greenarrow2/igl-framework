@@ -23,7 +23,11 @@ public class SysModuleDto implements Serializable {
 
     private Integer moduleType;
 
+    private Integer state;
+
     private String stateName;
+
+    private Integer parentModule;
 
     private String parentModuleName;
 

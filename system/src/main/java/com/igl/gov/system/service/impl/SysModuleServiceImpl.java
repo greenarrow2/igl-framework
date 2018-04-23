@@ -79,6 +79,11 @@ public class SysModuleServiceImpl implements SysModuleService {
         return parentList;
     }
 
+    @Override
+    public List<SysModuleDto> queryModuleByPid(Integer pid) {
+        return sysModuleDao.queryModuleByPid(pid);
+    }
+
     /**
      * 查询出自己子菜单
      * @param moduleTreeDtos

@@ -14,6 +14,8 @@ public interface SysModuleDao {
 
    List<SysModuleDto> query(SysModuleParam param);
 
+    List<SysModuleDto> queryModuleByPid(Integer pid);
+
    int count(SysModuleParam param);
 
     int insert(SysModule module);

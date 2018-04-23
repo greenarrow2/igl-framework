@@ -45,25 +45,17 @@ const modal = ({
         onOk: handleOk,
     }
 
-
     const orgHandleChange = (key, values) => {
         console.log("orgHandleChange",key,values)
     }
 
-
-  /*const dictLoad = (newQuery) => {
-    dispatch(routerRedux.push({
-      '/api/sysdict/dictlistbydictno',
-      search: queryString.stringify({
-        ...query,
-        ...newQuery,
-      }),
-    }))
-  }*/
-
     const roleHandleChange = (key, values) => {
         console.log("roleHandleChange",key,values)
     }
+
+  let provinceData = [{moduleType:1,moduleTypeName:'10'},{moduleType: 2,moduleTypeName: '10000'}];
+
+  const provinceOptions = provinceData.map(({moduleType,moduleTypeName}) => <Option key={moduleType}>{moduleTypeName}</Option>);
 
     return (
         <Modal {...modalOpts}>
@@ -105,6 +97,7 @@ const modal = ({
                         rules: [
                             {
                                 required: true,
+                                 message:'模块说明是必输项',
                             },
                         ],
                     })(<Input />)}
@@ -119,11 +112,11 @@ const modal = ({
                             },
                         ],
                     })(
-                        <Select  showSearch
-                                placeholder="请选择所属部门"
+                        <Select
+                                placeholder="请选择模块类型"
                                 onChange={orgHandleChange.bind(null, 'orgId')}
                         >
-
+                          {provinceOptions}
                         </Select>
                     )}
                 </FormItem>

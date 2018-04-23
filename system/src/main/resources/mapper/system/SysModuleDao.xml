@@ -12,6 +12,9 @@
         <id property="moduleDesc" column="module_desc" />
         <id property="parentModuleName" column="parentModuleName" />
         <id property="stateName" column="stateName" />
+        <id property="state" column="state"/>
+        <id property="moduleType" column="module_type" />
+        <id property="parentModule" column="pid" />
     </resultMap>
 
     <resultMap id="sysModuleTreeDto" type="com.igl.gov.system.dto.SysModuleTreeDto">
@@ -200,4 +203,18 @@
             #{id}
         </foreach>
     </delete>
+
+    <select id="queryModuleByPid" parameterType="integer" resultType="SysModuleDto">
+        SELECT
+        id,
+        module_name moduleName
+        FROM sys_module WHERE <choose>
+        <when test="pid != null">
+            pid = #{pid}
+        </when>
+        <otherwise>
+            pid is null
+        </otherwise>
+    </choose>
+    </select>
 </mapper>
