@@ -34,7 +34,7 @@ const Dic = ({
         visible: modalVisible,
         maskClosable: false,
         confirmLoading: loading.effects['module/update'],
-        title: `${modalType === 'create' ? '添加新用户' : '更新部门信息'}`,
+        title: `${modalType === 'create' ? '添加模块' : '更新模块'}`,
         wrapClassName: 'vertical-center-modal',
         onOk (data) {
             dispatch({

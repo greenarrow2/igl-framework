@@ -112,7 +112,7 @@
         d.dict_name as moduleTypeName,
         c.dict_name as stateName
         FROM
-        sys_module AS a INNER JOIN
+        sys_module AS a LEFT JOIN
         sys_module AS b ON(a.pid = b.id)
         INNER JOIN
         sys_dictionary AS c ON(a.state = c.dict_code)
@@ -137,7 +137,7 @@
         SELECT
         count(1)
         FROM
-        sys_module AS a INNER JOIN
+        sys_module AS a LEFT JOIN
         sys_module AS b ON(a.pid = b.id)
         <include refid="queryWhere"/>
     </select>
