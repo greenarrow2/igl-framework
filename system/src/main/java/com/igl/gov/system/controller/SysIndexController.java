@@ -12,11 +12,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class SysIndexController {
 
-  /* @RabbitListener(queues = "hello")
-    public void process(String hello) {
-
-        System.out.println("Receiver  : " + ((SysUser) JacksonUtils.deserializeJsonToObject(hello,SysUser.class)).getName());
-    }*/
 
      @RequestMapping(value = "/main",method = RequestMethod.GET)
      public String main(){
