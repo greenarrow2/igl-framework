@@ -24,13 +24,20 @@ module.exports = {
     dicSave: `${DOMIN}/api/sysdict/save`,
     dicDelete: `${DOMIN}/api/sysdict/delete`,
     dicMultiDelete: `${DOMIN}/api/sysdict/multiDelete`,
+    //组织
     organizationList: `${DOMIN}/api/sysorg/pagelist`,
     organizationDel: `${DOMIN}/api/sysorg/delete`,
     organizationSave: `${DOMIN}/api/sysorg/save`,
+    // 角色组织
+    roleOrganizationList: `${DOMIN}/api/sysroleorg/pagelist`,
+    roleOrganizationBind: `${DOMIN}/api/sysroleorg/bind`,
+    roleOrganizationListBind: `${DOMIN}/api/sysroleorg/bindlist`,
+    roleOrganizationDel: `${DOMIN}/api/sysroleorg/delete`,
+    //模块
     moduleList: `${DOMIN}/api/sysmodule/pagelist`,
     moduleDel: `${DOMIN}/api/sysmodule/delete`,
     moduleSave: `${DOMIN}/api/sysmodule/save`,
-    userSave: `${DOMIN}/api/sysuser/save`,
+0    userSave: `${DOMIN}/api/sysuser/save`,
     userDelete: `${DOMIN}/api/sysuser/delete`,
     userList: `${DOMIN}/api/sysuser/pagelist`,
     menus: `${DOMIN}/api/sysrolemodule/queryrolemodulebyroleid`,

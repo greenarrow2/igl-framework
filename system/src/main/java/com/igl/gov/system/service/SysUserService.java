@@ -6,6 +6,7 @@ import com.igl.gov.system.dto.SysUserDto;
 import com.igl.gov.system.entity.SysUser;
 import com.igl.gov.system.param.SysUserDetailParam;
 import com.igl.gov.system.param.SysUserParam;
+import io.swagger.models.auth.In;
 
 import java.util.Map;
 
